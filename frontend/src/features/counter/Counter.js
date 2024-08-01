@@ -18,8 +18,6 @@ export function Counter() {
   const incrementValue = Number(incrementAmount) || 0;
 
   return (
-    <div>
-     
-    </div>
+    <div></div>
   );
 }
