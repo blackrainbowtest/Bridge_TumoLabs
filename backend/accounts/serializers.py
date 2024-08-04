@@ -1,17 +1,54 @@
+from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth.models import Group
 from rest_framework import serializers
-from django.contrib.auth import get_user_model
 
+
+# User Registration serializer
 class UserSerializer(serializers.ModelSerializer):
+    group = serializers.PrimaryKeyRelatedField(
+        queryset=Group.objects.all(),
+        required=False
+    )
+
     class Meta:
         model = get_user_model()
-        fields = "__all__"
+        fields = ["username", "email", "password", "last_name", "first_name", "group"]
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
+        group = validated_data.pop('group', None)
         user = get_user_model()(
             username=validated_data['username'],
             email=validated_data['email']
         )
         user.set_password(validated_data['password'])
         user.save()
+
+        if group:
+            user.groups.add(group)
+        else:
+            default_group = Group.objects.get(id=1)  # Убедитесь, что группа с ID 1 существует
+            user.groups.add(default_group)
+
         return user
+
+
+# User Login serializer
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField(write_only=True)
+
+    def validate(self, data):
+        username = data.get('username')
+        password = data.get('password')
+
+        if username and password:
+            user = authenticate(request=self.context.get('request'), username=username, password=password)
+
+            if not user:
+                raise serializers.ValidationError('Invalid username or password')
+        else:
+            raise serializers.ValidationError('Must include "username" and "password".')
+
+        data['user'] = user
+        return data
