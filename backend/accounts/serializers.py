@@ -1,9 +1,46 @@
 from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.models import Group
 from rest_framework import serializers
+from .models import StudentProfile, BusinessProfile, UniversityProfile
 
 
-# User Registration serializer
+class StudentProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudentProfile
+        fields = '__all__'
+        read_only_fields = ['user']
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        profile, created = StudentProfile.objects.get_or_create(user=user, defaults=validated_data)
+        return profile
+
+
+class BusinessProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BusinessProfile
+        fields = '__all__'
+        read_only_fields = ['user']
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        profile, created = BusinessProfile.objects.get_or_create(user=user, defaults=validated_data)
+        return profile
+
+
+class UniversityProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UniversityProfile
+        fields = '__all__'
+        read_only_fields = ['user']
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        profile, created = UniversityProfile.objects.get_or_create(user=user, defaults=validated_data)
+        return profile
+
+
+# Account Registration serializer
 class UserSerializer(serializers.ModelSerializer):
     group = serializers.PrimaryKeyRelatedField(
         queryset=Group.objects.all(),
@@ -27,13 +64,13 @@ class UserSerializer(serializers.ModelSerializer):
         if group:
             user.groups.add(group)
         else:
-            default_group = Group.objects.get(id=1)  # Убедитесь, что группа с ID 1 существует
+            default_group = Group.objects.get(id=1)
             user.groups.add(default_group)
 
         return user
 
 
-# User Login serializer
+# Account Login serializer
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
@@ -52,3 +89,4 @@ class LoginSerializer(serializers.Serializer):
 
         data['user'] = user
         return data
+
