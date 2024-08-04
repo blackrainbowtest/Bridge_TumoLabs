@@ -5,6 +5,11 @@ from rest_framework.authtoken.models import Token
 from .serializers import UserSerializer, LoginSerializer
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
+from .models import StudentProfile, BusinessProfile, UniversityProfile
+from .serializers import StudentProfileSerializer, BusinessProfileSerializer, UniversityProfileSerializer
+from .permissions import check_group
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 
 # User registration
@@ -30,6 +35,7 @@ class RegisterViewSet(viewsets.GenericViewSet,
 
 
 # User Login
+@method_decorator(csrf_exempt, name='dispatch')
 class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
     serializer_class = LoginSerializer
 
@@ -54,3 +60,66 @@ class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
             else:
                 return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class StudentProfileViewSet(viewsets.ModelViewSet):
+    queryset = StudentProfile.objects.all()
+    serializer_class = StudentProfileSerializer
+
+    @check_group(1)  # Проверка на группу с id=1 (student)
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    @check_group(1)
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+    @check_group(1)
+    def partial_update(self, request, *args, **kwargs):
+        return super().partial_update(request, *args, **kwargs)
+
+    @check_group(1)
+    def destroy(self, request, *args, **kwargs):
+        return super().destroy(request, *args, **kwargs)
+
+
+class BusinessProfileViewSet(viewsets.ModelViewSet):
+    queryset = BusinessProfile.objects.all()
+    serializer_class = BusinessProfileSerializer
+
+    @check_group(2)  # Проверка на группу с id=2 (business)
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    @check_group(2)
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+    @check_group(2)
+    def partial_update(self, request, *args, **kwargs):
+        return super().partial_update(request, *args, **kwargs)
+
+    @check_group(2)
+    def destroy(self, request, *args, **kwargs):
+        return super().destroy(request, *args, **kwargs)
+
+
+class UniversityProfileViewSet(viewsets.ModelViewSet):
+    queryset = UniversityProfile.objects.all()
+    serializer_class = UniversityProfileSerializer
+
+    @check_group(3)  # Проверка на группу с id=3 (university)
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    @check_group(3)
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+    @check_group(3)
+    def partial_update(self, request, *args, **kwargs):
+        return super().partial_update(request, *args, **kwargs)
+
+    @check_group(3)
+    def destroy(self, request, *args, **kwargs):
+        return super().destroy(request, *args, **kwargs)
