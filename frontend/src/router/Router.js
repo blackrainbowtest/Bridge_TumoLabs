@@ -1,3 +1,8 @@
+import Content from 'pages/Content'
+import Main from 'pages/Main'
+import Page404 from 'pages/Page404'
+import SignIn from 'pages/SignIn'
+import SignUp from 'pages/SignUp'
 import { useRoutes } from 'react-router-dom'
 
 
@@ -5,21 +10,18 @@ import { useRoutes } from 'react-router-dom'
 const Router = () => {
     const routing = useRoutes([
         {
-            path: "", element: <h1>Main layout</h1>,
+            path: "", element: <Content />,
             children: [
                 {
-                    path: "/", element: <h1>Main body</h1>
+                    path: "/", element: <Main />
                 },
-                {
-                    path: "/sign-up", element: <h1>sign-up</h1>
-                },
-                {
-                    path: "/sign-in", element: <h1>sign-in</h1>
-                }
             ]
+
         },
+        { path: "/sign-up", element: <SignUp /> },
+        { path: "/sign-in", element: <SignIn /> },
         {
-            path: "*", element: <h1>Page not gound</h1>
+            path: "*", element: <Page404 onGoHome={() => window.location.href = '/'} />
         }
     ])
 

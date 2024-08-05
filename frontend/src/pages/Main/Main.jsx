@@ -1,11 +1,27 @@
-const { Outlet } = require('react-router-dom');
-
+import { Box } from "@mui/material";
+import { memo } from "react";
+import styled from "styled-components";
+import WorkSlider from './content/WorkSlider';
+import UserRegistrationBenefits from './content/UserRegistrationBenefits';
+import LatestBusinessProjects from './content/LatestBusinessProjects';
+import ContributeToProject from './content/ContributeToProject';
 
 function Main() {
-    return(
-        <div>
-        Main
-        <Outlet />
-        </div>
-    )
+  return (
+    <MainContainer sx={{ flexGrow: 1 }}>
+      <WorkSlider />
+      <UserRegistrationBenefits />
+      <LatestBusinessProjects />
+      <ContributeToProject />
+    </MainContainer>
+  );
 }
+
+export default memo(Main);
+
+const MainContainer = styled(Box)(({ theme }) => ({
+  maxWidth: "100%",
+  minHeight: "150vh",
+  display: "flex",
+  flexDirection: "column",
+}));
