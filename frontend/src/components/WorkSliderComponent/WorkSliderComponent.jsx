@@ -4,26 +4,13 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import WorkSliderItemComponent from "components/WorkSliderItemComponent";
+import { workSliderSettings } from "settings/sliderSettings";
 import { useSelector } from "react-redux";
-
-const settings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  autoplay: true,
-  autoplaySpeed: 3000,
-  pauseOnHover: true,
-  draggable: true,
-  arrows: false,
-  swipeToSlide: true,
-};
 
 function WorkSliderComponent() {
   const workSlider = useSelector((state) => state?.main?.workSlider);
   return (
-    <SliderContainer {...settings}>
+    <SliderContainer {...workSliderSettings}>
       {workSlider.map((slide) => {
         return <WorkSliderItemComponent key={slide.id} slide={slide} />;
       })}
@@ -33,7 +20,7 @@ function WorkSliderComponent() {
 
 export default memo(WorkSliderComponent);
 
-const SliderContainer = styled(Slider)(({ _ }) => ({
+const SliderContainer = styled(Slider)(({ theme }) => ({
   minWidth: "100%",
   minHeight: "600px",
   userSelect: "none",

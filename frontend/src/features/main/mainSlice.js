@@ -23,7 +23,7 @@ const initialState = {
             description: " \"The program enters homes and communities through students and brings about positive change to our lives.\"",
             url: null
         }
-    ]
+    ],
 };
 
 const mainSlice = createSlice({
