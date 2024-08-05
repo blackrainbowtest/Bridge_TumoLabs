@@ -10,6 +10,8 @@ from .serializers import StudentProfileSerializer, BusinessProfileSerializer, Un
 from .permissions import check_group
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from django.contrib.auth.models import Group
+from django.http import JsonResponse
 
 
 # User registration
@@ -123,3 +125,10 @@ class UniversityProfileViewSet(viewsets.ModelViewSet):
     @check_group(3)
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)
+
+
+# GET account groups
+def get_groups(request):
+    groups = Group.objects.all()
+    groups_list = list(groups.values('id', 'name'))
+    return JsonResponse(groups_list, safe=False)

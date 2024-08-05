@@ -1,7 +1,7 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from .views import StudentProfileViewSet, BusinessProfileViewSet, UniversityProfileViewSet, RegisterViewSet, \
-    LoginViewSet
+    LoginViewSet, get_groups
 
 router = DefaultRouter()
 router.register(r'registration', RegisterViewSet, basename='register')
@@ -12,4 +12,5 @@ router.register(r'university-profile', UniversityProfileViewSet, basename='unive
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('api/groups/', get_groups, name='get_groups'),
 ]
