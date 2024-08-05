@@ -1,11 +1,13 @@
 import { Box } from '@mui/material';
 import { memo } from "react";
+import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
 function SignUp() {
   return (
     <MainContainer>
       SignUp
+      <Outlet/>
     </MainContainer>
   );
 }

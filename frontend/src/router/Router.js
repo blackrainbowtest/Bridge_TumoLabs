@@ -13,12 +13,26 @@ const Router = () => {
             path: "", element: <Content />,
             children: [
                 {
-                    path: "/", element: <Main />
+                    path: "", element: <Main />
                 },
             ]
 
         },
-        { path: "/sign-up", element: <SignUp /> },
+
+        {
+            path: "/sign-up",
+            children: [
+                {
+                    path: "student", element: <h1>Student sign-up</h1>
+                },
+                {
+                    path: "university", element: <h1>University sign-up</h1>
+                }, {
+                    path: "company", element: <h1>Company sign-up</h1>
+                },
+            ],
+            element: <SignUp />
+        },
         { path: "/sign-in", element: <SignIn /> },
         {
             path: "*", element: <Page404 onGoHome={() => window.location.href = '/'} />

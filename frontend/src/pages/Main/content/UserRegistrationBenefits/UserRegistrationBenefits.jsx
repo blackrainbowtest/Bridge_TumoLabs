@@ -3,6 +3,7 @@ import UserRegistrationBenefitsComponent from "components/UserRegistrationBenefi
 import { memo } from "react";
 import styled from "styled-components";
 
+
 function UserRegistrationBenefits() {
   return (
     <MainContainer>
