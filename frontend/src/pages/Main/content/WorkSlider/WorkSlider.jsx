@@ -7,7 +7,7 @@ import styled from "styled-components";
 function WorkSlider() {
   return (
     <MainContainer>
-      <WorkSliderComponent></WorkSliderComponent>
+      <WorkSliderComponent />
     </MainContainer>
   );
 }
