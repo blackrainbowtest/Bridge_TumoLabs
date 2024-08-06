@@ -24,6 +24,7 @@ const initialState = {
             url: null
         }
     ],
+    
 };
 
 const mainSlice = createSlice({

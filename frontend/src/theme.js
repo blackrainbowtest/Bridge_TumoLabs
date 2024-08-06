@@ -17,6 +17,11 @@ export const theme = {
             focused: "#5AB2FF",
             error: "#FFB4B6",
             success: "#63D463",
+            // 
+            Crimson: "#DC143C",
+            OrangeRed: "#FF4500",
+            RoyalBlue: "#4169E1",
+            SandyBrown: "#F4A460"
         },
         border: {
             primary: "#E0E0E0",
