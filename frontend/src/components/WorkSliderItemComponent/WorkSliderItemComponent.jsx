@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { memo } from "react";
 import { useNavigate } from "react-router-dom";
-import bgImage from "images/noImages/noimage.jpg"
+import bgImage from "static/images/noImages/noimage.jpg"
 import styled from "styled-components";
 
 function WorkSliderItemComponent({ slide }) {
@@ -24,7 +24,7 @@ function WorkSliderItemComponent({ slide }) {
           {slide.description}
         </DescriptionTypography>
         <LinkButton variant='text' onClick={handleClick}>
-          See project
+          {`Read more >>>`}
         </LinkButton>
       </ContentContainer>
     </SliderItemContainer>

@@ -1,8 +1,8 @@
 import { Box, IconButton, Menu, MenuItem } from "@mui/material";
 import { memo, useState } from "react";
 import styled from "styled-components";
-import imgAM from "images/languages/am.png";
-import imgEN from "images/languages/en.png";
+import imgAM from "static/images/languages/am.png";
+import imgEN from "static/images/languages/en.png";
 import { useTranslation } from "react-i18next";
 
 const languages = [
