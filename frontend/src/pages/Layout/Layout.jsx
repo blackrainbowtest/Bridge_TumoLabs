@@ -1,31 +1,27 @@
 import {
   AppBar,
   Box,
-  Button,
   CssBaseline,
-  Divider,
-  Drawer,
   IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
   Toolbar,
   Typography,
 } from "@mui/material";
 import { memo, useEffect, useState } from "react";
 import styled from "styled-components";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useTranslation } from "react-i18next";
 import LanguageComponent from "components/LanguageComponent";
-
-const navItems = ["Home", "About", "Contact"];
-const drawerWidth = 240;
+import NavItemComponent from "components/_shared/NavItemComponent";
+import MobileNavItemComponent from "components/_shared/MobileNavItemComponent";
+import CompanyLogoComponent from "components/_shared/CompanyLogoComponent";
+import { useTranslation } from "react-i18next";
 
 function Layout() {
-  const { t } = useTranslation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolling, setScrolling] = useState(false);
+  const { t } = useTranslation();
+
+  const navItems = [t("LLL"), t("LBD"), t("LBT"), t("PPL")];
+  const accItems = [t("signIn"), t("signUp")];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,34 +40,10 @@ function Layout() {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-  const container =
-    typeof document !== "undefined" ? () => document.body : undefined;
 
   const changePage = (e, item) => {
     console.log(item);
   };
-
-  const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant='h6' sx={{ my: 2 }}>
-        {t("coName")}
-      </Typography>
-      <Divider />
-      <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton
-              sx={{ textAlign: "center" }}
-              onClick={(e) => changePage(e, item)}
-            >
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-        <LanguageComponent close={handleDrawerToggle} />
-      </List>
-    </Box>
-  );
 
   return (
     <MainContainer>
@@ -90,46 +62,31 @@ function Layout() {
           <Typography
             variant='h6'
             component='div'
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" } }}
           >
-            {t("coName")}
+            <CompanyLogoComponent />
+            <NavItemComponent
+              navItems={navItems}
+              scrolling={scrolling}
+              changePage={changePage}
+            />
           </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <ButtonContainer
-                scrolling={scrolling.toString()}
-                key={item}
-                onClick={(e) => changePage(e, item)}
-              >
-                {item}
-              </ButtonContainer>
-            ))}
-          </Box>
+          <NavItemComponent
+            navItems={accItems}
+            scrolling={scrolling}
+            changePage={changePage}
+          />
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             <LanguageComponent />
           </Box>
         </Toolbar>
       </AppBarContainer>
-      <nav>
-        <Drawer
-          container={container}
-          variant='temporary'
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true,
-          }}
-          sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
-          }}
-        >
-          {drawer}
-        </Drawer>
-      </nav>
+      <MobileNavItemComponent
+        navItems={navItems}
+        handleDrawerToggle={handleDrawerToggle}
+        changePage={changePage}
+        mobileOpen={mobileOpen}
+      />
     </MainContainer>
   );
 }
@@ -148,13 +105,6 @@ const AppBarContainer = styled(AppBar)(({ theme, scrolling }) => ({
     scrolling === "true"
       ? `${theme.palette.background.primary}!important`
       : theme.palette.primary.transpatent,
-  color:
-    scrolling === "true"
-      ? `${theme.palette.text.primary}!important`
-      : `${theme.palette.primary.contrastText}!important`,
-}));
-
-const ButtonContainer = styled(Button)(({ theme, scrolling }) => ({
   color:
     scrolling === "true"
       ? `${theme.palette.text.primary}!important`
