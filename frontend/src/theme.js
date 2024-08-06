@@ -13,8 +13,8 @@ export const theme = {
         background: {
             primary: "#FFFFFF",
             secondary: "#F5F7FB",
-            action: "#A0DEFF",
-            focused: "#5AB2FF",
+            action: "#85c1e9",
+            focused: "#5dade2",
             error: "#FFB4B6",
             success: "#63D463",
             // 

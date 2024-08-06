@@ -5,11 +5,13 @@ import WorkSlider from './content/WorkSlider';
 import UserRegistrationBenefits from './content/UserRegistrationBenefits';
 import LatestBusinessProjects from './content/LatestBusinessProjects';
 import ContributeToProject from './content/ContributeToProject';
+import AboutAccountInfo from './content/AboutAccountInfo';
 
 function Main() {
   return (
     <MainContainer sx={{ flexGrow: 1 }}>
       <WorkSlider />
+      <AboutAccountInfo />
       <UserRegistrationBenefits />
       <LatestBusinessProjects />
       <ContributeToProject />

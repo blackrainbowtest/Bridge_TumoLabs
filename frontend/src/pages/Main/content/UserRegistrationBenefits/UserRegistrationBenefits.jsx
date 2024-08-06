@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 function UserRegistrationBenefits() {
   return (
-    <MainContainer>
+    <MainContainer id='RegestrationBenefitsComponent'>
       <UserRegistrationBenefitsComponent />
     </MainContainer>
   );
