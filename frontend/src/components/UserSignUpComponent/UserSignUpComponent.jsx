@@ -2,7 +2,7 @@
 import { Avatar, Box, Container, CssBaseline, Typography } from "@mui/material";
 import { memo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import styled, { css } from "styled-components";
 
@@ -11,7 +11,7 @@ import FirstNameContent from "./content/FirstNameContent";
 import LastNameContent from "./content/LastNameContent";
 import EmailContent from "./content/EmailContent";
 import PasswordContent from "./content/PasswordContent";
-import ComfirmContent from "./content/ComfirmContent";
+import ConfirmContent from "./content/ConfirmContent";
 import ActionButtonComponent from "components/_shared/ActionButtonComponent";
 import { useDispatch } from 'react-redux';
 
@@ -19,19 +19,23 @@ import { useDispatch } from 'react-redux';
 function UserSignUpComponent() {
   const methods = useForm({
     defaultValues: {
-      username: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      comfirmPassword: "",
+      username: "testUser",
+      firstName: "testName",
+      lastName: "testName2",
+      email: "test@gmail.com",
+      password: "test123",
+      confirmPassword: "test123",
     },
     mode: "onChange", // or 'onBlur'
   });
   const dispatch = useDispatch()
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const type = queryParams.get("type") ?? "student";
 
   const onSubmit = (data) => {
     console.log(data);
+    console.log("Type from query:", type);
   };
 
   return (
@@ -52,7 +56,7 @@ function UserSignUpComponent() {
             </NameContainer>
             <EmailContent />
             <PasswordContent />
-            <ComfirmContent />
+            <ConfirmContent />
             <ActionButtonComponent
               label='Sign up'
               type={"submit"}
