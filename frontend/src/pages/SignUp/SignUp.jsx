@@ -1,22 +1,18 @@
 import { Box } from '@mui/material';
+import UserSignUpComponent from 'components/UserSignUpComponent';
 import { memo } from "react";
-import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
 function SignUp() {
   return (
     <MainContainer>
-      SignUp
-      <Outlet/>
+      <UserSignUpComponent />
     </MainContainer>
   );
 }
 
 export default memo(SignUp);
 
-/**
- * Styles
- */
 const MainContainer = styled(Box)(({ theme }) => ({
     width: "100vw",
     height: "100vh",
@@ -24,5 +20,5 @@ const MainContainer = styled(Box)(({ theme }) => ({
     justifyContent: "center",
     alignItems: "center",
     position: "relative",
-    backgroundColor: `${theme.palette.background.main}!important`,
+    backgroundColor: `${theme.palette.background.secondary}!important`,
   }));
