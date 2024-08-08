@@ -24,7 +24,7 @@ const Router = () => {
         },
         { path: "/sign-in", element: <SignIn /> },
         {
-            path: "*", element: <Page404 onGoHome={() => window.location.href = '/'} />
+            path: "*", element: <Page404 />
         }
     ])
 

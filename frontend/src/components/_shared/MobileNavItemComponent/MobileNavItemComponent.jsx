@@ -33,12 +33,12 @@ function MobileNavItemComponent({
       <Divider />
       <List>
         {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
+          <ListItem key={item.label} disablePadding>
             <ListItemButton
               sx={{ textAlign: "center" }}
               onClick={(e) => changePage(e, item)}
             >
-              <ListItemText primary={item} />
+              <ListItemText primary={item.label} />
             </ListItemButton>
           </ListItem>
         ))}

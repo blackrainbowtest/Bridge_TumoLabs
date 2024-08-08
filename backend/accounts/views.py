@@ -12,6 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import Group
 from django.http import JsonResponse
+from rest_framework.decorators import action
 
 
 # User registration
@@ -38,6 +39,7 @@ class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
+
         if serializer.is_valid():
             user = authenticate(username=serializer.validated_data['username'],
                                 password=serializer.validated_data['password'])
@@ -57,6 +59,32 @@ class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
             else:
                 return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=['post'], url_path='token-login')
+    def login_with_token(self, request):
+        auth_header = request.headers.get('Authorization')
+        if auth_header and auth_header.startswith('Bearer '):
+            token_key = auth_header.split(' ')[1]  # Извлекаем токен
+        else:
+            token_key = None
+
+        print(f"Received token: {token_key}")  # Выводим полученный токен для отладки
+        try:
+            token = Token.objects.get(key=token_key)
+            user = token.user
+            return Response({
+                'token': str(token.key),
+                'user': {
+                    'id': user.id,
+                    'username': user.username,
+                    'email': user.email,
+                    "last_name": user.last_name,
+                    "first_name": user.first_name,
+                }
+            }, status=status.HTTP_200_OK)
+        except Token.DoesNotExist:
+            print("Token does not exist")  # Выводим сообщение, если токен не найден
+            return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class StudentProfileViewSet(viewsets.ModelViewSet):
