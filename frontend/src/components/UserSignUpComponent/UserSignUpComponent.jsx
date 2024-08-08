@@ -14,7 +14,14 @@ import PasswordContent from "./content/PasswordContent";
 import ConfirmContent from "./content/ConfirmContent";
 import ActionButtonComponent from "components/_shared/ActionButtonComponent";
 import { useDispatch } from 'react-redux';
+import { registerAccount } from 'features/account/accountRegisterAPI';
 
+const groupMapping = {
+  innovators: 1,
+  partners: 2,
+  advisors: 3,
+  challengers: 4,
+};
 
 function UserSignUpComponent() {
   const methods = useForm({
@@ -31,13 +38,14 @@ function UserSignUpComponent() {
   const dispatch = useDispatch()
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const type = queryParams.get("type") ?? "student";
+  const type = queryParams.get("type") ?? "innovators";
+  const groupId = groupMapping[type];
 
   const onSubmit = (data) => {
-    console.log(data);
-    console.log("Type from query:", type);
+    const accountData = { ...data, group: groupId };
+    dispatch(registerAccount(accountData))
   };
-
+// FIXME: add username content for registration
   return (
     <FormProvider {...methods}>
       <Container component='main' maxWidth='xs'>
@@ -64,6 +72,7 @@ function UserSignUpComponent() {
             />
           </ContentContainer>
         </MainContainer>
+        {/* FIXME: Add link to signIn page */}
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </FormProvider>
