@@ -2,7 +2,7 @@
 import { Avatar, Box, Container, CssBaseline, Typography } from "@mui/material";
 import { memo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import styled, { css } from "styled-components";
 
@@ -11,29 +11,41 @@ import FirstNameContent from "./content/FirstNameContent";
 import LastNameContent from "./content/LastNameContent";
 import EmailContent from "./content/EmailContent";
 import PasswordContent from "./content/PasswordContent";
-import ComfirmContent from "./content/ComfirmContent";
+import ConfirmContent from "./content/ConfirmContent";
 import ActionButtonComponent from "components/_shared/ActionButtonComponent";
 import { useDispatch } from 'react-redux';
+import { registerAccount } from 'features/account/accountRegisterAPI';
 
+const groupMapping = {
+  innovators: 1,
+  partners: 2,
+  advisors: 3,
+  challengers: 4,
+};
 
 function UserSignUpComponent() {
   const methods = useForm({
     defaultValues: {
-      username: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      comfirmPassword: "",
+      username: "testUser",
+      firstName: "testName",
+      lastName: "testName2",
+      email: "test@gmail.com",
+      password: "test123",
+      confirmPassword: "test123",
     },
     mode: "onChange", // or 'onBlur'
   });
   const dispatch = useDispatch()
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const type = queryParams.get("type") ?? "innovators";
+  const groupId = groupMapping[type];
 
   const onSubmit = (data) => {
-    console.log(data);
+    const accountData = { ...data, group: groupId };
+    dispatch(registerAccount(accountData))
   };
-
+// FIXME: add username content for registration
   return (
     <FormProvider {...methods}>
       <Container component='main' maxWidth='xs'>
@@ -52,7 +64,7 @@ function UserSignUpComponent() {
             </NameContainer>
             <EmailContent />
             <PasswordContent />
-            <ComfirmContent />
+            <ConfirmContent />
             <ActionButtonComponent
               label='Sign up'
               type={"submit"}
@@ -60,6 +72,7 @@ function UserSignUpComponent() {
             />
           </ContentContainer>
         </MainContainer>
+        {/* FIXME: Add link to signIn page */}
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </FormProvider>

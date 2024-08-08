@@ -2,7 +2,7 @@ import { useFormContext } from 'react-hook-form';
 import TextInputComponent from 'components/_shared/TextInputComponent';
 import { memo } from 'react';
 
-function ComfirmContent() {
+function ConfirmContent() {
     const {
         register,
         watch,
@@ -25,4 +25,4 @@ function ComfirmContent() {
     );
 }
 
-export default memo(ComfirmContent);
+export default memo(ConfirmContent);
