@@ -24,8 +24,8 @@ import ActionButtonComponent from "components/_shared/ActionButtonComponent";
 function UserSignInComponent() {
   const methods = useForm({
     defaultValues: {
-      username: "testUser",
-      password: "test123",
+      username: "",
+      password: "",
     },
     mode: "onChange", // or 'onBlur'
   });

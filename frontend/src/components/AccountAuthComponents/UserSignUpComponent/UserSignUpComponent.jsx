@@ -29,12 +29,12 @@ const groupMapping = {
 function UserSignUpComponent() {
   const methods = useForm({
     defaultValues: {
-      username: "testUser",
-      firstName: "testName",
-      lastName: "testName2",
-      email: "test@gmail.com",
-      password: "test123",
-      confirmPassword: "test123",
+      username: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     },
     mode: "onChange", // or 'onBlur'
   });
