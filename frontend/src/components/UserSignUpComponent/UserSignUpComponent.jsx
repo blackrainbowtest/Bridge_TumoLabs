@@ -13,8 +13,9 @@ import EmailContent from "./content/EmailContent";
 import PasswordContent from "./content/PasswordContent";
 import ConfirmContent from "./content/ConfirmContent";
 import ActionButtonComponent from "components/_shared/ActionButtonComponent";
-import { useDispatch } from 'react-redux';
-import { registerAccount } from 'features/account/accountRegisterAPI';
+import { useDispatch } from "react-redux";
+import { registerAccount } from "features/account/accountRegisterAPI";
+import UserNameContent from "./content/UserNameContent";
 
 const groupMapping = {
   innovators: 1,
@@ -35,7 +36,7 @@ function UserSignUpComponent() {
     },
     mode: "onChange", // or 'onBlur'
   });
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const type = queryParams.get("type") ?? "innovators";
@@ -43,9 +44,9 @@ function UserSignUpComponent() {
 
   const onSubmit = (data) => {
     const accountData = { ...data, group: groupId };
-    dispatch(registerAccount(accountData))
+    dispatch(registerAccount(accountData));
   };
-// FIXME: add username content for registration
+  // FIXME: add username content for registration
   return (
     <FormProvider {...methods}>
       <Container component='main' maxWidth='xs'>
@@ -62,6 +63,7 @@ function UserSignUpComponent() {
               <FirstNameContent />
               <LastNameContent />
             </NameContainer>
+            <UserNameContent />
             <EmailContent />
             <PasswordContent />
             <ConfirmContent />
@@ -72,8 +74,8 @@ function UserSignUpComponent() {
             />
           </ContentContainer>
         </MainContainer>
-        {/* FIXME: Add link to signIn page */}
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        <SignIn sx={{ mt: 2, mb: 2 }} />
+        <Copyright sx={{ mt: 4, mb: 4 }} />
       </Container>
     </FormProvider>
   );
@@ -95,6 +97,22 @@ function Copyright(props) {
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
+    </Typography>
+  );
+}
+
+function SignIn(props) {
+  return (
+    <Typography
+      variant='body2'
+      color='text.secondary'
+      align='center'
+      {...props}
+    >
+      {"You already have an account? Please "}
+      <Link color='inherit' to='http://localhost:3000/sign-in'>
+        SignIn
+      </Link>{" "}
     </Typography>
   );
 }

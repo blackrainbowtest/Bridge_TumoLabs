@@ -15,12 +15,7 @@ from django.http import JsonResponse
 
 
 # User registration
-class RegisterViewSet(viewsets.GenericViewSet,
-                      mixins.ListModelMixin,
-                      mixins.CreateModelMixin,
-                      mixins.RetrieveModelMixin,
-                      mixins.UpdateModelMixin,
-                      mixins.DestroyModelMixin):
+class RegisterViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
     serializer_class = UserSerializer
     queryset = get_user_model().objects.all()
 
