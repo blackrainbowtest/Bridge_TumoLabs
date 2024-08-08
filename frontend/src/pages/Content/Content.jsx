@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import NotificationManagerComponent from 'components/_GlobalComponents/NotificationManagerComponent';
 import Layout from "pages/Layout";
 import { memo } from "react";
 import { Outlet } from 'react-router-dom';
@@ -9,6 +10,7 @@ function Content() {
     <MainContainer>
       <Layout />
       <Outlet />
+      <NotificationManagerComponent />
     </MainContainer>
   );
 }
