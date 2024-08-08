@@ -8,11 +8,11 @@ function NavItemComponent({ navItems, scrolling, changePage }) {
       {navItems.map((item) => (
         <ButtonContainer
           scrolling={scrolling.toString()}
-          content={item}
-          key={item}
+          content={item.label}
+          key={item.label}
           onClick={(e) => changePage(e, item)}
         >
-          {item}
+          {item.label}
         </ButtonContainer>
       ))}
     </BoxContainer>

@@ -1,13 +1,15 @@
 import { Box, Button } from "@mui/material";
 import { memo } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 function Page404({ onGoHome = () => {} }) {
+  const navigate = useNavigate();
   return (
     <MainContainer>
       <TitleContainer>404</TitleContainer>
       <SubTitleContainer>Page Not Found</SubTitleContainer>
-      <ButtonContainer onClick={onGoHome} color='error' variant='outlined'>
+      <ButtonContainer onClick={(e) => navigate("/")} color='error' variant='outlined'>
         Go to Home
       </ButtonContainer>
     </MainContainer>

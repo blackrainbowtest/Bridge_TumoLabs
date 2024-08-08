@@ -14,14 +14,28 @@ import NavItemComponent from "components/_shared/NavItemComponent";
 import MobileNavItemComponent from "components/_shared/MobileNavItemComponent";
 import CompanyLogoComponent from "components/_shared/CompanyLogoComponent";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolling, setScrolling] = useState(false);
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const isAuthenticated = useSelector(
+    (state) => state?.account?.isAuthenticated
+  );
 
-  const navItems = [t("LLL"), t("LBD"), t("LBT"), t("PPL")];
-  const accItems = [t("signIn"), t("signUp")];
+  const navItems = [
+    { label: t("LLL"), url: "/LLL" },
+    { label: t("LBD"), url: "/LBD" },
+    { label: t("LBT"), url: "/LBT" },
+    { label: t("PPL"), url: "/PPL" },
+  ];
+  const accItems = [
+    { label: t("signIn"), url: "/sign-in" },
+    { label: t("signUp"), url: "/sign-up" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,7 +56,9 @@ function Layout() {
   };
 
   const changePage = (e, item) => {
-    console.log(item);
+    if (item.url) {
+      navigate(item.url);
+    }
   };
 
   return (
@@ -71,11 +87,14 @@ function Layout() {
               changePage={changePage}
             />
           </Typography>
-          <NavItemComponent
-            navItems={accItems}
-            scrolling={scrolling}
-            changePage={changePage}
-          />
+          {!isAuthenticated ? (
+            <NavItemComponent
+              navItems={accItems}
+              scrolling={scrolling}
+              changePage={changePage}
+            />
+          ) : null}
+
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             <LanguageComponent />
           </Box>

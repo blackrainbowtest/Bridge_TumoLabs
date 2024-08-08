@@ -1,7 +1,7 @@
 // External libraries
 import { memo, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Avatar,
   Box,
@@ -18,6 +18,8 @@ import GoToUrlComponent from "components/_shared/GoToUrlComponent";
 import UserNameContent from "./content/UserNameContent";
 import PasswordContent from "./content/PasswordContent";
 import ActionButtonComponent from "components/_shared/ActionButtonComponent";
+import { loginAccount } from 'features/account/accountLoginAPI';
+import CopyRightComponent from 'components/_shared/CopyRightComponent';
 
 // Local modules
 
@@ -31,12 +33,21 @@ function UserSignInComponent() {
   });
 
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [isRemember, setIsRemember] = useState(false);
 
   const onSubmit = (data) => {
     const accountData = { ...data };
-    console.log(accountData);
-    // dispatch(registerAccount(accountData));
+    dispatch(loginAccount(accountData)).then((result) => {
+        if (loginAccount.fulfilled.match(result)) {
+          if (isRemember && result?.payload?.token) {
+            localStorage.setItem("authToken", result.payload.token);
+          } else {
+            sessionStorage.setItem("authToken", result?.payload.token);
+          }
+          navigate("/");
+        }
+      })
   };
 
   const handleCheckboxChange = (event) => {
@@ -77,10 +88,11 @@ function UserSignInComponent() {
         </MainContainer>
         <GoToUrlComponent
           to='http://localhost:3000/sign-up/'
-          labeltextbefore='Not a member yet?'
+          labeltextbefore='Not a member yet? '
           label='Click here to SignUp'
           sx={{ mt: 2, mb: 2 }}
         />
+        <CopyRightComponent sx={{ mt: 4, mb: 4 }} />
       </Container>
     </FormProvider>
   );
@@ -97,7 +109,7 @@ const MainContainer = styled(Box)(({ theme }) => ({
 }));
 
 const CHBContainer = styled(Box)(({ theme }) => ({
-  maxWidth: "100%",
+  minWidth: "100%",
 }));
 
 const ContentContainer = styled("form")(({ theme }) => ({
