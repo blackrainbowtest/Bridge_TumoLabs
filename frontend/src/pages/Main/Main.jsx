@@ -6,6 +6,7 @@ import UserRegistrationBenefits from './content/UserRegistrationBenefits';
 import LatestBusinessProjects from './content/LatestBusinessProjects';
 import ContributeToProject from './content/ContributeToProject';
 import AboutAccountInfo from './content/AboutAccountInfo';
+import Footer from "./content/Footer";
 
 function Main() {
   return (
@@ -15,6 +16,7 @@ function Main() {
       <UserRegistrationBenefits />
       <LatestBusinessProjects />
       <ContributeToProject />
+      <Footer/>
     </MainContainer>
   );
 }
