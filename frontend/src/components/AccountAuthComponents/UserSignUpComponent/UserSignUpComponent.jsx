@@ -1,21 +1,23 @@
 // External libraries
-import { Avatar, Box, Container, CssBaseline, Typography } from "@mui/material";
 import { memo } from "react";
+import { useDispatch } from "react-redux";
 import { FormProvider, useForm } from "react-hook-form";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { Avatar, Box, Container, CssBaseline, Typography } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import styled, { css } from "styled-components";
 
 // Local modules
+import { registerAccount } from "features/account/accountRegisterAPI";
+import ActionButtonComponent from "components/_shared/ActionButtonComponent";
+import ConfirmContent from "./content/ConfirmContent";
+import EmailContent from "./content/EmailContent";
 import FirstNameContent from "./content/FirstNameContent";
 import LastNameContent from "./content/LastNameContent";
-import EmailContent from "./content/EmailContent";
 import PasswordContent from "./content/PasswordContent";
-import ConfirmContent from "./content/ConfirmContent";
-import ActionButtonComponent from "components/_shared/ActionButtonComponent";
-import { useDispatch } from "react-redux";
-import { registerAccount } from "features/account/accountRegisterAPI";
 import UserNameContent from "./content/UserNameContent";
+import CopyRightComponent from "components/_shared/CopyRightComponent";
+import GoToUrlComponent from "components/_shared/GoToUrlComponent";
 
 const groupMapping = {
   innovators: 1,
@@ -46,7 +48,7 @@ function UserSignUpComponent() {
     const accountData = { ...data, group: groupId };
     dispatch(registerAccount(accountData));
   };
-  // FIXME: add username content for registration
+
   return (
     <FormProvider {...methods}>
       <Container component='main' maxWidth='xs'>
@@ -74,48 +76,17 @@ function UserSignUpComponent() {
             />
           </ContentContainer>
         </MainContainer>
-        <SignIn sx={{ mt: 2, mb: 2 }} />
-        <Copyright sx={{ mt: 4, mb: 4 }} />
+        <GoToUrlComponent
+          to='http://localhost:3000/sign-in/'
+          sx={{ mt: 2, mb: 2 }}
+        />
+        <CopyRightComponent sx={{ mt: 4, mb: 4 }} />
       </Container>
     </FormProvider>
   );
 }
 
 export default memo(UserSignUpComponent);
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant='body2'
-      color='text.secondary'
-      align='center'
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color='inherit' to='http://localhost:3000'>
-        Bridge
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-function SignIn(props) {
-  return (
-    <Typography
-      variant='body2'
-      color='text.secondary'
-      align='center'
-      {...props}
-    >
-      {"You already have an account? Please "}
-      <Link color='inherit' to='http://localhost:3000/sign-in'>
-        SignIn
-      </Link>{" "}
-    </Typography>
-  );
-}
 
 const MainContainer = styled(Box)(({ theme }) => ({
   marginTop: 8,
