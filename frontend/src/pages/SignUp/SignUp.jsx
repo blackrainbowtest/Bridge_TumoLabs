@@ -1,8 +1,8 @@
-import { Box } from '@mui/material';
-import NotificationManagerComponent from 'components/_GlobalComponents/NotificationManagerComponent';
-import UserSignUpComponent from 'components/UserSignUpComponent';
+import { Box } from "@mui/material";
+import NotificationManagerComponent from "components/_GlobalComponents/NotificationManagerComponent";
+import UserSignUpComponent from "components/AccountAuthComponents/UserSignUpComponent";
 import { memo } from "react";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 function SignUp() {
   return (
@@ -16,11 +16,11 @@ function SignUp() {
 export default memo(SignUp);
 
 const MainContainer = styled(Box)(({ theme }) => ({
-    width: "100vw",
-    height: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "relative",
-    backgroundColor: `${theme.palette.background.secondary}!important`,
-  }));
+  width: "100vw",
+  height: "100vh",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  position: "relative",
+  backgroundColor: `${theme.palette.background.secondary}!important`,
+}));
