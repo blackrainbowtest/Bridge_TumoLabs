@@ -11,7 +11,7 @@ export const registerAccount = createAsyncThunk(
 
             return response.data;
         } catch (err) {
-            dispatch(addError(err.message));
+            dispatch(addError(err.response.data.error ?? err.message));
             return rejectWithValue(err.message);
         } finally {
             dispatch(setLoading(false));

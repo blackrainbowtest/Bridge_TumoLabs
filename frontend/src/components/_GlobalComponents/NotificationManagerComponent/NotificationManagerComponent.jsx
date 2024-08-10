@@ -66,7 +66,6 @@ function NotificationManagerComponent() {
       ref={(el) => (snackbarRefs.current[index] = el)}
       style={{
         position: "fixed",
-        bottom: 10 + index * 70, // Adjust the bottom offset for each notification
         right: "10px",
         width: "auto",
         maxWidth: "300px",

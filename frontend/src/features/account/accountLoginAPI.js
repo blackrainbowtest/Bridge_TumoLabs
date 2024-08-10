@@ -11,8 +11,7 @@ export const loginAccount = createAsyncThunk(
             dispatch(addNotification("Login success."))
             return response.data;
         } catch (err) {
-            console.log(err)
-            dispatch(addError(err.message));
+            dispatch(addError(err.response.data.error ?? err.message));
             return rejectWithValue(err.message);
         } finally {
             dispatch(setLoading(false));
@@ -37,6 +36,7 @@ export const loginWithToken = createAsyncThunk(
             dispatch(addNotification("Login with token success."));
             return response.data;
         } catch (err) {
+            dispatch(addError(err.response.data.error ?? err.message));
             return rejectWithValue(err.message);
         } finally {
             dispatch(setLoading(false));

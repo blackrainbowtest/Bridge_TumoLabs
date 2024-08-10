@@ -12,7 +12,7 @@ export const theme = {
         },
         background: {
             primary: "#FFFFFF",
-            secondary: "#F5F7FB",
+            secondary: "#F5F5F5",
             action: "#85c1e9",
             focused: "#5dade2",
             error: "#FFB4B6",
@@ -46,6 +46,17 @@ export const theme = {
             focused: "#004080",
             error: "#B00020",
             success: "#2E7D32",
+            blue: "#355C8C",
         }
-    }
+    },
+    spacing: 8,
+    marginX: `2rem`,
+    marginY: `2.5rem`,
+    paddingX: `2rem`,
+    paddingY: `2.5rem`,
+    paddingBottom: `1.25rem`,
+    typography: {
+        fontFamily: 'Roboto, Arial, sans-serif',
+        fontFamilyNano: 'Noto Sans Armenian, Noto Sans, Arial, Helvetica, sans-serif !important',
+    },
 }

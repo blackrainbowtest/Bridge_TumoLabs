@@ -1,22 +1,44 @@
-import { Box } from "@mui/material"
-import { memo } from "react"
-import styled from "styled-components"
+import { Box } from "@mui/material";
+import { memo } from "react";
+import styled from "styled-components";
 
 function LogoFooterIconContainer() {
-    return (
-        <MainContainer>
-            Bridge
-        </MainContainer>
-    )
+  return (
+    <MainContainer>
+      <SectionContainer>
+        <InfoContainer>
+          © 2024 Information Systems Agency of Armenia
+        </InfoContainer>
+      </SectionContainer>
+      <LogoContainer>Bridge</LogoContainer>
+    </MainContainer>
+  );
 }
 
-export default memo(LogoFooterIconContainer)
+export default memo(LogoFooterIconContainer);
 
-const MainContainer = styled(Box)(({ theme }) => ({
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: '35px',
-    width: '20%',
-    backgroundColor: `#c6d9ec!important`,
-}))
+const MainContainer = styled(Box)(({ _ }) => ({
+  minWidth: "100%",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+}));
+
+const InfoContainer = styled(Box)(({ _ }) => ({
+  minWidth: "100%",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+}));
+
+const SectionContainer = styled("section")(({ _ }) => ({
+  display: "flex",
+  flexDirection: "column",
+}));
+
+const LogoContainer = styled(Box)(({ theme }) => ({
+  fontFamily: theme.typography.fontFamily,
+  fontWeight: "800",
+  fontSize: "40px",
+  color: theme.palette.text.blue,
+}));
