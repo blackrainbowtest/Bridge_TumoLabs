@@ -1,42 +1,42 @@
 from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.models import Group
 from rest_framework import serializers
-from .models import StudentProfile, BusinessProfile, UniversityProfile
+from .models import InnovatorProfile, PartnerProfile, AdvisorProfile, ProfileImage
 
 
-class StudentProfileSerializer(serializers.ModelSerializer):
+class InnovatorProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = StudentProfile
+        model = InnovatorProfile
         fields = '__all__'
         read_only_fields = ['user']
 
     def create(self, validated_data):
         user = self.context['request'].user
-        profile, created = StudentProfile.objects.get_or_create(user=user, defaults=validated_data)
+        profile, created = InnovatorProfile.objects.get_or_create(user=user, defaults=validated_data)
         return profile
 
 
-class BusinessProfileSerializer(serializers.ModelSerializer):
+class PartnerProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = BusinessProfile
+        model = PartnerProfile
         fields = '__all__'
         read_only_fields = ['user']
 
     def create(self, validated_data):
         user = self.context['request'].user
-        profile, created = BusinessProfile.objects.get_or_create(user=user, defaults=validated_data)
+        profile, created = PartnerProfile.objects.get_or_create(user=user, defaults=validated_data)
         return profile
 
 
-class UniversityProfileSerializer(serializers.ModelSerializer):
+class AdvisorProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UniversityProfile
+        model = AdvisorProfile
         fields = '__all__'
         read_only_fields = ['user']
 
     def create(self, validated_data):
         user = self.context['request'].user
-        profile, created = UniversityProfile.objects.get_or_create(user=user, defaults=validated_data)
+        profile, created = AdvisorProfile.objects.get_or_create(user=user, defaults=validated_data)
         return profile
 
 
@@ -90,3 +90,9 @@ class LoginSerializer(serializers.Serializer):
         data['user'] = user
         return data
 
+
+class ProfileImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfileImage
+        fields = ['id', 'user', 'image', 'name', 'uploaded_at']
+        read_only_fields = ['user', 'uploaded_at']

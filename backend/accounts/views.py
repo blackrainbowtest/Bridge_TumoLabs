@@ -5,8 +5,8 @@ from rest_framework.authtoken.models import Token
 from .serializers import UserSerializer, LoginSerializer
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
-from .models import StudentProfile, BusinessProfile, UniversityProfile
-from .serializers import StudentProfileSerializer, BusinessProfileSerializer, UniversityProfileSerializer
+from .models import InnovatorProfile, PartnerProfile, AdvisorProfile
+from .serializers import InnovatorProfileSerializer, PartnerProfileSerializer, AdvisorProfileSerializer
 from .permissions import check_group
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -46,6 +46,7 @@ class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
             if user:
                 login(request, user)
                 token, created = Token.objects.get_or_create(user=user)
+                group = user.groups.first()
                 return Response({
                     'token': str(token.key),
                     'user': {
@@ -54,6 +55,10 @@ class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
                         'email': user.email,
                         "last_name": user.last_name,
                         "first_name": user.first_name,
+                        "group": {
+                            "id": group.id,
+                            "name": group.name
+                        } if group else None
                     }
                 }, status=status.HTTP_200_OK)
             else:
@@ -64,14 +69,14 @@ class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
     def login_with_token(self, request):
         auth_header = request.headers.get('Authorization')
         if auth_header and auth_header.startswith('Bearer '):
-            token_key = auth_header.split(' ')[1]  # Извлекаем токен
+            token_key = auth_header.split(' ')[1]
         else:
             token_key = None
 
-        print(f"Received token: {token_key}")  # Выводим полученный токен для отладки
         try:
             token = Token.objects.get(key=token_key)
             user = token.user
+            group = user.groups.first()
             return Response({
                 'token': str(token.key),
                 'user': {
@@ -80,74 +85,88 @@ class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
                     'email': user.email,
                     "last_name": user.last_name,
                     "first_name": user.first_name,
+                    "group": {
+                        "id": group.id,
+                        "name": group.name
+                    } if group else None
                 }
             }, status=status.HTTP_200_OK)
         except Token.DoesNotExist:
-            print("Token does not exist")  # Выводим сообщение, если токен не найден
             return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
 
+    @action(detail=False, methods=['post'], url_path='logout')
+    def logout(self, request):
+        auth_header = request.headers.get('Authorization')
+        if auth_header and auth_header.startswith('Bearer '):
+            token_key = auth_header.split(' ')[1]
+        else:
+            return Response({'error': 'Token not provided'}, status=status.HTTP_400_BAD_REQUEST)
 
-class StudentProfileViewSet(viewsets.ModelViewSet):
-    queryset = StudentProfile.objects.all()
-    serializer_class = StudentProfileSerializer
-
-    @check_group(1)  # Проверка на группу с id=1 (student)
-    def create(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
-
-    @check_group(1)
-    def update(self, request, *args, **kwargs):
-        return super().update(request, *args, **kwargs)
-
-    @check_group(1)
-    def partial_update(self, request, *args, **kwargs):
-        return super().partial_update(request, *args, **kwargs)
-
-    @check_group(1)
-    def destroy(self, request, *args, **kwargs):
-        return super().destroy(request, *args, **kwargs)
+        try:
+            token = Token.objects.get(key=token_key)
+            token.delete()
+            return Response({'message': 'Successfully logged out'}, status=status.HTTP_200_OK)
+        except Token.DoesNotExist:
+            return Response({'message': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class BusinessProfileViewSet(viewsets.ModelViewSet):
-    queryset = BusinessProfile.objects.all()
-    serializer_class = BusinessProfileSerializer
+# Get account profile
+class DynamicProfileViewSet(viewsets.ViewSet):
 
-    @check_group(2)  # Проверка на группу с id=2 (business)
-    def create(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
+    def list(self, request, *args, **kwargs):
+        user, group_id = self.get_user_and_group_from_token(request)
 
-    @check_group(2)
-    def update(self, request, *args, **kwargs):
-        return super().update(request, *args, **kwargs)
+        if group_id == 1:
+            queryset = InnovatorProfile.objects.filter(user=user)
+            serializer = InnovatorProfileSerializer(queryset, many=True)
+        elif group_id == 2:
+            queryset = PartnerProfile.objects.filter(user=user)
+            serializer = PartnerProfileSerializer(queryset, many=True)
+        elif group_id == 3:
+            queryset = AdvisorProfile.objects.filter(user=user)
+            serializer = AdvisorProfileSerializer(queryset, many=True)
+        else:
+            return Response({'error': 'Permission denied'}, status=status.HTTP_403_FORBIDDEN)
 
-    @check_group(2)
-    def partial_update(self, request, *args, **kwargs):
-        return super().partial_update(request, *args, **kwargs)
+        return Response(serializer.data)
 
-    @check_group(2)
-    def destroy(self, request, *args, **kwargs):
-        return super().destroy(request, *args, **kwargs)
+    def retrieve(self, request, *args, **kwargs):
+        user, group_id = self.get_user_and_group_from_token(request)
+        profile_id = kwargs.get('pk')
 
+        if group_id == 1:
+            queryset = InnovatorProfile.objects.filter(user=user, id=profile_id)
+            serializer = InnovatorProfileSerializer(queryset, many=True)
+        elif group_id == 2:
+            queryset = PartnerProfile.objects.filter(user=user, id=profile_id)
+            serializer = PartnerProfileSerializer(queryset, many=True)
+        elif group_id == 3:
+            queryset = AdvisorProfile.objects.filter(user=user, id=profile_id)
+            serializer = AdvisorProfileSerializer(queryset, many=True)
+        else:
+            return Response({'error': 'Permission denied'}, status=status.HTTP_403_FORBIDDEN)
 
-class UniversityProfileViewSet(viewsets.ModelViewSet):
-    queryset = UniversityProfile.objects.all()
-    serializer_class = UniversityProfileSerializer
+        if not queryset.exists():
+            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
 
-    @check_group(3)  # Проверка на группу с id=3 (university)
-    def create(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
+        return Response(serializer.data)
 
-    @check_group(3)
-    def update(self, request, *args, **kwargs):
-        return super().update(request, *args, **kwargs)
+    def get_user_and_group_from_token(self, request):
+        auth_header = request.headers.get('Authorization')
+        if auth_header and auth_header.startswith('Bearer '):
+            token_key = auth_header.split(' ')[1]  # Извлекаем токен
+        else:
+            token_key = None
 
-    @check_group(3)
-    def partial_update(self, request, *args, **kwargs):
-        return super().partial_update(request, *args, **kwargs)
+        try:
+            token = Token.objects.get(key=token_key)
+            user = token.user
+            group = user.groups.first()  # Получаем первую группу пользователя
+            group_id = group.id if group else None
+        except Token.DoesNotExist:
+            return None, None  # Токен не найден, возвращаем None
 
-    @check_group(3)
-    def destroy(self, request, *args, **kwargs):
-        return super().destroy(request, *args, **kwargs)
+        return user, group_id
 
 
 # GET account groups
