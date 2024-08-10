@@ -15,10 +15,10 @@ function Content() {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      const accountTolen =
+      const accountToken =
         localStorage.getItem("authToken") ??
         sessionStorage.getItem("authToken");
-      dispatch(loginWithToken(accountTolen));
+        accountToken && dispatch(loginWithToken(accountToken));
     }
   }, [dispatch, isAuthenticated]);
 
@@ -39,6 +39,6 @@ const MainContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   position: "relative",
-  backgroundColor: `${theme.palette.background.secondary}`,
+  backgroundColor: `${theme.palette.background.main}`,
   color: `${theme.palette.text.primary}`,
 }));

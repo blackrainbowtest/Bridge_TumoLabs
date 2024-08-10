@@ -16,6 +16,7 @@ import CompanyLogoComponent from "components/_shared/CompanyLogoComponent";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import AccountMenuProfileComponent from 'components/AccountProfileComponents/AccountMenuProfileComponent';
 
 function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -87,6 +88,9 @@ function Layout() {
               changePage={changePage}
             />
           </Typography>
+          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            <LanguageComponent />
+          </Box>
           {!isAuthenticated ? (
             <NavItemComponent
               navItems={accItems}
@@ -94,10 +98,9 @@ function Layout() {
               changePage={changePage}
             />
           ) : null}
-
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <LanguageComponent />
-          </Box>
+          {isAuthenticated ? (
+            <AccountMenuProfileComponent />
+          ) : null}
         </Toolbar>
       </AppBarContainer>
       <MobileNavItemComponent
