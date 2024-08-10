@@ -4,19 +4,29 @@ from django.db import models
 User = get_user_model()
 
 
-class StudentProfile(models.Model):
+class InnovatorProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='student_profile')
-    date_of_birth = models.DateField(null=True, blank=True)
+    address = models.CharField(max_length=255)
     # other student fields
 
 
-class BusinessProfile(models.Model):
+class PartnerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='business_profile')
-    business_type = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
     # other business fields
 
 
-class UniversityProfile(models.Model):
+class AdvisorProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='university_profile')
     address = models.CharField(max_length=255)
     # other university fields
+
+
+class ProfileImage(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profile_images')
+    image = models.ImageField(upload_to='profile_images/%Y/%m/%d/')
+    name = models.CharField(max_length=255)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
