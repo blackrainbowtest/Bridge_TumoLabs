@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import NotificationManagerComponent from "components/_GlobalComponents/NotificationManagerComponent";
 import { loginWithToken } from "features/account/accountLoginAPI";
+import Footer from "pages/Footer";
 import Layout from "pages/Layout";
 import { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +19,7 @@ function Content() {
       const accountToken =
         localStorage.getItem("authToken") ??
         sessionStorage.getItem("authToken");
-        accountToken && dispatch(loginWithToken(accountToken));
+      accountToken && dispatch(loginWithToken(accountToken));
     }
   }, [dispatch, isAuthenticated]);
 
@@ -26,6 +27,7 @@ function Content() {
     <MainContainer>
       <Layout />
       <Outlet />
+      <Footer />
       <NotificationManagerComponent />
     </MainContainer>
   );
@@ -39,6 +41,7 @@ const MainContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   position: "relative",
-  backgroundColor: `${theme.palette.background.main}`,
+  backgroundColor: `${theme.palette.background.primary}`,
   color: `${theme.palette.text.primary}`,
+  fontFamily: theme.typography.fontFamilyNano,
 }));

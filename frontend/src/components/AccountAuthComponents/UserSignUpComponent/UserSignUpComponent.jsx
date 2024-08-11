@@ -2,7 +2,7 @@
 import { memo } from "react";
 import { useDispatch } from "react-redux";
 import { FormProvider, useForm } from "react-hook-form";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Avatar, Box, Container, CssBaseline, Typography } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import styled, { css } from "styled-components";
@@ -43,10 +43,15 @@ function UserSignUpComponent() {
   const queryParams = new URLSearchParams(location.search);
   const type = queryParams.get("type") ?? "innovators";
   const groupId = groupMapping[type];
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     const accountData = { ...data, group: groupId };
-    dispatch(registerAccount(accountData));
+    dispatch(registerAccount(accountData)).then((result) => {
+      if (registerAccount.fulfilled.match(result)) {
+        navigate("/sign-in");
+      }
+    });
   };
 
   return (

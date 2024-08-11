@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Axios } from 'app/config';
 import { addError, addNotification, setLoading } from 'features/global/GlobalSlice';
+import { handleError } from 'utils/errorHandler';
 
 export const loginAccount = createAsyncThunk(
     'account/loginAccount',
@@ -11,8 +12,8 @@ export const loginAccount = createAsyncThunk(
             dispatch(addNotification("Login success."))
             return response.data;
         } catch (err) {
-            dispatch(addError(err.response.data.error ?? err.message));
-            return rejectWithValue(err.message);
+            dispatch(addError(handleError(err)));
+            return rejectWithValue(handleError(err));
         } finally {
             dispatch(setLoading(false));
         }
@@ -36,8 +37,8 @@ export const loginWithToken = createAsyncThunk(
             dispatch(addNotification("Login with token success."));
             return response.data;
         } catch (err) {
-            dispatch(addError(err.response.data.error ?? err.message));
-            return rejectWithValue(err.message);
+            dispatch(addError(handleError(err)));
+            return rejectWithValue(handleError(err));
         } finally {
             dispatch(setLoading(false));
         }

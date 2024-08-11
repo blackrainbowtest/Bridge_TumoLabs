@@ -24,8 +24,6 @@ function AccountMenuProfileComponent() {
     setAnchorEl(null);
   };
 
-  console.log(account);
-
   return (
     <>
       <MainContainer>

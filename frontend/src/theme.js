@@ -20,7 +20,7 @@ export const theme = {
             // 
             Crimson: "#DC143C",
             OrangeRed: "#FF4500",
-            RoyalBlue: "#4169E1",
+            RoyalBlue: "#3C5A78",
             SandyBrown: "#F4A460"
         },
         border: {
@@ -41,6 +41,7 @@ export const theme = {
         },
         text: {
             primary: "#000000",
+            white: "#ffffff",
             secondary: "#4F4F4F",
             action: "#0072B1",
             focused: "#004080",
