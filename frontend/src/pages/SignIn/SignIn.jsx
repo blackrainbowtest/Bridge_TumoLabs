@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import NotificationManagerComponent from "components/_GlobalComponents/NotificationManagerComponent";
-import UserSignInComponent from "components/AccountAuthComponents/UserSignInComponent";
+import UserSignInComponent from "components/AccountComponents/AccountAuthComponents/UserSignInComponent";
 import { memo } from "react";
 import styled from "styled-components";
 

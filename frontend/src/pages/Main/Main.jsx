@@ -23,7 +23,6 @@ export default memo(Main);
 
 const MainContainer = styled(Box)(({ theme }) => ({
   maxWidth: "100%",
-  minHeight: "150vh",
   display: "flex",
   flexDirection: "column",
 }));

@@ -1,3 +1,5 @@
+import Profile from 'pages/Account/Profile'
+import Settings from 'pages/Account/Settings'
 import Content from 'pages/Content'
 import Main from 'pages/Main'
 import Page404 from 'pages/Page404'
@@ -14,6 +16,12 @@ const Router = () => {
             children: [
                 {
                     path: "", element: <Main />
+                },
+                {
+                    path: "/profile", element: <Profile />
+                },
+                {
+                    path: "/settings", element: <Settings />
                 },
             ]
 

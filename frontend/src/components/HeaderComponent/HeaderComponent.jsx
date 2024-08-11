@@ -8,7 +8,7 @@ import MobileNavItemComponent from "components/_shared/MobileNavItemComponent";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import AccountMenuProfileComponent from "components/AccountProfileComponents/AccountMenuProfileComponent";
+import AccountMenuProfileComponent from "components/AccountComponents/AccountProfileComponents/AccountMenuProfileComponent";
 import HeaderTitleComponent from './HeaderTitleComponent';
 import AppBarItemComponent from './AppBarItemComponent';
 import EmptyComponent from 'components/_GlobalComponents/EmptyComponent';

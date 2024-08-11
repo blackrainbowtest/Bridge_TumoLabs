@@ -3,7 +3,8 @@ import { Avatar, Divider, ListItemIcon, MenuItem } from "@mui/material";
 import { logoutAccount } from "features/account/accountLogoutAPI";
 import { memo } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import styled from 'styled-components';
 
 // FIXME: add pages for items
 function AccountMenuItemComponent({ handleClose }) {
@@ -12,12 +13,12 @@ function AccountMenuItemComponent({ handleClose }) {
 
   const profilItemClick = (event) => {
     handleClose(event);
-    navigate('/profile')
+    navigate("/profile");
   };
 
   const settingsItemClick = (event) => {
     handleClose(event);
-    navigate('/settings')
+    navigate("/settings");
   };
 
   const logoutItemClick = (event) => {
@@ -30,7 +31,10 @@ function AccountMenuItemComponent({ handleClose }) {
   return (
     <>
       <MenuItem onClick={profilItemClick}>
-        <Avatar /> Profile
+        <ListItemIcon>
+          <AvatarContainer fontSize='small' />
+        </ListItemIcon>
+        My Profile
       </MenuItem>
       <Divider />
       <MenuItem onClick={settingsItemClick}>
@@ -50,3 +54,8 @@ function AccountMenuItemComponent({ handleClose }) {
 }
 
 export default memo(AccountMenuItemComponent);
+
+const AvatarContainer = styled(Avatar)(({ theme }) => ({
+  maxWidth: "20px",
+  maxHeight: "20px",
+}));
