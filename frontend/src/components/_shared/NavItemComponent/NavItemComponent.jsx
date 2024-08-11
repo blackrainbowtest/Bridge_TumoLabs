@@ -35,8 +35,5 @@ const ButtonContainer = styled(Button)(({ theme, scrolling, content }) => ({
   ? `${theme.palette.background.RoyalBlue}!important` :
   content === "PPL"
   ? `${theme.palette.background.SandyBrown}!important` : null,
-  color:
-    scrolling === "true"
-      ? `${theme.palette.text.primary}!important`
-      : `${theme.palette.primary.contrastText}!important`,
+  color: `${theme.palette.text.primary}!important`,
 }));

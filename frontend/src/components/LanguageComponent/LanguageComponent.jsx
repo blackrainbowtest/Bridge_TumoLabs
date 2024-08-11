@@ -1,8 +1,10 @@
-import { Box, IconButton, Menu, MenuItem } from "@mui/material";
+import { Box, Button, Menu, MenuItem } from "@mui/material";
 import { memo, useState } from "react";
 import styled from "styled-components";
 import imgAM from "static/images/languages/am.png";
 import imgEN from "static/images/languages/en.png";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useTranslation } from "react-i18next";
 
 const languages = [
@@ -40,6 +42,7 @@ function LanguageComponent({ close = () => {} }) {
           src={languages.find((lang) => lang.code === i18n.language)?.imgSrc}
           alt='Current language'
         />
+        <span>{Boolean(anchorEl) ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />} </span>
       </IconButtonContainer>
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
         {languages.map((lang) => (
@@ -52,6 +55,9 @@ function LanguageComponent({ close = () => {} }) {
               alt={lang.label}
               style={{ width: 24, height: 16, marginRight: 8 }}
             />
+            <span>
+              {lang.label}
+            </span>
           </MenuItem>
         ))}
       </Menu>
@@ -62,14 +68,17 @@ function LanguageComponent({ close = () => {} }) {
 export default memo(LanguageComponent);
 
 const MainContainer = styled(Box)(({ _ }) => ({
-  maxWidth: "100%",
+  minHeight: "inherit",
   display: "flex",
   justifyContent: "center",
 }));
 
-const IconButtonContainer = styled(IconButton)(({ _ }) => ({
+const IconButtonContainer = styled(Button)(({ theme }) => ({
   display: "flex",
+  minHeight: "inherit",
   justifyContent: "center",
+  alignItems: "center",
+  color: `${theme.palette.text.secondary}!important`,
   "& img": {
     width: 24,
     height: 24,

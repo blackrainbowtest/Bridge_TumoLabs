@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Axios } from 'app/config';
 import { addError, addNotification, setLoading } from 'features/global/GlobalSlice';
+import { handleError } from 'utils/errorHandler';
 
 export const logoutAccount = createAsyncThunk(
     'account/logoutAccount',
@@ -16,9 +17,8 @@ export const logoutAccount = createAsyncThunk(
             dispatch(addNotification(response.data.message))
             return 0;
         } catch (err) {
-            console.log(err)
-            dispatch(addError(err.response.data.error ?? err.message));
-            return rejectWithValue(err.message);
+            dispatch(addError(handleError(err)));
+            return rejectWithValue(handleError(err));
         } finally {
             dispatch(setLoading(false));
         }
