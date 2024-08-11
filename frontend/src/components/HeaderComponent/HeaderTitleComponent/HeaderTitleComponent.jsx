@@ -1,13 +1,16 @@
 import { Box } from "@mui/material";
 import SectionItemContainerComponent from "components/_shared/SectionItemContainerComponent";
 import { memo } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 function HeaderTitleComponent() {
   return (
     <MainContainer>
       <SectionItemContainerComponent>
-        <LogoContainer>Bridge</LogoContainer>
+        <LogoContainer>
+          <Link to={"/"}>Bridge</Link>
+        </LogoContainer>
       </SectionItemContainerComponent>
       <SeparatorContainer />
       <AboutContainer>
@@ -34,6 +37,10 @@ const LogoContainer = styled(Box)(({ theme }) => ({
   fontWeight: "800",
   fontSize: "40px",
   color: theme.palette.text.white,
+  "&& a": {
+    color: theme.palette.text.white,
+    textDecoration: 'none'
+  }
 }));
 
 const SeparatorContainer = styled(Box)(({ theme }) => ({

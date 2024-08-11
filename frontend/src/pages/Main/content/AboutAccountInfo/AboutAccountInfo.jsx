@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import AboutAccountInfoComponent from "components/AboutAccountInfoComponent";
+import AboutAccountInfoComponent from "components/AccountComponents/AboutAccountInfoComponent";
 import { memo } from "react";
 import styled from "styled-components";
 

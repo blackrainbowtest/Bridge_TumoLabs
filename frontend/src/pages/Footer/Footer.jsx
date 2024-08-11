@@ -15,7 +15,6 @@ export default memo(Footer);
 
 const MainContainer = styled("footer")(({ theme }) => ({
   maxWidth: "100%",
-  minHeight: "150px",
   display: "flex",
   padding: `${theme.paddingY} ${theme.paddingX}`,
   borderTop: `1px solid ${theme.palette.border.secondary}`,
