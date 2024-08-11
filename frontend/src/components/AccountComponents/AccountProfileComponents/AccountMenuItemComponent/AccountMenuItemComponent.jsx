@@ -26,6 +26,7 @@ function AccountMenuItemComponent({ handleClose }) {
     const accountTolen =
       localStorage.getItem("authToken") ?? sessionStorage.getItem("authToken");
     dispatch(logoutAccount(accountTolen));
+    navigate("/");
   };
 
   return (
