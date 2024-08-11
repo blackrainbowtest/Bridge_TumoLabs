@@ -3,23 +3,25 @@ import { Avatar, Divider, ListItemIcon, MenuItem } from "@mui/material";
 import { logoutAccount } from "features/account/accountLogoutAPI";
 import { memo } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 // FIXME: add pages for items
 function AccountMenuItemComponent({ handleClose }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const profilItemClick = () => {
-    handleClose();
-    console.log("profilItemClick");
+  const profilItemClick = (event) => {
+    handleClose(event);
+    navigate('/profile')
   };
 
-  const settingsItemClick = () => {
-    handleClose();
-    console.log("settingsItemClick");
+  const settingsItemClick = (event) => {
+    handleClose(event);
+    navigate('/settings')
   };
 
-  const logoutItemClick = () => {
-    handleClose();
+  const logoutItemClick = (event) => {
+    handleClose(event);
     const accountTolen =
       localStorage.getItem("authToken") ?? sessionStorage.getItem("authToken");
     dispatch(logoutAccount(accountTolen));

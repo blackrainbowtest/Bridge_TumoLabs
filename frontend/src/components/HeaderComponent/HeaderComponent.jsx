@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import AccountMenuProfileComponent from "components/AccountProfileComponents/AccountMenuProfileComponent";
 import HeaderTitleComponent from './HeaderTitleComponent';
 import AppBarItemComponent from './AppBarItemComponent';
+import EmptyComponent from 'components/_GlobalComponents/EmptyComponent';
 
 function HeaderComponent() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -75,11 +76,12 @@ function HeaderComponent() {
             component='div'
             sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" }, minHeight: "inherit" }}
           >
-            <AppBarItemComponent label='Projects'>555</AppBarItemComponent>
-            <AppBarItemComponent label='Information center'>555</AppBarItemComponent>
-            <AppBarItemComponent label='About us'>555</AppBarItemComponent>
-            <AppBarItemComponent label='News'>555</AppBarItemComponent>
-            <AppBarItemComponent label='Contact us'>555</AppBarItemComponent>
+            {/* FIXME: add components with handleClose arg */}
+            <AppBarItemComponent label='Projects' showArrow><EmptyComponent/></AppBarItemComponent>
+            <AppBarItemComponent label='Information center' showArrow><EmptyComponent/></AppBarItemComponent>
+            <AppBarItemComponent label='About us' showArrow><EmptyComponent/></AppBarItemComponent>
+            <AppBarItemComponent label='News' showArrow><EmptyComponent/></AppBarItemComponent>
+            <AppBarItemComponent label='Contact us' showArrow><EmptyComponent/></AppBarItemComponent>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "flex" }, minHeight: "inherit" }} >
             <LanguageComponent />

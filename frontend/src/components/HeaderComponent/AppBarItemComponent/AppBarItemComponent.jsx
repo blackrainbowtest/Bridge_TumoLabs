@@ -9,9 +9,10 @@ import {
 import { memo, useEffect, useRef, useState } from "react";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { cloneElement, Children } from "react";
 import styled from "styled-components";
 
-function AppBarItemComponent({ children, label }) {
+function AppBarItemComponent({ children, label, showArrow = false }) {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
 
@@ -46,6 +47,10 @@ function AppBarItemComponent({ children, label }) {
     prevOpen.current = open;
   }, [open]);
 
+  const enhancedChildren = Children.map(children, (child) =>
+    cloneElement(child, { handleClose })
+  );
+
   return (
     <>
       <ButtonContainer
@@ -56,8 +61,10 @@ function AppBarItemComponent({ children, label }) {
         aria-haspopup='true'
         onClick={handleToggle}
       >
-        <span>{label}</span>
-        <span>{open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />} </span>
+        {label}
+        {showArrow && (
+          <span>{open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}</span>
+        )}
       </ButtonContainer>
       <Popper
         open={open}
@@ -82,9 +89,13 @@ function AppBarItemComponent({ children, label }) {
                   id='composition-menu'
                   aria-labelledby='composition-button'
                   onKeyDown={handleListKeyDown}
-                  sx={{ marginTop: "1px", minWidth: "200px", padding: "10px" }}
+                  sx={{
+                    marginTop: "1px",
+                    minWidth: "200px",
+                    padding: "10px",
+                  }}
                 >
-                  {children}
+                  {enhancedChildren}
                 </MenuList>
               </ClickAwayListener>
             </Paper>
@@ -102,4 +113,5 @@ const ButtonContainer = styled(Button)(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
   color: `${theme.palette.text.secondary}!important`,
+  minHeight: "inherit",
 }));
