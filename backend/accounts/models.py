@@ -24,9 +24,9 @@ class AdvisorProfile(models.Model):
 
 class ProfileImage(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profile_images')
-    image = models.ImageField(upload_to='profile_images/%Y/%m/%d/')
-    name = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='profile_images/%Y/%m/%d/', blank=True)
+    name = models.CharField(max_length=255, blank=True, null=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return self.name or 'No name'

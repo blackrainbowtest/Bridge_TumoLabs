@@ -5,6 +5,9 @@ import styled from "styled-components";
 
 function ProfileDataComponent() {
   const loading = useSelector((state) => state?.global?.loading);
+  const account = useSelector((state) => state?.account?.account);
+
+// console.log(account)
 
   return (
     <MainContainer>

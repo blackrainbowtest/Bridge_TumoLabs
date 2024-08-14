@@ -1,18 +1,26 @@
 from django.contrib.auth import get_user_model
 from rest_framework import viewsets, status, mixins
-from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
+
+from .permossions import IsAdminOrReadOnly, IsOwnerOrReadOnly
 from .serializers import UserSerializer, LoginSerializer
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from .models import InnovatorProfile, PartnerProfile, AdvisorProfile
 from .serializers import InnovatorProfileSerializer, PartnerProfileSerializer, AdvisorProfileSerializer
-from .permissions import check_group
-from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, AnonymousUser
 from django.http import JsonResponse
 from rest_framework.decorators import action
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny, IsAuthenticated
+from rest_framework.response import Response
+
+from rest_framework import generics
+from .models import ProfileImage
+from .serializers import ProfileImageSerializer
+from rest_framework.authentication import TokenAuthentication
+
 
 
 # User registration
@@ -29,12 +37,13 @@ class RegisterViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
             self.perform_create(serializer)
             headers = self.get_success_headers(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # User Login
-@method_decorator(csrf_exempt, name='dispatch')
 class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
+    permission_classes = [AllowAny]
     serializer_class = LoginSerializer
 
     def create(self, request, *args, **kwargs):
@@ -47,6 +56,24 @@ class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
                 login(request, user)
                 token, created = Token.objects.get_or_create(user=user)
                 group = user.groups.first()
+                profile_data = None
+                profile_image = ProfileImage.objects.filter(user=user).first()
+                profile_image_data = ProfileImageSerializer(profile_image).data if profile_image else None
+
+                if group:
+                    if group.id == 1:  # Group Innovator
+                        profile = InnovatorProfile.objects.filter(user=user).first()
+                        if profile:
+                            profile_data = InnovatorProfileSerializer(profile).data
+                    elif group.id == 2:  # Group Partner
+                        profile = PartnerProfile.objects.filter(user=user).first()
+                        if profile:
+                            profile_data = PartnerProfileSerializer(profile).data
+                    elif group.id == 3:  # Group Advisor
+                        profile = AdvisorProfile.objects.filter(user=user).first()
+                        if profile:
+                            profile_data = AdvisorProfileSerializer(profile).data
+
                 return Response({
                     'token': str(token.key),
                     'user': {
@@ -58,7 +85,9 @@ class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
                         "group": {
                             "id": group.id,
                             "name": group.name
-                        } if group else None
+                        } if group else None,
+                        "profile": profile_data,
+                        "profile_image": profile_image_data
                     }
                 }, status=status.HTTP_200_OK)
             else:
@@ -77,6 +106,24 @@ class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
             token = Token.objects.get(key=token_key)
             user = token.user
             group = user.groups.first()
+            profile_data = None
+            profile_image = ProfileImage.objects.filter(user=user).first()
+            profile_image_data = ProfileImageSerializer(profile_image).data if profile_image else None
+
+            if group:
+                if group.id == 1:  # Group Innovator
+                    profile = InnovatorProfile.objects.filter(user=user).first()
+                    if profile:
+                        profile_data = InnovatorProfileSerializer(profile).data
+                elif group.id == 2:  # Group Partner
+                    profile = PartnerProfile.objects.filter(user=user).first()
+                    if profile:
+                        profile_data = PartnerProfileSerializer(profile).data
+                elif group.id == 3:  # Group Advisor
+                    profile = AdvisorProfile.objects.filter(user=user).first()
+                    if profile:
+                        profile_data = AdvisorProfileSerializer(profile).data
+
             return Response({
                 'token': str(token.key),
                 'user': {
@@ -88,7 +135,9 @@ class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
                     "group": {
                         "id": group.id,
                         "name": group.name
-                    } if group else None
+                    } if group else None,
+                    "profile": profile_data,
+                    "profile_image": profile_image_data
                 }
             }, status=status.HTTP_200_OK)
         except Token.DoesNotExist:
@@ -151,6 +200,7 @@ class DynamicProfileViewSet(viewsets.ViewSet):
 
         return Response(serializer.data)
 
+
     def get_user_and_group_from_token(self, request):
         auth_header = request.headers.get('Authorization')
         if auth_header and auth_header.startswith('Bearer '):
@@ -174,3 +224,29 @@ def get_groups(request):
     groups = Group.objects.all()
     groups_list = list(groups.values('id', 'name'))
     return JsonResponse(groups_list, safe=False)
+
+
+class ProfileViewSet(viewsets.ViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
+
+    @action(detail=False, methods=['post'], url_path='upload-profile-image')
+    def upload_profile_image(self, request):
+
+        if not request.user.is_authenticated:
+            return Response({'error': 'User is not authenticated.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+        profile_image = ProfileImage.objects.filter(user=request.user).first()
+
+        serializer = ProfileImageSerializer(data=request.data, context={'request': request})
+
+        if serializer.is_valid():
+            if profile_image:
+                profile_image.delete()
+
+            serializer.save(user=request.user)
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
