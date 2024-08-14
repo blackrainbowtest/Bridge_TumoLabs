@@ -4,8 +4,9 @@ from rest_framework import routers
 
 router = routers.SimpleRouter()
 
-router.register('posts', PostViewSet, basename='posts')
+# router.register('posts', PostViewSet, basename='posts')
 
+# FIXME:
 urlpatterns = [
     path('', include(router.urls)),
 ]

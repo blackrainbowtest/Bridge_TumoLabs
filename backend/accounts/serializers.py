@@ -46,11 +46,17 @@ class UserSerializer(serializers.ModelSerializer):
         queryset=Group.objects.all(),
         required=False
     )
+    confirmPassword = serializers.CharField(write_only=True)
 
     class Meta:
         model = get_user_model()
-        fields = ["username", "email", "password", "last_name", "first_name", "group"]
+        fields = ["username", "email", "password", "confirmPassword", "last_name", "first_name", "group"]
         extra_kwargs = {'password': {'write_only': True}}
+
+    def validate(self, data):
+        if data['password'] != data['confirmPassword']:
+            raise serializers.ValidationError({"confirmPassword": "Passwords must match."})
+        return data
 
     def create(self, validated_data):
         group = validated_data.pop('group', None)
@@ -92,7 +98,13 @@ class LoginSerializer(serializers.Serializer):
 
 
 class ProfileImageSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta:
         model = ProfileImage
         fields = ['id', 'user', 'image', 'name', 'uploaded_at']
         read_only_fields = ['user', 'uploaded_at']
+
+    def create(self, validated_data):
+        profile_image = ProfileImage.objects.create(**validated_data)
+        return profile_image

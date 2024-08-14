@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { registerAccount } from './accountRegisterAPI';
 import { loginAccount, loginWithToken } from './accountLoginAPI';
 import { logoutAccount } from './accountLogoutAPI';
+import { editAccountImage } from './accountProfileEditAPI';
 
 const initialState = {
     isAuthenticated: false,
@@ -30,6 +31,9 @@ const accountSlice = createSlice({
                 state.isAuthenticated = false;
                 localStorage.removeItem("authToken")
                 sessionStorage.removeItem("authToken")
+            })
+            .addCase(editAccountImage.fulfilled, (state, action) => {
+                state.account = {...state.account, profile_image: action.payload}
             })
     },
 });
