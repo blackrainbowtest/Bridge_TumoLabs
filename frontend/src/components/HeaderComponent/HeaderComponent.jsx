@@ -12,6 +12,7 @@ import AccountMenuProfileComponent from "components/AccountComponents/AccountPro
 import HeaderTitleComponent from './HeaderTitleComponent';
 import AppBarItemComponent from './AppBarItemComponent';
 import EmptyComponent from 'components/_GlobalComponents/EmptyComponent';
+import ProjectContextComponent from './context/ProjectContextComponent';
 
 function HeaderComponent() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -77,7 +78,7 @@ function HeaderComponent() {
             sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" }, minHeight: "inherit" }}
           >
             {/* FIXME: add components with handleClose arg */}
-            <AppBarItemComponent label='Projects' showArrow><EmptyComponent/></AppBarItemComponent>
+            <AppBarItemComponent label='Projects' showArrow><ProjectContextComponent/></AppBarItemComponent>
             <AppBarItemComponent label='Information center' showArrow><EmptyComponent/></AppBarItemComponent>
             <AppBarItemComponent label='About us' showArrow><EmptyComponent/></AppBarItemComponent>
             <AppBarItemComponent label='News' showArrow><EmptyComponent/></AppBarItemComponent>
@@ -116,5 +117,5 @@ const AppBarContainer = styled(AppBar)(({ theme, scrolling }) => ({
     scrolling === "true"
       ? `${theme.palette.background.primary}!important`
       : theme.palette.primary.transpatent,
-  color: `${theme.palette.text.primary}!important`,
+  color: `${theme.palette.text.secondary}!important`,
 }));

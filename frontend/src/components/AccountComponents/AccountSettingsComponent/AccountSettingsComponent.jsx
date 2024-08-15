@@ -1,10 +1,12 @@
 import { Avatar, Box, Skeleton, Typography } from "@mui/material";
+import BreadcrumbNavigationComponent from 'components/_GlobalComponents/BreadcrumbNavigationComponent';
 import { memo } from "react";
 import styled from "styled-components";
 
 function AccountSettingsComponent() {
   return (
     <MainContainer>
+      <BreadcrumbNavigationComponent />
       <Typography variant='h3' gutterBottom>
         Settings
       </Typography>
