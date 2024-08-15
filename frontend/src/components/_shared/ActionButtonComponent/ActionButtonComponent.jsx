@@ -8,6 +8,8 @@ function ActionButtonComponent({
   customStyles,
   isOpen = false,
   type = "button",
+  variant = "text",
+  color = "primary",
 }) {
   const handleMouseDownAction = (event) => {
     event.preventDefault();
@@ -27,6 +29,8 @@ function ActionButtonComponent({
       customstyles={customStyles}
       isopen={isOpen.toString()}
       type={type}
+      variant={variant}
+      color={color}
     >
       {label}
     </ActionContent>

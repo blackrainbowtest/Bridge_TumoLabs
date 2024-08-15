@@ -8,15 +8,29 @@ import AppBarItemComponent from "components/HeaderComponent/AppBarItemComponent"
 function AccountMenuProfileComponent() {
   const account = useSelector((state) => state?.account?.account);
 
+  console.log(account);
+
   return (
     <MainContainer>
       <AppBarItemComponent
         label={
           <LabelContainer>
             <StyledTypography>{account.username}</StyledTypography>
-            <AvatarContainer>
-              {account.username[0].toUpperCase()}
-            </AvatarContainer>
+            {account?.profile_image ? (
+              <ImageContainer
+                sx={{
+                  backgroundImage: `url(${
+                    account.profile_image.image.includes("http")
+                      ? ""
+                      : process.env.REACT_APP_BASE_URL
+                  }${account.profile_image.image})`,
+                }}
+              />
+            ) : (
+              <AvatarContainer>
+                {account.username[0].toUpperCase()}
+              </AvatarContainer>
+            )}
           </LabelContainer>
         }
       >
@@ -40,17 +54,25 @@ const AvatarContainer = styled(Avatar)(({ _ }) => ({
   height: 32,
 }));
 
+const ImageContainer = styled(Box)(({ theme }) => ({
+  width: 40,
+  height: 40,
+  borderRadius: "50%",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+}));
+
 const LabelContainer = styled(Box)(({ _ }) => ({
   width: "100%",
   display: "flex",
   alignItems: "center",
   textAlign: "center",
-  gap: "5px"
+  gap: "5px",
 }));
 
 const StyledTypography = styled(Typography)({
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  maxWidth: '150px'
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  maxWidth: "150px",
 });
