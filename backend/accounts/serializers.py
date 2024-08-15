@@ -73,6 +73,15 @@ class UserSerializer(serializers.ModelSerializer):
             default_group = Group.objects.get(id=1)
             user.groups.add(default_group)
 
+        print(group)
+
+        if group.name == 'innovators':
+            InnovatorProfile.objects.create(user=user)
+        elif group.name == 'partners':
+            PartnerProfile.objects.create(user=user)
+        elif group.name == 'advisors':
+            AdvisorProfile.objects.create(user=user)
+
         return user
 
 
