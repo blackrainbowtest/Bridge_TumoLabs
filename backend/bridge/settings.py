@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # myapps
     'rest_api',
     'accounts',
+    'projects',
     # thirdparty apps
     'corsheaders',
     'rest_framework',

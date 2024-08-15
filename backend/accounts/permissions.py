@@ -1,28 +1,17 @@
-from functools import wraps
-from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import permissions
 
 
-def check_group(group_id):
-    def decorator(view_func):
-        @wraps(view_func)
-        def _wrapped_view(viewset, request, *args, **kwargs):
-            user = request.user
-            if not user.is_authenticated:
-                return Response({'detail': 'Authentication credentials were not provided.'},
-                                status=status.HTTP_401_UNAUTHORIZED)
+class IsAdminOrReadOnly(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
 
-            # Отладочные сообщения
-            print("______________________________")
-            print(f"User: {user}")
-            print(f"User Groups: {user.groups.all()}")  # Получение всех групп пользователя
+        return bool(request.user and request.user.is_staff)
 
-            if not user.groups.filter(id=group_id).exists():
-                return Response({'detail': 'You do not have permission to perform this action.'},
-                                status=status.HTTP_403_FORBIDDEN)
 
-            return view_func(viewset, request, *args, **kwargs)
+class IsOwnerOrReadOnly(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
 
-        return _wrapped_view
-
-    return decorator
+        return obj.user == request.user
