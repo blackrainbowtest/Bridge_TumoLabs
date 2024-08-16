@@ -55,6 +55,17 @@ function ProjectItemComponent({ project }) {
         <Typography variant='p' gutterBottom>
           {project.description}
         </Typography>
+        <Box sx={{display: "flex"}}>
+          {
+            project.skills_required.map((skill) => {
+              return(
+                <Box key={skill.id} sx={{borderRadius: "5px", backgroundColor: "lightGrey", padding: "5px 15px"}}>
+                  {skill.name}
+                </Box>
+              )
+            })
+          }
+        </Box>
         <ActionContainer>
           <ActionButtonComponent
             label='See more'
@@ -78,9 +89,6 @@ const MainContainer = styled(Box)(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
   gap: "10px",
-  "& :hover": {
-    backgroundColor: theme.palette.background.secondary
-  }
 }));
 
 const ItemContainer = styled(Box)(({ theme }) => ({
@@ -93,6 +101,9 @@ const ItemContainer = styled(Box)(({ theme }) => ({
   borderRadius: "5px",
   padding: theme.paddingX,
   border: `1px solid ${theme.palette.border.secondary}`,
+  "&:hover": {
+    backgroundColor: theme.palette.background.secondary
+  }
 }));
 
 const LinkContainer = styled(Link)(({ theme }) => ({
