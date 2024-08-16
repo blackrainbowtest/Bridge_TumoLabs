@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
-import WorkSliderItemComponent from "components/WorkSliderItemComponent";
+import WorkSliderItemComponent from "components/MainPageComponents/WorkSliderComponent/WorkSliderItemComponent";
 import { workSliderSettings } from "settings/sliderSettings";
 import bgImage1 from "static/images/noImages/ttw1.jpg"
 import bgImage2 from "static/images/noImages/ttw2.jpg"

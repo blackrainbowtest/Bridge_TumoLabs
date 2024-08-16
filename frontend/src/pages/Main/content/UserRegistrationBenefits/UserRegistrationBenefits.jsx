@@ -1,23 +1,13 @@
-import { Box } from "@mui/material";
-import UserRegistrationBenefitsComponent from "components/UserRegistrationBenefitsComponent";
+import MainContentContainer from "components/_GlobalComponents/MainContentContainer";
+import UserRegistrationBenefitsComponent from "components/MainPageComponents/UserRegistrationBenefitsComponent";
 import { memo } from "react";
-import styled from "styled-components";
-
 
 function UserRegistrationBenefits() {
   return (
-    <MainContainer id='RegestrationBenefitsComponent'>
+    <MainContentContainer>
       <UserRegistrationBenefitsComponent />
-    </MainContainer>
+    </MainContentContainer>
   );
 }
 
 export default memo(UserRegistrationBenefits);
-
-const MainContainer = styled(Box)(({ _ }) => ({
-  maxWidth: "100%",
-  minHeight: "650px",
-  paddingBottom: "30px",
-  display: "flex",
-  justifyContent: "center",
-}));

@@ -1,11 +1,13 @@
-import { memo } from 'react'
+import MainContentContainer from "components/_GlobalComponents/MainContentContainer";
+import LatestBusinessProjectsComponent from "components/MainPageComponents/LatestBusinessProjectsComponent";
+import { memo } from "react";
 
 function LatestBusinessProjects() {
-    return(
-        <div>
-            LatestBusinessProjects
-        </div>
-    )
+  return (
+    <MainContentContainer>
+      <LatestBusinessProjectsComponent />
+    </MainContentContainer>
+  );
 }
 
-export default memo(LatestBusinessProjects)
+export default memo(LatestBusinessProjects);
