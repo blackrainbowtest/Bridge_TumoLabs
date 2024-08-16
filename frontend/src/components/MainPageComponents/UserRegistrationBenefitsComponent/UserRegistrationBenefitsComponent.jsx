@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
-import UserBenefitsItemComponent from "components/UserBenefitsItemComponent";
+import UserBenefitsItemComponent from "components/MainPageComponents/UserRegistrationBenefitsComponent/UserBenefitsItemComponent";
 import { memo } from "react";
 import { benefitsSettings } from "settings/benefitsSettings";
 import styled from "styled-components";
 
 function UserRegistrationBenefitsComponent() {
   return (
-    <MainContainer>
+    <MainContainer id='RegestrationBenefitsComponent'>
       {benefitsSettings.map((benefits, index) => {
         return <UserBenefitsItemComponent key={index} data={benefits} />;
       })}
