@@ -13,9 +13,20 @@ class Project(models.Model):
     location = models.CharField(max_length=255)
     business_name = models.CharField(max_length=255)
     business_description = models.TextField()
+    main_image = models.ForeignKey('ProjectImage', related_name='main_image_of', on_delete=models.SET_NULL, null=True,
+                                   blank=True)
 
     def __str__(self):
         return f'Project ID: {self.id} - Title: {self.title}'
+
+
+class ProjectImage(models.Model):
+    project = models.ForeignKey(Project, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='projects/%Y/%m/%d/')
+    is_main = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.project.title} - Image {self.id}'
 
 
 class Goal(models.Model):
