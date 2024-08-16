@@ -1,8 +1,8 @@
 import Content from 'pages/Content';
 import Main from 'pages/Main';
 import Page404 from 'pages/Page404';
-import SignIn from 'pages/SignIn';
-import SignUp from 'pages/SignUp';
+import SignIn from 'pages/Layout/SignIn';
+import SignUp from 'pages/Layout/SignUp';
 import accountRoutes from './accountRoutes';
 import projectRoutes from './projectRoutes';
 
