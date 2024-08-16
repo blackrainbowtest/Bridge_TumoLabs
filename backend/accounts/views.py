@@ -98,7 +98,7 @@ class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
     @action(detail=False, methods=['post'], url_path='token-login')
     def login_with_token(self, request):
         auth_header = request.headers.get('Authorization')
-        if auth_header and auth_header.startswith('Bearer '):
+        if auth_header and auth_header.startswith('Token '):
             token_key = auth_header.split(' ')[1]
         else:
             token_key = None
@@ -147,7 +147,7 @@ class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
     @action(detail=False, methods=['post'], url_path='logout')
     def logout(self, request):
         auth_header = request.headers.get('Authorization')
-        if auth_header and auth_header.startswith('Bearer '):
+        if auth_header and auth_header.startswith('Token '):
             token_key = auth_header.split(' ')[1]
         else:
             return Response({'error': 'Token not provided'}, status=status.HTTP_400_BAD_REQUEST)
