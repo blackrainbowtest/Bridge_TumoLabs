@@ -1,5 +1,5 @@
-import Profile from 'pages/Account/Profile';
-import Settings from 'pages/Account/Settings';
+import Profile from 'pages/Layout/Account/Profile';
+import Settings from 'pages/Layout/Account/Settings';
 
 const accountRoutes = [
   {
