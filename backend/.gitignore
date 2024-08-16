@@ -4,6 +4,6 @@ venv/
 
 *.log
 *.tmp
-.env
+bridge/.env
 
 .DS_Store

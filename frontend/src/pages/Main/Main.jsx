@@ -1,28 +1,19 @@
-import { Box } from "@mui/material";
 import { memo } from "react";
-import styled from "styled-components";
-import WorkSlider from './content/WorkSlider';
-import UserRegistrationBenefits from './content/UserRegistrationBenefits';
-import LatestBusinessProjects from './content/LatestBusinessProjects';
-import ContributeToProject from './content/ContributeToProject';
-import AboutAccountInfo from './content/AboutAccountInfo';
+import WorkSlider from "./content/WorkSlider";
+import ContributeToProject from "./content/ContributeToProject";
+import AboutAccountInfo from "./content/AboutAccountInfo";
+import MainContainerColumn from "components/_GlobalComponents/MainContainerColumn";
+import AboutPlatform from './content/AboutPlatform';
 
 function Main() {
   return (
-    <MainContainer sx={{ flexGrow: 1 }}>
-      <WorkSlider />
+    <MainContainerColumn>
       <AboutAccountInfo />
-      <UserRegistrationBenefits />
-      <LatestBusinessProjects />
+      <AboutPlatform />
+      <WorkSlider />
       <ContributeToProject />
-    </MainContainer>
+    </MainContainerColumn>
   );
 }
 
 export default memo(Main);
-
-const MainContainer = styled(Box)(({ theme }) => ({
-  maxWidth: "100%",
-  display: "flex",
-  flexDirection: "column",
-}));

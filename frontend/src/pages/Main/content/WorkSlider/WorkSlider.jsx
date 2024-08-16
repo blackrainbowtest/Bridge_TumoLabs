@@ -1,23 +1,14 @@
-import { Box } from "@mui/material";
 import { memo } from "react";
-import WorkSliderComponent from "components/WorkSliderComponent";
+import WorkSliderComponent from "components/MainPageComponents/WorkSliderComponent";
 
-import styled from "styled-components";
+import MainContentContainer from 'components/_GlobalComponents/MainContentContainer';
 
 function WorkSlider() {
   return (
-    <MainContainer>
+    <MainContentContainer>
       <WorkSliderComponent />
-    </MainContainer>
+    </MainContentContainer>
   );
 }
 
 export default memo(WorkSlider);
-
-const MainContainer = styled(Box)(({ _ }) => ({
-  maxWidth: "100%",
-  minHeight: "650px",
-  paddingBottom: "30px",
-  display: "flex",
-  justifyContent: "center",
-}));

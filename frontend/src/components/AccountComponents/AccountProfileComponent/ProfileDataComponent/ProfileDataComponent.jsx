@@ -1,13 +1,13 @@
 import { Box, Skeleton, Typography } from "@mui/material";
+import ColumnContainer from 'components/_GlobalComponents/ColumnContainer';
+import DataContainer from 'components/_GlobalComponents/DataContainer';
 import { memo } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import DataActionComponent from './DataActionComponent';
 
 function ProfileDataComponent() {
   const loading = useSelector((state) => state?.global?.loading);
-  const account = useSelector((state) => state?.account?.account);
-
-// console.log(account)
 
   return (
     <MainContainer>
@@ -43,14 +43,7 @@ function ProfileDataComponent() {
           </Typography>
         </ColumnContainer>
       </DataContainer>
-      <DataContainer>
-        <ColumnContainer></ColumnContainer>
-        <ColumnContainer>
-          <Typography component='div' variant={"h3"}>
-            {loading ? <Skeleton /> : <Skeleton />}
-          </Typography>
-        </ColumnContainer>
-      </DataContainer>
+      <DataActionComponent />
       <ProductContainer>
         {loading ? (
           <Skeleton
@@ -86,23 +79,6 @@ function ProfileDataComponent() {
 export default memo(ProfileDataComponent);
 
 const MainContainer = styled(Box)(({ theme }) => ({
-  width: "100%",
-  display: "flex",
-  flexDirection: "column",
-}));
-
-const DataContainer = styled(Box)(({ theme }) => ({
-  width: "100%",
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr",
-  gap: "10px",
-
-  "@media (max-width: 900px)": {
-    gridTemplateColumns: "1fr",
-  },
-}));
-
-const ColumnContainer = styled(Box)(({ theme }) => ({
   width: "100%",
   display: "flex",
   flexDirection: "column",

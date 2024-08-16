@@ -19,8 +19,6 @@ function ProfileImageComponent() {
     }
   };
 
-  console.log(account);
-
   return (
     <MainContainer>
       {loading ? (

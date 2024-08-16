@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Axios } from 'app/config';
+import { accountsAxios } from 'app/config';
 import { addError, addNotification, setLoading } from 'features/global/GlobalSlice';
 import { handleError } from 'utils/errorHandler';
 
@@ -8,10 +8,10 @@ export const logoutAccount = createAsyncThunk(
     async (token, { dispatch, rejectWithValue }) => {
         try {
             dispatch(setLoading(true));
-            const response = await Axios.post(`/accounts/login/logout/`, {},
+            const response = await accountsAxios.post(`login/logout/`, {},
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        Authorization: `Token ${token}`,
                     },
                 });
             dispatch(addNotification(response.data.message))

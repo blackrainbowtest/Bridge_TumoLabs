@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import viewsets, status, mixins
 from rest_framework.authtoken.models import Token
 
-from .permossions import IsAdminOrReadOnly, IsOwnerOrReadOnly
+from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
 from .serializers import UserSerializer, LoginSerializer
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
@@ -22,14 +22,16 @@ from .serializers import ProfileImageSerializer
 from rest_framework.authentication import TokenAuthentication
 
 
-
 # User registration
 class RegisterViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
+    permission_classes = [AllowAny]
+
     serializer_class = UserSerializer
     queryset = get_user_model().objects.all()
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
+
         if serializer.is_valid():
             email = serializer.validated_data.get('email')
             if get_user_model().objects.filter(email=email).exists():
@@ -37,7 +39,6 @@ class RegisterViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
             self.perform_create(serializer)
             headers = self.get_success_headers(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-        print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -97,7 +98,7 @@ class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
     @action(detail=False, methods=['post'], url_path='token-login')
     def login_with_token(self, request):
         auth_header = request.headers.get('Authorization')
-        if auth_header and auth_header.startswith('Bearer '):
+        if auth_header and auth_header.startswith('Token '):
             token_key = auth_header.split(' ')[1]
         else:
             token_key = None
@@ -146,7 +147,7 @@ class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
     @action(detail=False, methods=['post'], url_path='logout')
     def logout(self, request):
         auth_header = request.headers.get('Authorization')
-        if auth_header and auth_header.startswith('Bearer '):
+        if auth_header and auth_header.startswith('Token '):
             token_key = auth_header.split(' ')[1]
         else:
             return Response({'error': 'Token not provided'}, status=status.HTTP_400_BAD_REQUEST)
@@ -160,63 +161,30 @@ class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
 
 
 # Get account profile
-class DynamicProfileViewSet(viewsets.ViewSet):
+class ProfileViewSet(viewsets.ViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
-    def list(self, request, *args, **kwargs):
-        user, group_id = self.get_user_and_group_from_token(request)
+    @action(detail=False, methods=['put', 'patch'], url_path='update')
+    def update_profile(self, request):
+        user = request.user
+        group = user.groups.first().name  # Предполагается, что у пользователя одна группа
 
-        if group_id == 1:
-            queryset = InnovatorProfile.objects.filter(user=user)
-            serializer = InnovatorProfileSerializer(queryset, many=True)
-        elif group_id == 2:
-            queryset = PartnerProfile.objects.filter(user=user)
-            serializer = PartnerProfileSerializer(queryset, many=True)
-        elif group_id == 3:
-            queryset = AdvisorProfile.objects.filter(user=user)
-            serializer = AdvisorProfileSerializer(queryset, many=True)
+        if group == 'innovators':
+            serializer = InnovatorProfileSerializer(user.innovator_profile, data=request.data, partial=True)
+        elif group == 'partners':
+            serializer = PartnerProfileSerializer(user.partner_profile, data=request.data, partial=True)
+        elif group == 'advisors':
+            serializer = AdvisorProfileSerializer(user.advisor_profile, data=request.data, partial=True)
         else:
-            return Response({'error': 'Permission denied'}, status=status.HTTP_403_FORBIDDEN)
+            return Response({'error': 'Unknown group'}, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response(serializer.data)
-
-    def retrieve(self, request, *args, **kwargs):
-        user, group_id = self.get_user_and_group_from_token(request)
-        profile_id = kwargs.get('pk')
-
-        if group_id == 1:
-            queryset = InnovatorProfile.objects.filter(user=user, id=profile_id)
-            serializer = InnovatorProfileSerializer(queryset, many=True)
-        elif group_id == 2:
-            queryset = PartnerProfile.objects.filter(user=user, id=profile_id)
-            serializer = PartnerProfileSerializer(queryset, many=True)
-        elif group_id == 3:
-            queryset = AdvisorProfile.objects.filter(user=user, id=profile_id)
-            serializer = AdvisorProfileSerializer(queryset, many=True)
-        else:
-            return Response({'error': 'Permission denied'}, status=status.HTTP_403_FORBIDDEN)
-
-        if not queryset.exists():
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
-
-        return Response(serializer.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-    def get_user_and_group_from_token(self, request):
-        auth_header = request.headers.get('Authorization')
-        if auth_header and auth_header.startswith('Bearer '):
-            token_key = auth_header.split(' ')[1]  # Извлекаем токен
-        else:
-            token_key = None
-
-        try:
-            token = Token.objects.get(key=token_key)
-            user = token.user
-            group = user.groups.first()  # Получаем первую группу пользователя
-            group_id = group.id if group else None
-        except Token.DoesNotExist:
-            return None, None  # Токен не найден, возвращаем None
-
-        return user, group_id
 
 
 # GET account groups
@@ -226,7 +194,7 @@ def get_groups(request):
     return JsonResponse(groups_list, safe=False)
 
 
-class ProfileViewSet(viewsets.ViewSet):
+class ProfileImageViewSet(viewsets.ViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     parser_classes = [MultiPartParser, FormParser]

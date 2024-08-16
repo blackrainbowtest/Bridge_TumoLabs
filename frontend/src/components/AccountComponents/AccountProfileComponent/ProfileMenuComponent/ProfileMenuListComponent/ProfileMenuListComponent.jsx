@@ -1,4 +1,4 @@
-import { Box, Skeleton, Typography } from "@mui/material";
+import { Box, Button, Skeleton, Typography } from "@mui/material";
 import { memo } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
@@ -9,7 +9,7 @@ function ProfileMenuListComponent() {
   return (
     <MainContainer>
       <Typography component='div' variant={"h3"}>
-        {loading ? <Skeleton /> : <Skeleton />}
+        {loading ? <Skeleton /> : <Button>Profile</Button>}
       </Typography>
       <Typography component='div' variant={"h3"}>
         {loading ? <Skeleton /> : <Skeleton />}
