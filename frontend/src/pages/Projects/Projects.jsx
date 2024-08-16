@@ -1,11 +1,13 @@
-import { memo } from 'react'
+import MainContainerColumn from "components/_GlobalComponents/MainContainerColumn";
+import ProjectsComponent from "components/ProjectsComponent";
+import { memo } from "react";
 
 function Projects() {
-    return(
-        <div>
-            555
-        </div>
-    )
+  return (
+    <MainContainerColumn>
+      <ProjectsComponent />
+    </MainContainerColumn>
+  );
 }
 
-export default memo(Projects)
+export default memo(Projects);

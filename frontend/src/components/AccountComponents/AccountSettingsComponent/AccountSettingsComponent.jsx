@@ -35,7 +35,6 @@ export default memo(AccountSettingsComponent);
 
 const MainContainer = styled(Box)(({ theme }) => ({
   width: "100%",
-  marginTop: 8,
   display: "flex",
   flexDirection: "column",
   gap: "10px",

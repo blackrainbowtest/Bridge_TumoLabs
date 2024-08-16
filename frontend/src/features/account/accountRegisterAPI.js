@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Axios } from 'app/config';
+import { accountsAxios } from 'app/config';
 import { addError, addNotification, setLoading } from 'features/global/GlobalSlice';
 import { handleError } from 'utils/errorHandler';
 
@@ -9,7 +9,7 @@ export const registerAccount = createAsyncThunk(
         console.log(userData)
         try {
             dispatch(setLoading(true));
-            const response = await Axios.post(`/accounts/registration/`, userData);
+            const response = await accountsAxios.post(`registration/`, userData);
             dispatch(addNotification("Registration success."));
             return response.data;
         } catch (err) {
