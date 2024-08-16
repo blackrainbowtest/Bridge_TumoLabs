@@ -7,7 +7,7 @@ function UserBenefitsItemComponent({ data }) {
   const navigate = useNavigate()
 
   const handleSignUpClick = () => {
-    navigate(`sign-up/?type=${data.title.toLowerCase()}`)
+    navigate(`${data.title.toLowerCase()}`)
   }
   return (
     <MainContainer>
@@ -30,7 +30,7 @@ function UserBenefitsItemComponent({ data }) {
 export default memo(UserBenefitsItemComponent);
 
 const MainContainer = styled(Card)(({ theme }) => ({
-  width: "22%",
+  width: "100%",
   padding: "10px",
   borderRadius: "5px",
   background: theme.palette.background.secondary,

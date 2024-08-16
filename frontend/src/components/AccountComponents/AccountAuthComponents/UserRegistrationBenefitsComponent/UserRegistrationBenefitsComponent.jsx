@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
-import UserBenefitsItemComponent from "components/MainPageComponents/UserRegistrationBenefitsComponent/UserBenefitsItemComponent";
+import MainGridContainer from "components/_GlobalComponents/MainGridContainer";
+import UserBenefitsItemComponent from "components/AccountComponents/AccountAuthComponents/UserRegistrationBenefitsComponent/UserBenefitsItemComponent";
 import { memo } from "react";
 import { benefitsSettings } from "settings/benefitsSettings";
 import styled from "styled-components";
@@ -7,9 +8,11 @@ import styled from "styled-components";
 function UserRegistrationBenefitsComponent() {
   return (
     <MainContainer id='RegestrationBenefitsComponent'>
-      {benefitsSettings.map((benefits, index) => {
-        return <UserBenefitsItemComponent key={index} data={benefits} />;
-      })}
+      <MainGridContainer>
+        {benefitsSettings.map((benefits, index) => {
+          return <UserBenefitsItemComponent key={index} data={benefits} />;
+        })}
+      </MainGridContainer>
     </MainContainer>
   );
 }
