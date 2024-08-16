@@ -5,6 +5,7 @@ import SignIn from 'pages/Layout/SignIn';
 import SignUp from 'pages/Layout/SignUp';
 import accountRoutes from './accountRoutes';
 import projectRoutes from './projectRoutes';
+import SignUpChoose from 'pages/Layout/SignUpChoose';
 
 const mainRoutes = [
   {
@@ -15,7 +16,14 @@ const mainRoutes = [
       ...projectRoutes
     ]
   },
-  { path: "sign-up", element: <SignUp /> },
+  {
+    path: "sign-up",
+    element: <SignUpChoose />
+  },
+  {
+    path: "sign-up/:type",
+    element: <SignUp />
+  },
   { path: "sign-in", element: <SignIn /> },
   { path: "*", element: <Page404 /> }
 ];

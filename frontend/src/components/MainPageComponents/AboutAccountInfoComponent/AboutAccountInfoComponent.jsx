@@ -1,12 +1,12 @@
 import { Box, Button, Typography } from "@mui/material";
 import { memo } from "react";
+import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 
 function AboutAccountInfoComponent() {
+  const navigate = useNavigate()
   const scrollToTarget = () => {
-    document
-      .getElementById("RegestrationBenefitsComponent")
-      .scrollIntoView({ behavior: "smooth" });
+    navigate("sign-up")
   };
 
   return (

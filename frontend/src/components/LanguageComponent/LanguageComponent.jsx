@@ -6,6 +6,7 @@ import imgEN from "static/images/languages/en.png";
 import { useTranslation } from "react-i18next";
 import AppBarItemComponent from "components/HeaderComponent/AppBarItemComponent";
 import LanguageItemsComponent from "./LanguageItemsComponent";
+import MainContainerRow from 'components/_GlobalComponents/MainContainerRow';
 
 const languages = [
   { code: "en", label: "English", imgSrc: imgEN },
@@ -16,7 +17,7 @@ function LanguageComponent() {
   const { i18n } = useTranslation();
 
   return (
-    <MainContainer>
+    <MainContainerRow>
       <AppBarItemComponent
         label={
           <IconContainer>
@@ -32,17 +33,11 @@ function LanguageComponent() {
       >
         <LanguageItemsComponent languages={languages} />
       </AppBarItemComponent>
-    </MainContainer>
+    </MainContainerRow>
   );
 }
 
 export default memo(LanguageComponent);
-
-const MainContainer = styled(Box)(({ _ }) => ({
-  minHeight: "inherit",
-  display: "flex",
-  justifyContent: "center",
-}));
 
 const IconContainer = styled(Box)(({ theme }) => ({
   display: "flex",

@@ -2,7 +2,7 @@
 import { memo } from "react";
 import { useDispatch } from "react-redux";
 import { FormProvider, useForm } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Avatar, Box, Container, CssBaseline, Typography } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import styled, { css } from "styled-components";
@@ -39,9 +39,8 @@ function UserSignUpComponent() {
     mode: "onChange", // or 'onBlur'
   });
   const dispatch = useDispatch();
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const type = queryParams.get("type") ?? "innovators";
+  const { type } = useParams() ?? "innovators";
+  console.log(type)
   const groupId = groupMapping[type];
   const navigate = useNavigate();
 

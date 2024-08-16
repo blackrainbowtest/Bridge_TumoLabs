@@ -1,6 +1,5 @@
 import { memo } from "react";
 import WorkSlider from "./content/WorkSlider";
-import UserRegistrationBenefits from "./content/UserRegistrationBenefits";
 import LatestBusinessProjects from "./content/LatestBusinessProjects";
 import ContributeToProject from "./content/ContributeToProject";
 import AboutAccountInfo from "./content/AboutAccountInfo";
@@ -13,7 +12,6 @@ function Main() {
       <AboutPlatform />
       <WorkSlider />
       <AboutAccountInfo />
-      <UserRegistrationBenefits />
       <LatestBusinessProjects />
       <ContributeToProject />
     </MainContainerColumn>
