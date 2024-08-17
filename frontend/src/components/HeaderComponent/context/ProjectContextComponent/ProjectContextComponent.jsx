@@ -1,29 +1,98 @@
 import { Box, MenuItem, Typography } from "@mui/material";
 import { memo } from "react";
-import { useNavigate } from "react-router-dom";
-import WorkIcon from "@mui/icons-material/Work";
-import styled from "styled-components";
+import ListIcon from '@mui/icons-material/List';
+import StarIcon from '@mui/icons-material/Star';
+import CategoryIcon from '@mui/icons-material/Category';
+import AddIcon from '@mui/icons-material/Add';
+import StarRateIcon from '@mui/icons-material/StarRate';
+import InfoIcon from '@mui/icons-material/Info';
 
-function ProjectContextComponent({ handleClose }) {
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+
+function ProjectsContextComponent({ handleClose }) {
   const navigate = useNavigate();
-  const handleLanguageChange = (event) => {
-    navigate("/projects");
+
+  const handleAllProjectsClick = (event) => {
+    navigate("/all-projects");
+    handleClose(event);
+  };
+  const handleFeaturedProjectsClick = (event) => {
+    navigate("/featured-projects");
+    handleClose(event);
+  };
+  const handleProjectCategoriesClick = (event) => {
+    navigate("/project-categories");
+    handleClose(event);
+  };
+  const handleSubmitProjectClick = (event) => {
+    navigate("/submit-project");
+    handleClose(event);
+  };
+  const handleProjectSuccessStoriesClick = (event) => {
+    navigate("/project-success-stories");
+    handleClose(event);
+  };
+  const handleProjectGuidelinesClick = (event) => {
+    navigate("/project-guidelines");
     handleClose(event);
   };
 
   return (
-    <MenuItem onClick={(event) => handleLanguageChange(event)}>
-      <ContentContainer color='inherit'>
-        <WorkIcon color='inherit' />
-        <Typography variant='subtitle1' gutterBottom color='inherit'>
-          All projects
-        </Typography>
-      </ContentContainer>
-    </MenuItem>
+    <>
+      <MenuItem onClick={(event) => handleAllProjectsClick(event)}>
+        <ContentContainer color='inherit'>
+          <ListIcon color='inherit' />
+          <Typography variant='subtitle1' gutterBottom color='inherit'>
+            All Projects
+          </Typography>
+        </ContentContainer>
+      </MenuItem>
+      <MenuItem onClick={(event) => handleFeaturedProjectsClick(event)}>
+        <ContentContainer color='inherit'>
+          <StarIcon color='inherit' />
+          <Typography variant='subtitle1' gutterBottom color='inherit'>
+            Featured Projects
+          </Typography>
+        </ContentContainer>
+      </MenuItem>
+      <MenuItem onClick={(event) => handleProjectCategoriesClick(event)}>
+        <ContentContainer color='inherit'>
+          <CategoryIcon color='inherit' />
+          <Typography variant='subtitle1' gutterBottom color='inherit'>
+            Project Categories
+          </Typography>
+        </ContentContainer>
+      </MenuItem>
+      <MenuItem onClick={(event) => handleSubmitProjectClick(event)}>
+        <ContentContainer color='inherit'>
+          <AddIcon color='inherit' />
+          <Typography variant='subtitle1' gutterBottom color='inherit'>
+            Submit a Project
+          </Typography>
+        </ContentContainer>
+      </MenuItem>
+      <MenuItem onClick={(event) => handleProjectSuccessStoriesClick(event)}>
+        <ContentContainer color='inherit'>
+          <StarRateIcon color='inherit' />
+          <Typography variant='subtitle1' gutterBottom color='inherit'>
+            Project Success Stories
+          </Typography>
+        </ContentContainer>
+      </MenuItem>
+      <MenuItem onClick={(event) => handleProjectGuidelinesClick(event)}>
+        <ContentContainer color='inherit'>
+          <InfoIcon color='inherit' />
+          <Typography variant='subtitle1' gutterBottom color='inherit'>
+            Project Guidelines
+          </Typography>
+        </ContentContainer>
+      </MenuItem>
+    </>
   );
 }
 
-export default memo(ProjectContextComponent);
+export default memo(ProjectsContextComponent);
 
 const ContentContainer = styled(Box)(({ theme }) => ({
   minWidth: "100%",
