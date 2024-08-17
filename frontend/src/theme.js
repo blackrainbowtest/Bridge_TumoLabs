@@ -1,7 +1,9 @@
+const { createTheme } = require('@mui/material');
+
 /**
  * App main theme colors
  */
-export const theme = {
+const theme = createTheme({
     palette: {
         primary: {
             light: "#63CCFF",
@@ -21,7 +23,11 @@ export const theme = {
             Crimson: "#DC143C",
             OrangeRed: "#FF4500",
             RoyalBlue: "#3C5A78",
-            SandyBrown: "#F4A460"
+            SandyBrown: "#F4A460",
+
+            yellow: "#FFD132",
+            orange: "#FF9034",
+            blue: "#219BBA",
         },
         border: {
             primary: "#E0E0E0",
@@ -30,6 +36,10 @@ export const theme = {
             focused: "#418CFF",
             error: "#FF8082",
             success: "#4BAE4D",
+
+            yellow: "#FFD132",
+            orange: "#FF9034",
+            blue: "#219BBA",
         },
         boxShadow: {
             primary: "0 1px 3px rgba(0, 0, 0, 0.2)",
@@ -47,7 +57,10 @@ export const theme = {
             focused: "#004080",
             error: "#B00020",
             success: "#2E7D32",
-            blue: "#355C8C",
+
+            yellow: "#FFD132",
+            orange: "#FF9034",
+            blue: "#219BBA",
         }
     },
     spacing: 8,
@@ -57,7 +70,19 @@ export const theme = {
     paddingY: `2.5rem`,
     paddingBottom: `1.25rem`,
     typography: {
-        fontFamily: 'Roboto, Arial, sans-serif',
-        fontFamilyNano: 'Noto Sans Armenian, Noto Sans, Arial, Helvetica, sans-serif !important',
+        fontFamily: 'Montserrat, Roboto, Arial, sans-serif',
+        fontFamilyNano: 'Montserrat, Noto Sans Armenian, Noto Sans, Arial, Helvetica, sans-serif !important',
     },
-}
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    minWidth: '160px!important',
+                    minHeight: '32px!important',
+                },
+            },
+        },
+    },
+})
+
+export default theme;

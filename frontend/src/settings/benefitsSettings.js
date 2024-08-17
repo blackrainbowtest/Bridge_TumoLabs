@@ -1,32 +1,27 @@
-import imgBG from "static/images/noImages/student.png"
+import SupervisorBG from "static/images/Accounts/Supervisor.svg"
+import SMEBG from "static/images/Accounts/SME.svg"
+import StudentBG from "static/images/Accounts/Student.svg"
 
 export const benefitsSettings = [
     {
-        id: "BA001",
-        url: "/sign-up/?type=innovators",
-        title: "innovators",
-        description: "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica",
-        image: imgBG,
+        id: "BA002",
+        url: "partners",
+        title: "SME",
+        description: "As a regional SME, you can access a pool of skilled students ready to help with your projects.",
+        image: SMEBG,
     },
     {
-        id: "BA002",
-        url: "/sign-up/?type=partners",
-        title: "partners",
-        description: "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica",
-        image: imgBG,
+        id: "BA001",
+        url: "innovators",
+        title: "Student",
+        description: "As a student, you can find projects that align with your skills and interests.",
+        image: StudentBG,
     },
     {
         id: "BA003",
-        url: "/sign-up/?type=advisors",
-        title: "advisors",
-        description: "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica",
-        image: imgBG,
-    },
-    {
-        id: "BA004",
-        url: "/sign-up/?type=challengers",
-        title: "challengers",
-        description: "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica",
-        image: imgBG,
-    },
+        url: "advisors",
+        title: "Superviosor",
+        description: "As a supervisor, you can guide your students through practical projects.",
+        image: SupervisorBG,
+    }
 ];

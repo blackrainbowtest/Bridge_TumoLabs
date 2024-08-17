@@ -10,6 +10,7 @@ function ActionButtonComponent({
   type = "button",
   variant = "text",
   color = "primary",
+  ...rest
 }) {
   const handleMouseDownAction = (event) => {
     event.preventDefault();
@@ -31,6 +32,7 @@ function ActionButtonComponent({
       type={type}
       variant={variant}
       color={color}
+      {...rest}
     >
       {label}
     </ActionContent>

@@ -3,9 +3,12 @@ import Main from 'pages/Main';
 import Page404 from 'pages/Page404';
 import SignIn from 'pages/Layout/SignIn';
 import SignUp from 'pages/Layout/SignUp';
-import accountRoutes from './accountRoutes';
-import projectRoutes from './projectRoutes';
+import accountRoutes from 'router/routes/accountRoutes';
+import projectRoutes from 'router/routes/projectRoutes';
 import SignUpChoose from 'pages/Layout/SignUpChoose';
+import aboutUsRoutes from 'router/routes/aboutUsRoutes';
+import contactUsRoutes from 'router/routes/contactUsRoutes';
+import newsRoutes from 'router/routes/newsRoutes';
 
 const mainRoutes = [
   {
@@ -13,12 +16,15 @@ const mainRoutes = [
     children: [
       { path: "", element: <Main /> },
       ...accountRoutes,
-      ...projectRoutes
+      ...projectRoutes,
+      ...aboutUsRoutes,
+      ...contactUsRoutes,
+      ...newsRoutes,
+      {
+        path: "sign-up",
+        element: <SignUpChoose />
+      },
     ]
-  },
-  {
-    path: "sign-up",
-    element: <SignUpChoose />
   },
   {
     path: "sign-up/:type",
