@@ -1,6 +1,6 @@
 import BreadcrumbNavigationComponent from "components/_GlobalComponents/BreadcrumbNavigationComponent";
 import MainContainerColumn from "components/_GlobalComponents/MainContainerColumn";
-import MainContentContainer from 'components/_GlobalComponents/MainContentContainer';
+import MainContentContainer from "components/_GlobalComponents/MainContentContainer";
 import UserRegistrationBenefitsComponent from "components/AccountComponents/AccountAuthComponents/UserRegistrationBenefitsComponent";
 import { memo } from "react";
 

@@ -9,10 +9,13 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import AccountMenuProfileComponent from "components/AccountComponents/AccountProfileComponents/AccountMenuProfileComponent";
-import HeaderTitleComponent from './HeaderTitleComponent';
-import AppBarItemComponent from './AppBarItemComponent';
-import EmptyComponent from 'components/_GlobalComponents/EmptyComponent';
-import ProjectContextComponent from './context/ProjectContextComponent';
+import HeaderTitleComponent from "./HeaderTitleComponent";
+import AppBarItemComponent from "./AppBarItemComponent";
+import EmptyComponent from "components/_GlobalComponents/EmptyComponent";
+import ProjectContextComponent from "./context/ProjectContextComponent";
+import AboutUsContextComponent from "./context/AboutUsContextComponent";
+import ContactUsContextComponent from "./context/ContactUsContextComponent";
+import NewsContextComponent from "./context/NewsContextComponent";
 
 function HeaderComponent() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -75,16 +78,32 @@ function HeaderComponent() {
           <Typography
             variant='h6'
             component='div'
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" }, minHeight: "inherit" }}
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", sm: "flex" },
+              minHeight: "inherit",
+            }}
           >
             {/* FIXME: add components with handleClose arg */}
-            <AppBarItemComponent label='Projects' showArrow><ProjectContextComponent/></AppBarItemComponent>
-            <AppBarItemComponent label='Information center' showArrow><EmptyComponent/></AppBarItemComponent>
-            <AppBarItemComponent label='About us' showArrow><EmptyComponent/></AppBarItemComponent>
-            <AppBarItemComponent label='News' showArrow><EmptyComponent/></AppBarItemComponent>
-            <AppBarItemComponent label='Contact us' showArrow><EmptyComponent/></AppBarItemComponent>
+            <AppBarItemComponent label='Projects' showArrow>
+              <ProjectContextComponent />
+            </AppBarItemComponent>
+            <AppBarItemComponent label='Information center' showArrow>
+              <EmptyComponent />
+            </AppBarItemComponent>
+            <AppBarItemComponent label='About us' showArrow>
+              <AboutUsContextComponent />
+            </AppBarItemComponent>
+            <AppBarItemComponent label='News' showArrow>
+              <NewsContextComponent />
+            </AppBarItemComponent>
+            <AppBarItemComponent label='Contact us' showArrow>
+              <ContactUsContextComponent />
+            </AppBarItemComponent>
           </Typography>
-          <Box sx={{ display: { xs: "none", sm: "flex" }, minHeight: "inherit" }} >
+          <Box
+            sx={{ display: { xs: "none", sm: "flex" }, minHeight: "inherit" }}
+          >
             <LanguageComponent />
           </Box>
           {!isAuthenticated ? (
