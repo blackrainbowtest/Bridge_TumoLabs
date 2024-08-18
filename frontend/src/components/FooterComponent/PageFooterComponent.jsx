@@ -24,5 +24,5 @@ const SectionContainer = styled("section")(({ _ }) => ({
 const SeparatorContainer = styled(Box)(({ theme }) => ({
   minWidth: "100%",
   border: `1px solid ${theme.palette.border.secondary}`,
-  margin: `${theme.marginY} 0`,
+  margin: `${theme.spacing(2.5)} 0`,
 }));

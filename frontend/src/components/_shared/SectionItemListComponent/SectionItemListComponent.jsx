@@ -3,9 +3,9 @@ import { memo } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-function SectionItemListComponent({ linkList }) {
+function SectionItemListComponent({ linkList, columns = 1 }) {
   return (
-    <MainContainer>
+    <MainContainer columns={columns}>
       {linkList.map((link, index) => {
         return <Link key={index} to={link.to}>{link.label}</Link>;
       })}
@@ -15,14 +15,26 @@ function SectionItemListComponent({ linkList }) {
 
 export default memo(SectionItemListComponent);
 
-const MainContainer = styled(Box)(({ theme }) => ({
-  minWidth: "100%",
-  display: "flex",
-  flexDirection: "column",
+const MainContainer = styled(Box)(({ theme, columns }) => ({
+  maxWidth: "100%",
+  display: "grid",
   gap: "1rem",
+  gridTemplateColumns: `repeat(${Math.min(columns, 1)}, 1fr)`,
+  "@media (min-width: 640px)": {
+    gridTemplateColumns: `repeat(${Math.min(columns, 1)}, 1fr)`,
+  },
+  "@media (min-width: 768px)": {
+    gridTemplateColumns: `repeat(${Math.min(columns, 1)}, 1fr)`,
+  },
+  "@media (min-width: 1024px)": {
+    gridTemplateColumns: `repeat(${Math.min(columns, 1)}, 1fr)`,
+  },
+  "@media (min-width: 1300px)": {
+    gridTemplateColumns: `repeat(${Math.min(columns, 2)}, 1fr)`,
+  },
   '&& a': {
     fontFamily: theme.typography.fontFamilyNano,
-    textDecorationLine: 'none',
+    textDecorationLine: 'underline',
     color: `${theme.palette.text.secondary}!important`,
-  }
+  },
 }));

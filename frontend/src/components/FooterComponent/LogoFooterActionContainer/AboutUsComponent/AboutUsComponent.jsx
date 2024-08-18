@@ -8,8 +8,10 @@ function AboutUsComponent() {
     <SectionItemContainerComponent>
       <SectionItemTitleComponent>About us</SectionItemTitleComponent>
       <SectionItemListComponent linkList={[
-        {label: 'Some info about us 1', to: '/aboutUs1'},
-        {label: 'Some info about us 2', to: '/aboutUs2'},
+        {label: 'Our Team', to: '/our-team'},
+        {label: 'Our Goal', to: '/our-goal'},
+        {label: 'Our Roadmap', to: '/our-roadmap'},
+
       ]}/>
     </SectionItemContainerComponent>
   );

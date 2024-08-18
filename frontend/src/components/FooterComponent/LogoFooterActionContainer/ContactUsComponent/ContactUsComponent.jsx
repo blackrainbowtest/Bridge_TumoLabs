@@ -7,13 +7,17 @@ function ContactUsComponent() {
   return (
     <SectionItemContainerComponent>
       <SectionItemTitleComponent>Contact us</SectionItemTitleComponent>
-      <SectionItemListComponent
+      <SectionItemListComponent columns={2}
         linkList={[
-          { label: "Out contact type 1", to: "/contact1" },
-          { label: "Out contact type 2", to: "/contact2" },
-          { label: "Out contact type 3", to: "/contact3" },
-          { label: "Out contact type 4", to: "/contact4" },
-          { label: "Out contact type 5", to: "/contact5" },
+          { label: "Student Support", to: "/student-support" },
+          { label: "Business Inquiries", to: "/business-inquiries" },
+          { label: "Internship Opportunities", to: "/internship-opportunities" },
+          { label: "Collaboration Requests", to: "/collaboration-requests" },
+          { label: "Technical Support", to: "/technical-support" },
+          { label: "Feedback", to: "/feedback" },
+          { label: "Media Inquiries", to: "/media-inquiries" },
+          { label: "Career", to: "/career" },
+
         ]}
       />
     </SectionItemContainerComponent>

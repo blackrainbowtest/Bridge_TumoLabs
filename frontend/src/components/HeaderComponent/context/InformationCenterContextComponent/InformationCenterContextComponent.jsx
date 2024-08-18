@@ -5,11 +5,10 @@ import AnnouncementIcon from '@mui/icons-material/Announcement';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import EventIcon from '@mui/icons-material/Event';
 import ArticleIcon from '@mui/icons-material/Article';
-
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-function NewsContextComponent({ handleClose }) {
+function InformationCenterContextComponent({ handleClose }) {
   const navigate = useNavigate();
 
   const handleLatestUpdatesClick = (event) => {
@@ -79,7 +78,7 @@ function NewsContextComponent({ handleClose }) {
   );
 }
 
-export default memo(NewsContextComponent);
+export default memo(InformationCenterContextComponent);
 
 const ContentContainer = styled(Box)(({ theme }) => ({
   minWidth: "100%",

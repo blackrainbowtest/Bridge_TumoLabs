@@ -7,12 +7,14 @@ function ProjectsComponent() {
   return (
     <SectionItemContainerComponent>
       <SectionItemTitleComponent>Projects</SectionItemTitleComponent>
-      <SectionItemListComponent linkList={[
-        {label: 'project type 1', to: '/project1'},
-        {label: 'project type 2', to: '/project2'},
-        {label: 'project type 3', to: '/project3'},
-        {label: 'project type 4', to: '/project4'},
-        {label: 'project type 5', to: '/project5'}
+      <SectionItemListComponent columns={2} linkList={[
+        {label: 'All Projects', to: '/all-projects'},
+        {label: 'Featured Projects', to: '/featured-projects'},
+        {label: 'Project Categories', to: '/project-categories'},
+        {label: 'Submit a Project', to: '/submit-project'},
+        {label: 'Project Success Stories', to: '/project-success-stories'},
+        {label: 'Project Guidelines', to: '/project-guidelines'}
+
       ]}/>
     </SectionItemContainerComponent>
   );

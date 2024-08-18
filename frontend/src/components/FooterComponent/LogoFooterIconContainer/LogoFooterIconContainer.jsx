@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import { memo } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 function LogoFooterIconContainer() {
@@ -10,7 +11,7 @@ function LogoFooterIconContainer() {
           © 2024 Information Systems Agency of Armenia
         </InfoContainer>
       </SectionContainer>
-      <LogoContainer>Bridge</LogoContainer>
+      <LogoContainer to={'/'}>Bridge</LogoContainer>
     </MainContainer>
   );
 }
@@ -36,9 +37,10 @@ const SectionContainer = styled("section")(({ _ }) => ({
   flexDirection: "column",
 }));
 
-const LogoContainer = styled(Box)(({ theme }) => ({
+const LogoContainer = styled(Link)(({ theme }) => ({
   fontFamily: theme.typography.fontFamily,
   fontWeight: "800",
   fontSize: "40px",
   color: theme.palette.text.blue,
+  textDecoration:'none'
 }));
