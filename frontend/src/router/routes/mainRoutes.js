@@ -8,7 +8,7 @@ import projectRoutes from 'router/routes/projectRoutes';
 import SignUpChoose from 'pages/Layout/SignUpChoose';
 import aboutUsRoutes from 'router/routes/aboutUsRoutes';
 import contactUsRoutes from 'router/routes/contactUsRoutes';
-import newsRoutes from 'router/routes/newsRoutes';
+import informationCenterRoutes from 'router/routes/informationCenterRoutes';
 
 const mainRoutes = [
   {
@@ -19,7 +19,7 @@ const mainRoutes = [
       ...projectRoutes,
       ...aboutUsRoutes,
       ...contactUsRoutes,
-      ...newsRoutes,
+      ...informationCenterRoutes,
       {
         path: "sign-up",
         element: <SignUpChoose />

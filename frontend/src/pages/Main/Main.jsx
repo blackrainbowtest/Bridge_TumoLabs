@@ -1,9 +1,8 @@
 import { memo } from "react";
-import WorkSlider from "./content/WorkSlider";
-import ContributeToProject from "./content/ContributeToProject";
-import AboutAccountInfo from "./content/AboutAccountInfo";
 import MainContainerColumn from "components/_GlobalComponents/MainContainerColumn";
-import AboutPlatform from './content/AboutPlatform';
+import AboutAccountInfo from "pages/Main/content/AboutAccountInfo";
+import AboutPlatform from 'pages/Main/content/AboutPlatform';
+import WorkSlider from "pages/Main/content/WorkSlider";
 
 function Main() {
   return (
@@ -11,7 +10,6 @@ function Main() {
       <AboutAccountInfo />
       <AboutPlatform />
       <WorkSlider />
-      <ContributeToProject />
     </MainContainerColumn>
   );
 }

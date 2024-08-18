@@ -11,11 +11,11 @@ import { useSelector } from "react-redux";
 import AccountMenuProfileComponent from "components/AccountComponents/AccountProfileComponents/AccountMenuProfileComponent";
 import HeaderTitleComponent from "./HeaderTitleComponent";
 import AppBarItemComponent from "./AppBarItemComponent";
-import EmptyComponent from "components/_GlobalComponents/EmptyComponent";
 import ProjectContextComponent from "./context/ProjectContextComponent";
 import AboutUsContextComponent from "./context/AboutUsContextComponent";
 import ContactUsContextComponent from "./context/ContactUsContextComponent";
-import NewsContextComponent from "./context/NewsContextComponent";
+import InformationCenterContextComponent from "./context/InformationCenterContextComponent";
+
 
 function HeaderComponent() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -89,13 +89,10 @@ function HeaderComponent() {
               <ProjectContextComponent />
             </AppBarItemComponent>
             <AppBarItemComponent label='Information center' showArrow>
-              <EmptyComponent />
+              <InformationCenterContextComponent/>
             </AppBarItemComponent>
             <AppBarItemComponent label='About us' showArrow>
               <AboutUsContextComponent />
-            </AppBarItemComponent>
-            <AppBarItemComponent label='News' showArrow>
-              <NewsContextComponent />
             </AppBarItemComponent>
             <AppBarItemComponent label='Contact us' showArrow>
               <ContactUsContextComponent />

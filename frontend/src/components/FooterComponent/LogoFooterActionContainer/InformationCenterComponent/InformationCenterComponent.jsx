@@ -8,9 +8,11 @@ function InformationCenterComponent() {
     <SectionItemContainerComponent>
       <SectionItemTitleComponent>Information center</SectionItemTitleComponent>
       <SectionItemListComponent linkList={[
-        {label: 'Info link 1', to: '/info1'},
-        {label: 'Info link 2', to: '/info2'},
-        {label: 'Info link 3', to: '/info3'},
+        {label: 'Latest Updates', to: '/latest-updates'},
+        {label: 'Press Releases', to: '/press-releases'},
+        {label: 'Events', to: '/events'},
+        {label: 'Blog', to: '/blog'},
+
       ]}/>
     </SectionItemContainerComponent>
   );

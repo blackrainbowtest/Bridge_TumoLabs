@@ -9,15 +9,15 @@ import { useNavigate } from "react-router-dom";
 function AboutUsContextComponent({ handleClose }) {
   const navigate = useNavigate();
   const handleOurTeamClick = (event) => {
-    navigate("/ourTeam");
+    navigate("/our-team");
     handleClose(event);
   };
   const handleOurGoalClick = (event) => {
-    navigate("/ourGoal");
+    navigate("/our-goal");
     handleClose(event);
   };
   const handleOurRoadmapClick = (event) => {
-    navigate("/ourRoadmap");
+    navigate("/our-roadmap");
     handleClose(event);
   };
 
