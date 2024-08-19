@@ -79,8 +79,8 @@ python manage.py runserver
 
 #### How to Contribute
 
-- **Bug fix:** If you have found a bug or want to suggest an improvement, please create a new [Issue](https://github.com/blackrainbowtest/JSMiniProject3-Aram-Arakelyan/issues) with a detailed description.
-- **Code changes:** If you'd like to make changes to the code, fork the repository, make the necessary modifications, and submit a [Pull Request](https://github.com/blackrainbowtest/JSMiniProject3-Aram-Arakelyan/pulls).
+- **Bug fix:** If you have found a bug or want to suggest an improvement, please create a new [Issue](https://github.com/blackrainbowtest/Bridge_TumoLabs/issues) with a detailed description.
+- **Code changes:** If you'd like to make changes to the code, fork the repository, make the necessary modifications, and submit a [Pull Request](https://github.com/blackrainbowtest/Bridge_TumoLabs/pulls).
 
 #### Code Style
 Please adhere to the project's general coding guidelines and style. If you have any questions or concerns, feel free to ask for assistance.
