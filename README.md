@@ -26,7 +26,21 @@ ll add here later
 
 <details><summary>### 📚 Usage:</summary>
 
-We add usage here later
+## Installing and running the frontend
+
+To run the frontend, follow these steps:
+
+1. Go to the frontend directory:
+
+```bash
+   cd frontend
+```
+```bash
+   npm install
+```
+```bash
+   npm run start
+```
 
 </details>
 
