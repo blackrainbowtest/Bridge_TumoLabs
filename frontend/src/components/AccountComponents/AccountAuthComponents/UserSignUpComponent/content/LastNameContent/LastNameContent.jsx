@@ -11,11 +11,11 @@ function LastNameContent() {
   return (
     <TextInputComponent
       label='Last name'
-      {...register("lastName", {
-        required: "LastName is required",
+      {...register("last_name", {
+        required: "Last name is required",
       })}
-      error={!!errors.lastName}
-      helperText={errors.lastName?.message || ""}
+      error={!!errors.last_name}
+      helperText={errors.last_name?.message || ""}
     />
   );
 }

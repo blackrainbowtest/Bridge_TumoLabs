@@ -1,7 +1,7 @@
 import { memo } from "react";
 
-function EmptyComponent({ handleClose }) {
-  return <div>Empty</div>;
+function EmptyComponent({ handleClose, ...props }) {
+  return <div {...props}>Empty</div>;
 }
 
 export default memo(EmptyComponent);

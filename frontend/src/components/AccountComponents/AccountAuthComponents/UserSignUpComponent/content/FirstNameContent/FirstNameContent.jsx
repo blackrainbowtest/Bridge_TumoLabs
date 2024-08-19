@@ -11,11 +11,11 @@ function FirstNameContent() {
   return (
     <TextInputComponent
       label='First name'
-      {...register("firstName", {
-        required: "FirstName is required",
+      {...register("first_name", {
+        required: "First name is required",
       })}
-      error={!!errors.firstName}
-      helperText={errors.firstName?.message || ""}
+      error={!!errors.first_name}
+      helperText={errors.first_name?.message || ""}
     />
   );
 }

@@ -62,7 +62,9 @@ class UserSerializer(serializers.ModelSerializer):
         group = validated_data.pop('group', None)
         user = get_user_model()(
             username=validated_data['username'],
-            email=validated_data['email']
+            email=validated_data['email'],
+            first_name=validated_data.get('first_name', ''),
+            last_name=validated_data.get('last_name', '')
         )
         user.set_password(validated_data['password'])
         user.save()
@@ -72,8 +74,6 @@ class UserSerializer(serializers.ModelSerializer):
         else:
             default_group = Group.objects.get(id=1)
             user.groups.add(default_group)
-
-        print(group)
 
         if group.name == 'innovators':
             InnovatorProfile.objects.create(user=user)
