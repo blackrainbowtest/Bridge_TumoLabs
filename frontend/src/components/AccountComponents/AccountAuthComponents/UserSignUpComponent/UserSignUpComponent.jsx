@@ -30,8 +30,8 @@ function UserSignUpComponent() {
   const methods = useForm({
     defaultValues: {
       username: "",
-      firstName: "",
-      lastName: "",
+      first_name: "",
+      last_name: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -40,12 +40,12 @@ function UserSignUpComponent() {
   });
   const dispatch = useDispatch();
   const { type } = useParams() ?? "innovators";
-  console.log(type)
   const groupId = groupMapping[type];
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
     const accountData = { ...data, group: groupId };
+    console.log(accountData)
     dispatch(registerAccount(accountData)).then((result) => {
       if (registerAccount.fulfilled.match(result)) {
         navigate("/sign-in");

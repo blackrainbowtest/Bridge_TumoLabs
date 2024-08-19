@@ -1,18 +1,19 @@
 import { memo } from "react";
 import ProfileDataComponent from "./ProfileDataComponent";
-import ProfileMenuComponent from "./ProfileMenuComponent";
+import ProfileCardComponent from "./ProfileCardComponent";
 import styled from "styled-components";
 import { Box } from "@mui/material";
 import BreadcrumbNavigationComponent from "components/_GlobalComponents/BreadcrumbNavigationComponent";
+import MainGridContainer from 'components/_GlobalComponents/MainGridContainer';
 
 function AccountProfileComponent() {
   return (
     <MainContainer>
       <BreadcrumbNavigationComponent />
-      <ContentContainer>
-        <ProfileMenuComponent />
+      <MainGridContainer columns={2}>
+        <ProfileCardComponent />
         <ProfileDataComponent />
-      </ContentContainer>
+      </MainGridContainer>
     </MainContainer>
   );
 }
@@ -23,12 +24,12 @@ const MainContainer = styled(Box)(({ theme }) => ({
   minWidth: "100%",
   display: "flex",
   flexDirection: "column",
-  gap: "10px",
+  gap: theme.spacing(2),
 }));
 
 const ContentContainer = styled(Box)(({ theme }) => ({
   minWidth: "100%",
   display: "flex",
   flexDirection: "row",
-  gap: "10px",
+  gap: theme.spacing(2),
 }));

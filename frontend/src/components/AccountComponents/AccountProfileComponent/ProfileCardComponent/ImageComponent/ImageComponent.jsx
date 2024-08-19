@@ -7,7 +7,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import styled from "styled-components";
 import { editAccountImage } from "features/account/accountProfileEditAPI";
 
-function ProfileImageComponent() {
+function ImageComponent() {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state?.global?.loading);
   const account = useSelector((state) => state?.account?.account);
@@ -31,18 +31,23 @@ function ProfileImageComponent() {
         <ImageContainer
           sx={{
             backgroundImage: `url(${
-              account.profile_image.image.includes("http")
+              account?.profile_image.image?.includes("http")
                 ? ""
                 : process.env.REACT_APP_BASE_URL
-            }${account.profile_image.image})`,
+            }${account?.profile_image.image})`,
           }}
         />
       ) : (
-        <NoImageContainer />
+        <ImageContainer
+          sx={{
+            backgroundImage: `url(${noImage})`,
+          }}
+        />
       )}
       <ImageEditCntainer>
         <Tooltip title='Edit'>
-          <IconButton
+          <EditButtonCntainer
+            groupid={account?.group?.id}
             component='label'
             aria-label='edit'
             role={undefined}
@@ -55,14 +60,14 @@ function ProfileImageComponent() {
               accept='image/*'
               onChange={handleImageChange}
             />
-          </IconButton>
+          </EditButtonCntainer>
         </Tooltip>
       </ImageEditCntainer>
     </MainContainer>
   );
 }
 
-export default memo(ProfileImageComponent);
+export default memo(ImageComponent);
 
 const MainContainer = styled(Box)(({ theme }) => ({
   maxWidth: "300px",
@@ -72,21 +77,24 @@ const MainContainer = styled(Box)(({ theme }) => ({
   position: "relative",
 }));
 
-const NoImageContainer = styled(Box)(({ theme }) => ({
-  width: "300px",
-  height: "300px",
-  borderRadius: "50%",
-  backgroundImage: `url(${noImage})`,
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-}));
-
 const ImageContainer = styled(Box)(({ theme }) => ({
-  width: "300px",
-  height: "300px",
+  width: "100px",
+  height: "100px",
   borderRadius: "50%",
   backgroundSize: "cover",
   backgroundPosition: "center",
+  "@media (min-width: 360px)": {
+    width: "150px",
+    height: "150px",
+  },
+  "@media (min-width: 415px)": {
+    width: "250px",
+    height: "250px",
+  },
+  "@media (min-width: 640px)": {
+    width: "300px",
+    height: "300px",
+  },
 }));
 
 const ImageEditCntainer = styled(Box)(({ theme }) => ({
@@ -95,6 +103,27 @@ const ImageEditCntainer = styled(Box)(({ theme }) => ({
   left: "80%",
   border: `1px solid ${theme.palette.border.secondary}`,
   borderRadius: "50%",
+}));
+
+const EditButtonCntainer = styled(IconButton)(({ theme, groupid }) => ({
+  backgroundColor: `${theme.palette.background.primary}!important`,
+  color: `${
+    groupid === 1
+      ? theme.palette.text.yellow
+      : groupid === 2
+      ? theme.palette.text.blue
+      : theme.palette.text.orange
+  }!important`,
+  border: `1px solid ${
+    groupid === 1
+      ? theme.palette.border.yellow
+      : groupid === 2
+      ? theme.palette.border.blue
+      : theme.palette.border.orange
+  }!important`,
+  "&:hover": {
+    backgroundColor: `${theme.palette.background.secondary}!important`,
+  },
 }));
 
 const VisuallyHiddenInput = styled("input")({

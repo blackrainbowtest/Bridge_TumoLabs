@@ -25,7 +25,7 @@ const theme = createTheme({
             RoyalBlue: "#3C5A78",
             SandyBrown: "#F4A460",
 
-            yellow: "#FFD132",
+            yellow: "#FFBD2B",
             orange: "#FF9034",
             blue: "#219BBA",
         },

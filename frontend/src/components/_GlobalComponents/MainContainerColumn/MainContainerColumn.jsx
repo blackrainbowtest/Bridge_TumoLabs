@@ -2,8 +2,8 @@ import { Box } from "@mui/material";
 import { memo } from "react";
 import styled from "styled-components";
 
-function MainContainerColumn({ children }) {
-  return <MainContainer>{children}</MainContainer>;
+function MainContainerColumn({ children, ...props }) {
+  return <MainContainer {...props}>{children}</MainContainer>;
 }
 
 export default memo(MainContainerColumn);

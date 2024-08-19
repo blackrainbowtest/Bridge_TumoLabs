@@ -1,6 +1,6 @@
 import { Box, Skeleton, Typography } from "@mui/material";
-import ColumnContainer from "components/_GlobalComponents/ColumnContainer";
 import DataContainer from "components/_GlobalComponents/DataContainer";
+import MainContainerColumn from 'components/_GlobalComponents/MainContainerColumn';
 import ActionButtonComponent from "components/_shared/ActionButtonComponent";
 import { memo, useState } from "react";
 import { useSelector } from "react-redux";
@@ -17,8 +17,8 @@ function DataActionComponent() {
 
   return (
     <DataContainer>
-      <ColumnContainer></ColumnContainer>
-      <ColumnContainer>
+      <MainContainerColumn></MainContainerColumn>
+      <MainContainerColumn>
         <Typography component='div' variant={"h3"}>
           {loading ? (
             <Skeleton />
@@ -46,7 +46,7 @@ function DataActionComponent() {
             </MainContainer>
           )}
         </Typography>
-      </ColumnContainer>
+      </MainContainerColumn>
     </DataContainer>
   );
 }
