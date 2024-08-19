@@ -30,16 +30,46 @@ ll add here later
 
 To run the frontend, follow these steps:
 
-1. Go to the frontend directory:
+1. Navigate to the frontend directory:
 
 ```bash
-   cd frontend
+cd frontend
 ```
 ```bash
-   npm install
+npm install
 ```
 ```bash
-   npm run start
+npm run start
+```
+2. Navigate to the backend directory:
+
+```bash
+cd backend
+```
+
+Create a virtual environment:
+```bash
+python -m venv venv
+```
+
+Activate the virtual environment:
+   On Windows:
+   ```bash
+.\venv\Scripts\activate
+```
+   On macOS/Linux:
+   ```bash
+source venv/bin/activate
+```
+
+Install the required dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+Run the backend server:
+```bash
+python manage.py runserver
 ```
 
 </details>
