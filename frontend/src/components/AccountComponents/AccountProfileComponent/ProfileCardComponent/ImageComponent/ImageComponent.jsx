@@ -99,10 +99,34 @@ const ImageContainer = styled(Box)(({ theme }) => ({
 
 const ImageEditCntainer = styled(Box)(({ theme }) => ({
   position: "absolute",
-  top: "80%",
-  left: "80%",
+  top: "74%",
+  left: "74%",
   border: `1px solid ${theme.palette.border.secondary}`,
   borderRadius: "50%",
+  "& .MuiSvgIcon-root": {
+    fontSize: "8px",
+  },
+  "@media (min-width: 360px)": {
+    top: "76%",
+    left: "76%",
+    "& .MuiSvgIcon-root": {
+      fontSize: "14px",
+    },
+  },
+  "@media (min-width: 415px)": {
+    top: "78%",
+    left: "78%",
+    "& .MuiSvgIcon-root": {
+      fontSize: "18px",
+    },
+  },
+  "@media (min-width: 640px)": {
+    top: "80%",
+    left: "80%",
+    "& .MuiSvgIcon-root": {
+      fontSize: "24px",
+    },
+  },
 }));
 
 const EditButtonCntainer = styled(IconButton)(({ theme, groupid }) => ({

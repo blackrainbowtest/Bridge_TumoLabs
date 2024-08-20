@@ -11,11 +11,10 @@ import { useSelector } from "react-redux";
 import AccountMenuProfileComponent from "components/AccountComponents/AccountProfileComponents/AccountMenuProfileComponent";
 import HeaderTitleComponent from "./HeaderTitleComponent";
 import AppBarItemComponent from "./AppBarItemComponent";
-import ProjectContextComponent from "./context/ProjectContextComponent";
-import AboutUsContextComponent from "./context/AboutUsContextComponent";
-import ContactUsContextComponent from "./context/ContactUsContextComponent";
-import InformationCenterContextComponent from "./context/InformationCenterContextComponent";
-
+import ProjectContextComponent from "./context/ProjectContext/ProjectContextComponent";
+import AboutUsContextComponent from "./context/AboutUsContext";
+import ContactUsContextComponent from "./context/ContactUsContext";
+import InformationCenterContextComponent from "./context/InformationCenterContext";
 
 function HeaderComponent() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -65,7 +64,7 @@ function HeaderComponent() {
     <>
       <HeaderTitleComponent />
       <AppBarContainer component='nav' scrolling={scrolling.toString()}>
-        <Toolbar>
+        <Toolbar sx={{ width: "100%" }}>
           <IconButton
             color='inherit'
             aria-label='open drawer'
@@ -89,7 +88,7 @@ function HeaderComponent() {
               <ProjectContextComponent />
             </AppBarItemComponent>
             <AppBarItemComponent label='Information center' showArrow>
-              <InformationCenterContextComponent/>
+              <InformationCenterContextComponent />
             </AppBarItemComponent>
             <AppBarItemComponent label='About us' showArrow>
               <AboutUsContextComponent />
@@ -110,7 +109,15 @@ function HeaderComponent() {
               changePage={changePage}
             />
           ) : null}
-          {isAuthenticated ? <AccountMenuProfileComponent /> : null}
+          {isAuthenticated ? (
+            <AccountMenuProfileComponent
+              sx={{
+                display: { xs: "flex", sm: "flex" },
+                width: { xs: "100%", sm: "auto" },
+                justifyContent: { xs: "flex-end", sm: "center" },
+              }}
+            />
+          ) : null}
         </Toolbar>
       </AppBarContainer>
       <MobileNavItemComponent

@@ -5,13 +5,11 @@ import styled from "styled-components";
 import AccountMenuItemComponent from "../AccountMenuItemComponent";
 import AppBarItemComponent from "components/HeaderComponent/AppBarItemComponent";
 
-function AccountMenuProfileComponent() {
+function AccountMenuProfileComponent({ ...props }) {
   const account = useSelector((state) => state?.account?.account);
 
-  console.log(account);
-
   return (
-    <MainContainer>
+    <MainContainer {...props}>
       <AppBarItemComponent
         label={
           <LabelContainer>

@@ -15,15 +15,18 @@ class ObjectiveSerializer(serializers.ModelSerializer):
 
 
 class SupportNeededSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = SupportNeeded
         fields = ['id', 'name', 'description']
 
 
 class SkillRequiredSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(source='skill.name', read_only=True)
+
     class Meta:
         model = SkillRequired
-        fields = ['id', 'name', 'description']
+        fields = ['id', 'skill', 'name', 'description']
 
 
 class AdditionalNoteSerializer(serializers.ModelSerializer):

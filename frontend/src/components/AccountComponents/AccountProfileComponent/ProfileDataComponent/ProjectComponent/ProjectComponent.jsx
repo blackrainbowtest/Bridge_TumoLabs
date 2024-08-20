@@ -94,7 +94,7 @@ const GridContainer = styled(MainGridContainer)(({ theme, columns }) => ({
   "@media (min-width: 1130px)": {
     gridTemplateColumns: `repeat(${Math.min(columns, 2)}, 1fr)`,
   },
-  "@media (min-width: 1460px)": {
+  "@media (min-width: 1490px)": {
     gridTemplateColumns: `repeat(${Math.min(columns, 3)}, 1fr)`,
   },
   "@media (min-width: 1750px)": {

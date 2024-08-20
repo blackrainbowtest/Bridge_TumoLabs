@@ -15,6 +15,8 @@ class Project(models.Model):
     business_description = models.TextField()
     main_image = models.ForeignKey('ProjectImage', related_name='main_image_of', on_delete=models.SET_NULL, null=True,
                                    blank=True)
+    applicants = models.ManyToManyField(User, related_name='project_applications', blank=True)
+    accepted_users = models.ManyToManyField(User, related_name='accepted_projects', blank=True)
 
     def __str__(self):
         return f'Project ID: {self.id} - Title: {self.title}'
@@ -58,11 +60,11 @@ class SupportNeeded(models.Model):
 
 class SkillRequired(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='skills_required')
-    name = models.CharField(max_length=255)
+    skill = models.ForeignKey('core.Skill', on_delete=models.CASCADE)
     description = models.TextField()
 
     def __str__(self):
-        return f'Project ID: {self.id} - Title: {self.name}'
+        return f'Project ID: {self.id} - Skill: {self.skill.name}'
 
 
 class AdditionalNote(models.Model):
