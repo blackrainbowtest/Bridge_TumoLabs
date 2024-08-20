@@ -18,12 +18,18 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('rest_api.urls')),
     path('accounts/', include('accounts.urls')),
-    path('projects/', include('projects.urls'))
+    path('projects/', include('projects.urls')),
+
+    # API Documentation
+    path('api/docDownload/', SpectacularAPIView.as_view(), name='schema'),  # Schema OpenAPI
+    path('api/doc/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),  # Swagger UI
+    path('api/doc2/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),  # ReDoc
 ]
 
 if settings.DEBUG:

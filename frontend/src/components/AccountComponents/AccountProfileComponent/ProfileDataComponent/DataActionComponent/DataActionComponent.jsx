@@ -1,19 +1,20 @@
 import { Box, Skeleton, Typography } from "@mui/material";
 import DataContainer from "components/_GlobalComponents/DataContainer";
-import MainContainerColumn from 'components/_GlobalComponents/MainContainerColumn';
+import MainContainerColumn from "components/_GlobalComponents/MainContainerColumn";
 import ActionButtonComponent from "components/_shared/ActionButtonComponent";
-import { memo, useState } from "react";
+import { memo, useCallback } from "react";
 import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 
-function DataActionComponent() {
-  const [isEdit, setIsEdit] = useState(false);
+function DataActionComponent({ isEdit, setIsEdit, callback = () => {} }) {
   const loading = useSelector((state) => state?.global?.loading);
 
-  const handlebuttonClick = (event) => {
-    setIsEdit(prev => !prev)
-    console.log(event)
-  }
+  const handlebuttonClick = useCallback(() => {
+    if (isEdit) {
+      callback();
+    }
+    setIsEdit((prev) => !prev);
+  }, [setIsEdit, isEdit, callback]);
 
   return (
     <DataContainer>

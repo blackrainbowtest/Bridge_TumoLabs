@@ -11,7 +11,7 @@ function ProjectsComponent() {
         {label: 'All Projects', to: '/all-projects'},
         {label: 'Featured Projects', to: '/featured-projects'},
         {label: 'Project Categories', to: '/project-categories'},
-        {label: 'Submit a Project', to: '/submit-project'},
+        {label: 'Add New Project', to: '/add-new-project'},
         {label: 'Project Success Stories', to: '/project-success-stories'},
         {label: 'Project Guidelines', to: '/project-guidelines'}
 

@@ -26,7 +26,7 @@ function ProjectsContextComponent({ handleClose }) {
     handleClose(event);
   };
   const handleSubmitProjectClick = (event) => {
-    navigate("/submit-project");
+    navigate("/add-new-project");
     handleClose(event);
   };
   const handleProjectSuccessStoriesClick = (event) => {
@@ -68,7 +68,7 @@ function ProjectsContextComponent({ handleClose }) {
         <ContentContainer color='inherit'>
           <AddIcon color='inherit' />
           <Typography variant='subtitle1' gutterBottom color='inherit'>
-            Submit a Project
+            Add New Project
           </Typography>
         </ContentContainer>
       </MenuItem>

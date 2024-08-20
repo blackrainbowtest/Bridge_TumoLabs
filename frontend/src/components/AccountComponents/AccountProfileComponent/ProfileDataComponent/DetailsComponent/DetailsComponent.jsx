@@ -1,14 +1,12 @@
-import { Skeleton, Typography } from "@mui/material";
+import { Skeleton, TextField, Typography } from "@mui/material";
 import MainContainerColumn from "components/_GlobalComponents/MainContainerColumn";
 import { memo } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-function DetailsComponent() {
+function DetailsComponent({ isEdit }) {
   const loading = useSelector((state) => state?.global?.loading);
   const account = useSelector((state) => state?.account?.account);
-
-  console.log(account?.username, account?.last_name, account?.first_name)
 
   return (
     <MainContainerColumn>
@@ -19,19 +17,26 @@ function DetailsComponent() {
           variant='rounded'
         />
       ) : (
-        <StyledTypography variant='h4'>Full Name</StyledTypography>
+        <StyledTypography variant='h4'>
+          {account?.first_name.trim() && account?.last_name.trim()
+            ? `${account?.first_name} ${account?.last_name}`
+            : "Your full name"}
+        </StyledTypography>
       )}
       {loading ? (
         <Skeleton
-          sx={{ width: "100%", height: 300 }}
+          sx={{ width: "100%", height: 263 }}
           animation='wave'
           variant='rounded'
         />
       ) : (
-        <Skeleton
-          sx={{ width: "100%", height: 300 }}
-          animation='wave'
-          variant='rounded'
+        <TextField
+          id='outlined-multiline-static'
+          label='About Me'
+          multiline
+          disabled={!isEdit}
+          rows={10}
+          defaultValue={account?.profile?.bio}
         />
       )}
     </MainContainerColumn>

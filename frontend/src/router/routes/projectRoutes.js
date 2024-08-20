@@ -1,12 +1,17 @@
-import Projects from 'pages/Layout/Projects';
+import AddNewProject from 'pages/Layout/Projects/AddNewProject';
+import AllProjects from 'pages/Layout/Projects/AllProjects';
+import FeaturedProjects from 'pages/Layout/Projects/FeaturedProjects';
+import ProjectCategories from 'pages/Layout/Projects/ProjectCategories';
+import ProjectGuidelines from 'pages/Layout/Projects/ProjectGuidelines';
+import ProjectSuccessStories from 'pages/Layout/Projects/ProjectSuccessStories';
 
 const projectRoutes = [
-  { path: "all-projects", element: <Projects /> },
-  { path: "featured-projects", element: <h1>Featured Projects</h1> },
-  { path: "project-categories", element: <h1>Project Categories</h1> },
-  { path: "submit-project", element: <h1>Submit a Project</h1> },
-  { path: "project-success-stories", element: <h1>Project Success Stories</h1> },
-  { path: "project-guidelines", element: <h1>Project Guidelines</h1> },
+  { path: "all-projects", element: <AllProjects /> },
+  { path: "featured-projects", element: <FeaturedProjects /> },
+  { path: "project-categories", element: <ProjectCategories /> },
+  { path: "add-new-project", element: <AddNewProject /> },
+  { path: "project-success-stories", element: <ProjectSuccessStories /> },
+  { path: "project-guidelines", element: <ProjectGuidelines /> },
 ];
 
 export default projectRoutes;
