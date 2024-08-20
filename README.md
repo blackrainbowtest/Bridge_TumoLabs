@@ -41,6 +41,9 @@ npm install
 ```bash
 npm run start
 ```
+
+## Installing and running the backend
+
 2. Navigate to the backend directory:
 
 ```bash
@@ -65,6 +68,16 @@ source venv/bin/activate
 Install the required dependencies:
 ```bash
 pip install -r requirements.txt
+```
+
+Create Migrations:
+```bash
+python manage.py makemigrations
+```
+
+Apply the migrations to the database:
+```bash
+python manage.py migrate
 ```
 
 Run the backend server:
