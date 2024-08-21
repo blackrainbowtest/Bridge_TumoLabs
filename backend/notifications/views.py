@@ -3,6 +3,9 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import ProjectCreatedNotification, UserProjectSkillNotification
 from .serializers import ProjectCreatedNotificationSerializer, UserProjectSkillNotificationSerializer
+from rest_framework.exceptions import PermissionDenied
+from rest_framework import status
+from rest_framework.decorators import action
 
 
 class ProjectCreatedNotificationViewSet(viewsets.ReadOnlyModelViewSet):
@@ -22,8 +25,17 @@ class UserProjectSkillNotificationViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         return self.queryset.filter(user=self.request.user)
 
+    @action(detail=True, methods=['post'])
     def mark_as_read(self, request, pk=None):
-        notification = self.get_object()
+        try:
+            notification = self.get_object()
+        except UserProjectSkillNotification.DoesNotExist:
+            return Response({'detail': 'Notification not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+        # Проверяем, что текущий пользователь является владельцем уведомления
+        if notification.user != request.user:
+            raise PermissionDenied("You do not have permission to mark this notification as read.")
+
         notification.is_read = True
         notification.save()
         return Response({'status': 'notification marked as read'})

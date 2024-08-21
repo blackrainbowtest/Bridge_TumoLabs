@@ -27,9 +27,9 @@ const MainContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2),
 }));
 
-const ContentContainer = styled(Box)(({ theme }) => ({
-  minWidth: "100%",
-  display: "flex",
-  flexDirection: "row",
-  gap: theme.spacing(2),
-}));
+// const ContentContainer = styled(Box)(({ theme }) => ({
+//   minWidth: "100%",
+//   display: "flex",
+//   flexDirection: "row",
+//   gap: theme.spacing(2),
+// }));

@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import MainContainerRow from "components/_GlobalComponents/MainContainerRow";
 import { memo } from "react";
 import styled, { css } from "styled-components";
@@ -91,16 +91,4 @@ const TextContainer = styled(Box)(({ theme }) => ({
   fontFamily: "Inter,sans-serif",
   fontSize: "35px",
   color: "#8E8E8E",
-}));
-const StartedButton = styled(Button)(({ theme }) => ({
-  width: "334px",
-  height: "65px",
-  // backgroundColor:'#076D41',
-  border: "0.5px solid #D9D9D9",
-  fontSize: "17px",
-  color: "#FFFFFF",
-  borderRadius: "20px",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
 }));

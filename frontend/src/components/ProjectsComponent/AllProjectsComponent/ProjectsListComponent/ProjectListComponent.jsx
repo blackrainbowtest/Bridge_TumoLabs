@@ -4,7 +4,7 @@ import MainGridContainer from "components/_GlobalComponents/MainGridContainer";
 import { getProjects } from "features/project/projectGetAPI";
 import { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ProjectItemComponent from './ProjectItemComponent';
+import ProjectItemComponent from 'components/ProjectsComponent/AllProjectsComponent/ProjectsListComponent/ProjectItemComponent';
 
 function ProjectListComponent() {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ function ProjectListComponent() {
 
   return (
     <MainContainerRow>
-      <MainGridContainer columns={2}>
+      <MainGridContainer columns={4}>
         {loading ? (
           <Box sx={{ minWidth: "100%", minHeight: "370px", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <Skeleton variant='rectangular' width={510} height={370} />

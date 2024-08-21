@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'drf_spectacular',
+
 ]
 
 MIDDLEWARE = [
@@ -78,6 +79,18 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+ASGI_APPLICATION = 'bridge.asgi.application'
+
+# # Chanel layers
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": [('127.0.0.1', 6379)],
+#         },
+#     },
+# }
 
 ROOT_URLCONF = 'bridge.urls'
 
@@ -98,17 +111,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'bridge.wsgi.application'
-ASGI_APPLICATION = 'bridge.asgi.application'
 
-# Chanel layers
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
-        },
-    },
-}
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
