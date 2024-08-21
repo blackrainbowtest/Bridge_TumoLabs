@@ -8,7 +8,6 @@ export const registerAccount = createAsyncThunk(
     async (userData, { dispatch, rejectWithValue }) => {
         try {
             dispatch(setLoading(true));
-            alert()
             const response = await accountsAxios.post(`registration/`, userData);
             dispatch(addNotification("Registration success."));
             return response.data;
