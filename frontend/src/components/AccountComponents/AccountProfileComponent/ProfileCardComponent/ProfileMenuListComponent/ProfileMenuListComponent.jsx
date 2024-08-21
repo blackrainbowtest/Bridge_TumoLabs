@@ -3,7 +3,7 @@ import MainContainerColumn from "components/_GlobalComponents/MainContainerColum
 import TagInputComponent from 'components/_shared/TagInputComponent';
 import TextInputComponent from "components/_shared/TextInputComponent";
 import { memo } from "react";
-import { useForm } from 'react-hook-form';
+// import { useForm } from 'react-hook-form';
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -12,12 +12,12 @@ function ProfileMenuListComponent() {
   const account = useSelector((state) => state?.account?.account);
 
   // FIXME: 
-  const methods = useForm({
-    defaultValues: {
+  // const methods = useForm({
+  //   defaultValues: {
 
-    },
-    mode: "onChange", // or 'onBlur' ll update on submit click
-  })
+  //   },
+  //   mode: "onChange", // or 'onBlur' ll update on submit click
+  // })
 
   account && console.log(account);
 
