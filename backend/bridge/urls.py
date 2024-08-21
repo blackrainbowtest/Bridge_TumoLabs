@@ -30,6 +30,9 @@ urlpatterns = [
     path('api/docDownload/', SpectacularAPIView.as_view(), name='schema'),  # Schema OpenAPI
     path('api/doc/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),  # Swagger UI
     path('api/doc2/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),  # ReDoc
+
+    # Notifications API
+    path('api/', include('notifications.urls')),
 ]
 
 if settings.DEBUG:

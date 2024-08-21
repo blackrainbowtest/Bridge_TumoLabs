@@ -2,9 +2,18 @@ from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.models import Group
 from rest_framework import serializers
 from .models import InnovatorProfile, PartnerProfile, AdvisorProfile, ProfileImage
+from core.models import Skill
+
+
+class SkillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Skill
+        fields = ['id', 'name']
 
 
 class InnovatorProfileSerializer(serializers.ModelSerializer):
+    skills = SkillSerializer(many=True, read_only=True)
+
     class Meta:
         model = InnovatorProfile
         fields = '__all__'
@@ -12,7 +21,15 @@ class InnovatorProfileSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = self.context['request'].user
-        profile, created = InnovatorProfile.objects.get_or_create(user=user, defaults=validated_data)
+
+        validated_data.pop('user', None)
+
+        profile, created = InnovatorProfile.objects.update_or_create(
+            user=user, defaults=validated_data
+        )
+
+        skills = validated_data.pop('skills', [])
+        profile.skills.set(skills)
         return profile
 
 

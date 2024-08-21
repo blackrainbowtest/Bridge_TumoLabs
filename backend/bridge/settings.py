@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_api',
     'accounts',
     'projects',
+    'notifications',
     # thirdparty apps
     'corsheaders',
     'rest_framework',
