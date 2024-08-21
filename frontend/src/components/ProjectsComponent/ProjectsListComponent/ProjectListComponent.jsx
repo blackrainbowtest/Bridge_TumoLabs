@@ -17,7 +17,7 @@ function ProjectListComponent() {
 
   return (
     <MainContainerRow>
-      <MainGridContainer columns={2}>
+      <MainGridContainer columns={4}>
         {loading ? (
           <Box sx={{ minWidth: "100%", minHeight: "370px", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <Skeleton variant='rectangular' width={510} height={370} />

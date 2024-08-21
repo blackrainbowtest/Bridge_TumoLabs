@@ -3,7 +3,11 @@ import ActionButtonComponent from "components/_shared/ActionButtonComponent";
 import { memo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
+import noIMG from 'static/images/noImages/noimage.jpg'
+import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import ScheduleOutlinedIcon from '@mui/icons-material/ScheduleOutlined';
+import { differenceInDays } from 'date-fns';
 function ProjectItemComponent({ project }) {
   console.log(project);
 
@@ -13,48 +17,36 @@ function ProjectItemComponent({ project }) {
     console.log(555);
     navigate(`/projects/${project.id}`);
   };
-
+    const startDate = new Date(project.start_date);
+    const endDate = new Date(project.end_date);
+    const currentDate = new Date();
+    const daysLeft = differenceInDays(endDate, currentDate); 
   return (
     <MainContainer>
       <ItemContainer>
         <Typography variant='h4' gutterBottom>
           <LinkContainer to={`${project.id}`}>{project.title}</LinkContainer>
         </Typography>
+        {project.images.length?
+        project.images?.map(elem=>{
+         return elem?.is_main && <img src={elem.image} style={{width:'290px',height:'290px'}}/>
+        }):
+        <img src={noIMG} style={{width:'290px',height:'290px'}}/>
+        }
+        <ProjectImgContainer />
         <InfoContainer>
+         <InfoContent>
+          <SettingsOutlinedIcon  style={{width:'24px',height:'24px',fontSize:'16px'}} color="warning"/>
+          {project.business_name}
+         </InfoContent>
           <InfoContent>
+          <FmdGoodOutlinedIcon style={{width:'24px',height:'24px',fontSize:'16px'}} color="warning"/>
             <Typography variant='p' gutterBottom>
-              {project.budget} ֏
-            </Typography>
-            <Typography variant='p' gutterBottom>
-              Fixed-price
-            </Typography>
-          </InfoContent>
-          {/* DateInfo */}
-          <InfoContent>
-            <Typography variant='p' gutterBottom>
-              {project.start_date}
-            </Typography>
-            <Typography variant='p' gutterBottom>
-              Start date
-            </Typography>
-          </InfoContent>
-          <InfoContent>
-            <Typography variant='p' gutterBottom>
-              {project.end_date}
-            </Typography>
-            <Typography variant='p' gutterBottom>
-              End date
-            </Typography>
-          </InfoContent>
-          <InfoContent>
-            <Typography variant='p' gutterBottom>
-              {project.location}
+           
+           {project.location}
             </Typography>
           </InfoContent>
         </InfoContainer>
-        <Typography variant='p' gutterBottom>
-          {project.description}
-        </Typography>
         <Box sx={{display: "flex"}}>
           {
             project.skills_required.map((skill) => {
@@ -66,11 +58,21 @@ function ProjectItemComponent({ project }) {
             })
           }
         </Box>
+        <Typography variant='p' gutterBottom>
+          {project.description}
+        </Typography>
         <ActionContainer>
+          <ScheduleOutlinedIcon style={{width:'24px',height:'24px',fontSize:'16px'}} color="warning"/>
+          <InfoContent>
+            <Typography variant='p' gutterBottom>
+            {daysLeft > 0 ? `${daysLeft} days left` : 'Project has ended'}
+            </Typography>
+          </InfoContent>
+         
           <ActionButtonComponent
             label='See more'
-            color='success'
-            variant='contained'
+            // color='success'
+            variant='outlined'
             callback={handleButtonClick}
           />
         </ActionContainer>
@@ -92,13 +94,15 @@ const MainContainer = styled(Box)(({ theme }) => ({
 }));
 
 const ItemContainer = styled(Box)(({ theme }) => ({
-  maxWidth: "600px",
-  minHeight: "370px",
+  maxWidth: "390px",
+  minHeight: "606px",
   display: "flex",
   flexDirection: "column",
+  alignItems:'center',
   flexGrow: 1,
+  boxShadow:'1.5px 1.5px 3px 3px #219BBA',
   gap: "10px",
-  borderRadius: "5px",
+  borderRadius: "15px",
   padding: theme.paddingX,
   border: `1px solid ${theme.palette.border.secondary}`,
   "&:hover": {
@@ -107,11 +111,15 @@ const ItemContainer = styled(Box)(({ theme }) => ({
 }));
 
 const LinkContainer = styled(Link)(({ theme }) => ({
+  display:'flex',
+  justifyContent:'center',
+  flexWrap:'wrap',
+  alignItems:'center',
   textDecoration: "none",
   fontSize: "26px",
   color: theme.palette.text.secondary,
   width: "auto",
-  whiteSpace: "nowrap",
+  // whiteSpace: "nowrap",
   overflow: "hidden",
   textOverflow: "ellipsis",
   "&:hover": {
@@ -122,14 +130,16 @@ const LinkContainer = styled(Link)(({ theme }) => ({
 const InfoContainer = styled(Box)(({ _ }) => ({
   minWidth: "100%",
   display: "flex",
+  flexDirection:'column',
+  alignItems:'flex-start',
   flexGrow: 1,
-  alignItems: "center",
   gap: "30px",
 }));
 
 const InfoContent = styled(Box)(({ theme }) => ({
   display: "flex",
-  flexDirection: "column",
+  alignItems:'center',
+  justifyContent:'flex-start',
   color: theme.palette.text.secondary,
   "& :last-child": {
     fontSize: "80.5%"
@@ -141,4 +151,9 @@ const ActionContainer = styled(Box)(({ _ }) => ({
   display: "flex",
   flexGrow: 1,
   alignItems: "center",
+  gap:'10px',
 }));
+const ProjectImgContainer=styled(Box)(({theme})=>({
+backgroundImage:'',
+
+}))
