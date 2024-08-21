@@ -9,7 +9,7 @@ import styled, { css } from "styled-components";
 
 // Local modules
 import { registerAccount } from "features/account/accountRegisterAPI";
-import ActionButtonComponent from "components/_shared/ActionButtonComponent";
+import ActionButtonComponent from "components/_shared/Buttons/ActionButtonComponent";
 import ConfirmContent from "./content/ConfirmContent";
 import EmailContent from "./content/EmailContent";
 import FirstNameContent from "./content/FirstNameContent";

@@ -161,28 +161,28 @@ class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
 
 
 # Get account profile
-class ProfileViewSet(viewsets.ViewSet):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
-
-    @action(detail=False, methods=['put', 'patch'], url_path='update')
-    def update_profile(self, request):
-        user = request.user
-        group = user.groups.first().name  # Предполагается, что у пользователя одна группа
-
-        if group == 'innovators':
-            serializer = InnovatorProfileSerializer(user.innovator_profile, data=request.data, partial=True)
-        elif group == 'partners':
-            serializer = PartnerProfileSerializer(user.partner_profile, data=request.data, partial=True)
-        elif group == 'advisors':
-            serializer = AdvisorProfileSerializer(user.advisor_profile, data=request.data, partial=True)
-        else:
-            return Response({'error': 'Unknown group'}, status=status.HTTP_400_BAD_REQUEST)
-
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# class ProfileViewSet(viewsets.ViewSet):
+#     authentication_classes = [TokenAuthentication]
+#     permission_classes = [IsAuthenticated]
+#
+#     @action(detail=False, methods=['put', 'patch'], url_path='update')
+#     def update_profile(self, request):
+#         user = request.user
+#         group = user.groups.first().name  # Предполагается, что у пользователя одна группа
+#
+#         if group == 'innovators':
+#             serializer = InnovatorProfileSerializer(user.innovator_profile, data=request.data, partial=True)
+#         elif group == 'partners':
+#             serializer = PartnerProfileSerializer(user.partner_profile, data=request.data, partial=True)
+#         elif group == 'advisors':
+#             serializer = AdvisorProfileSerializer(user.advisor_profile, data=request.data, partial=True)
+#         else:
+#             return Response({'error': 'Unknown group'}, status=status.HTTP_400_BAD_REQUEST)
+#
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_200_OK)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 

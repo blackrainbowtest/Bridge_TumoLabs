@@ -20,6 +20,7 @@ from django.contrib.auth.models import User
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 from notifications.serializers import UserProjectSkillNotificationSerializer
+from django.db import IntegrityError
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -37,40 +38,49 @@ class ProjectViewSet(viewsets.ModelViewSet):
         project = serializer.save(user=self.request.user)
 
         # Создание уведомлений
-        skills_required = project.skills_required.all()  # Это QuerySet объектов SkillRequired
+        skills_required = project.skills_required.all()
 
         for skill_required in skills_required:
-            skill = skill_required.skill  # Получаем экземпляр Skill из SkillRequired
+            skill = skill_required.skill
 
-            if isinstance(skill, Skill):  # Проверяем, что это экземпляр Skill
+            if isinstance(skill, Skill):
                 users_with_skill = User.objects.filter(
                     innovator_profile__skills=skill
-                )  # Замените 'innovator_profile' на правильное имя связи, если необходимо
+                )
 
                 for user in users_with_skill:
                     # Проверяем наличие существующей записи для пользователя и проекта
-                    notification, created = UserProjectSkillNotification.objects.get_or_create(
+                    notification_exists = UserProjectSkillNotification.objects.filter(
                         user=user,
                         project=project,
                         skill=skill
-                    )
+                    ).exists()
 
-                    if created:
-                        # Сериализация данных уведомления
-                        serializer = UserProjectSkillNotificationSerializer(notification)
-                        notification_data = serializer.data
+                    if not notification_exists:
+                        try:
+                            # Создаем новое уведомление, если оно не существует
+                            notification = UserProjectSkillNotification.objects.create(
+                                user=user,
+                                project=project,
+                                skill=skill
+                            )
 
-                        # Отправка данных через WebSocket
-                        channel_layer = get_channel_layer()
-                        async_to_sync(channel_layer.group_send)(
-                            f'user_{user.id}',
-                            {
-                                'type': 'send_notification',
-                                'notification': notification_data
-                            }
-                        )
-            else:
-                print(f"Error: {skill} is not a Skill instance.")
+                            # Сериализация данных уведомления
+                            serializer = UserProjectSkillNotificationSerializer(notification)
+                            notification_data = serializer.data
+
+                            # Отправка данных через WebSocket
+                            channel_layer = get_channel_layer()
+                            async_to_sync(channel_layer.group_send)(
+                                f'user_{user.id}',
+                                {
+                                    'type': 'send_notification',
+                                    'notification': notification_data
+                                }
+                            )
+                        except IntegrityError:
+                            # Логирование или обработка ошибки, если запись уже существует
+                            print(f"Notification already exists for user {user.id} and project {project.id}")
 
 
 class GoalViewSet(viewsets.ModelViewSet):

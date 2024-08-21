@@ -1,24 +1,36 @@
-import { addNotification } from "features/global/GlobalSlice";
-import { memo, useEffect } from "react";
+import { getNotifications } from "features/notifications/notificationAPI";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-function WebSocketNotificationComponent() {
+function WebSocketComponent() {
   const dispatch = useDispatch();
-
   useEffect(() => {
-    const ws = new WebSocket("ws://127.0.0.1:8001/ws/notifications/");
+    // const socket = new WebSocket("ws://127.0.0.1:8001/ws/notifications/");
+    dispatch(getNotifications());
 
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      dispatch(addNotification(data.notification));
-    };
+    // socket.onopen = function (event) {
+    //   console.log("WebSocket is connected.");
+    // };
 
+    // socket.onmessage = function (event) {
+    //   console.log("Message from server:", event.data);
+    // };
+
+    // socket.onerror = function (error) {
+    //   console.log("WebSocket Error:", error);
+    // };
+
+    // socket.onclose = function (event) {
+    //   console.log("WebSocket is closed now.");
+    // };
+
+    // Clean up on component unmount
     return () => {
-      ws.close();
+      // socket.close();
     };
   }, [dispatch]);
 
-  return null;
+  return <div>WebSocket Component</div>;
 }
 
-export default memo(WebSocketNotificationComponent);
+export default WebSocketComponent;

@@ -8,3 +8,4 @@ const createAxiosInstance = (basePath) => {
 
 export const projectsAxios = createAxiosInstance('projects/');
 export const accountsAxios = createAxiosInstance('accounts/');
+export const notificationsAxios = createAxiosInstance('api/notifications/');
