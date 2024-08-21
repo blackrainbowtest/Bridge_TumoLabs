@@ -4,7 +4,7 @@ import MainGridContainer from "components/_GlobalComponents/MainGridContainer";
 import { getProjects } from "features/project/projectGetAPI";
 import { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ProjectItemComponent from './ProjectItemComponent';
+import ProjectItemComponent from 'components/ProjectsComponent/AllProjectsComponent/ProjectItemComponent';
 
 function ProjectListComponent() {
   const dispatch = useDispatch();

@@ -9,49 +9,44 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import ScheduleOutlinedIcon from '@mui/icons-material/ScheduleOutlined';
 import { differenceInDays } from 'date-fns';
 function ProjectItemComponent({ project }) {
-  console.log(project);
-
   const navigate = useNavigate();
-
   const handleButtonClick = (event) => {
-    console.log(555);
     navigate(`/projects/${project.id}`);
   };
-    const startDate = new Date(project.start_date);
-    const endDate = new Date(project.end_date);
-    const currentDate = new Date();
-    const daysLeft = differenceInDays(endDate, currentDate); 
+  const startDate = new Date(project.start_date);
+  const endDate = new Date(project.end_date);
+  const projectDuration = differenceInDays(endDate, startDate);
   return (
     <MainContainer>
       <ItemContainer>
         <Typography variant='h4' gutterBottom>
           <LinkContainer to={`${project.id}`}>{project.title}</LinkContainer>
         </Typography>
-        {project.images.length?
-        project.images?.map(elem=>{
-         return elem?.is_main && <img src={elem.image} style={{width:'290px',height:'290px'}}/>
-        }):
-        <img src={noIMG} style={{width:'290px',height:'290px'}}/>
+        {project.images.length ?
+          project.images?.map(elem => {
+            return elem?.is_main && <img src={elem.image} style={{ width: '290px', height: '290px' }} />
+          }) :
+          <img src={noIMG} style={{ width: '290px', height: '290px' }} />
         }
         <ProjectImgContainer />
         <InfoContainer>
-         <InfoContent>
-          <SettingsOutlinedIcon  style={{width:'24px',height:'24px',fontSize:'16px'}} color="warning"/>
-          {project.business_name}
-         </InfoContent>
           <InfoContent>
-          <FmdGoodOutlinedIcon style={{width:'24px',height:'24px',fontSize:'16px'}} color="warning"/>
+            <SettingsOutlinedIcon style={{ width: '24px', height: '24px', fontSize: '16px' }} color="warning" />
+            {project.business_name}
+          </InfoContent>
+          <InfoContent>
+            <FmdGoodOutlinedIcon style={{ width: '24px', height: '24px', fontSize: '16px' }} color="warning" />
             <Typography variant='p' gutterBottom>
-           
-           {project.location}
+
+              {project.location}
             </Typography>
           </InfoContent>
         </InfoContainer>
-        <Box sx={{display: "flex"}}>
+        <Box sx={{ display: "flex" }}>
           {
             project.skills_required.map((skill) => {
-              return(
-                <Box key={skill.id} sx={{borderRadius: "5px", backgroundColor: "lightGrey", padding: "5px 15px"}}>
+              return (
+                <Box key={skill.id} sx={{ borderRadius: "5px", backgroundColor: "lightGrey", padding: "5px 15px" }}>
                   {skill.name}
                 </Box>
               )
@@ -62,13 +57,13 @@ function ProjectItemComponent({ project }) {
           {project.description}
         </Typography>
         <ActionContainer>
-          <ScheduleOutlinedIcon style={{width:'24px',height:'24px',fontSize:'16px'}} color="warning"/>
+          <ScheduleOutlinedIcon style={{ width: '24px', height: '24px', fontSize: '16px' }} color="warning" />
           <InfoContent>
             <Typography variant='p' gutterBottom>
-            {daysLeft > 0 ? `${daysLeft} days left` : 'Project has ended'}
+              {projectDuration+' '+'days left'}
             </Typography>
           </InfoContent>
-         
+
           <ActionButtonComponent
             label='See more'
             // color='success'
@@ -98,9 +93,9 @@ const ItemContainer = styled(Box)(({ theme }) => ({
   minHeight: "606px",
   display: "flex",
   flexDirection: "column",
-  alignItems:'center',
+  alignItems: 'center',
   flexGrow: 1,
-  boxShadow:'1.5px 1.5px 3px 3px #219BBA',
+  boxShadow: '1.5px 1.5px 3px 3px #219BBA',
   gap: "10px",
   borderRadius: "15px",
   padding: theme.paddingX,
@@ -111,10 +106,10 @@ const ItemContainer = styled(Box)(({ theme }) => ({
 }));
 
 const LinkContainer = styled(Link)(({ theme }) => ({
-  display:'flex',
-  justifyContent:'center',
-  flexWrap:'wrap',
-  alignItems:'center',
+  display: 'flex',
+  justifyContent: 'center',
+  flexWrap: 'wrap',
+  alignItems: 'center',
   textDecoration: "none",
   fontSize: "26px",
   color: theme.palette.text.secondary,
@@ -130,16 +125,16 @@ const LinkContainer = styled(Link)(({ theme }) => ({
 const InfoContainer = styled(Box)(({ _ }) => ({
   minWidth: "100%",
   display: "flex",
-  flexDirection:'column',
-  alignItems:'flex-start',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
   flexGrow: 1,
   gap: "30px",
 }));
 
 const InfoContent = styled(Box)(({ theme }) => ({
   display: "flex",
-  alignItems:'center',
-  justifyContent:'flex-start',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
   color: theme.palette.text.secondary,
   "& :last-child": {
     fontSize: "80.5%"
@@ -151,9 +146,9 @@ const ActionContainer = styled(Box)(({ _ }) => ({
   display: "flex",
   flexGrow: 1,
   alignItems: "center",
-  gap:'10px',
+  gap: '10px',
 }));
-const ProjectImgContainer=styled(Box)(({theme})=>({
-backgroundImage:'',
+const ProjectImgContainer = styled(Box)(({ theme }) => ({
+  backgroundImage: '',
 
 }))

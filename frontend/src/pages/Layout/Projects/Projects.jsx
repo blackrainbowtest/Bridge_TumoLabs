@@ -1,5 +1,5 @@
 import MainContainerColumn from "components/_GlobalComponents/MainContainerColumn";
-import ProjectsComponent from "components/ProjectsComponent";
+import ProjectsComponent from "components/ProjectsComponent/AllProjectsComponent";
 import { memo } from "react";
 
 function Projects() {
