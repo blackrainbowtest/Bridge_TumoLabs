@@ -17,6 +17,10 @@ from notifications.models import UserProjectSkillNotification
 from core.models import Skill
 from django.contrib.auth.models import User
 
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+from notifications.serializers import UserProjectSkillNotificationSerializer
+
 
 class ProjectViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
@@ -45,20 +49,29 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
                 for user in users_with_skill:
                     # Проверяем наличие существующей записи для пользователя и проекта
-                    notification_exists = UserProjectSkillNotification.objects.filter(
+                    notification, created = UserProjectSkillNotification.objects.get_or_create(
                         user=user,
-                        project=project
-                    ).exists()
+                        project=project,
+                        skill=skill
+                    )
 
-                    if not notification_exists:
-                        UserProjectSkillNotification.objects.create(
-                            user=user,
-                            project=project,
-                            skill=skill
+                    if created:
+                        # Сериализация данных уведомления
+                        serializer = UserProjectSkillNotificationSerializer(notification)
+                        notification_data = serializer.data
+
+                        # Отправка данных через WebSocket
+                        channel_layer = get_channel_layer()
+                        async_to_sync(channel_layer.group_send)(
+                            f'user_{user.id}',
+                            {
+                                'type': 'send_notification',
+                                'notification': notification_data
+                            }
                         )
             else:
-                # Логирование или обработка ошибки, если skill не является экземпляром Skill
                 print(f"Error: {skill} is not a Skill instance.")
+
 
 class GoalViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]

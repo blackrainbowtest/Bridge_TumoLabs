@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import NotificationManagerComponent from "components/_GlobalComponents/NotificationManagerComponent";
+import WebSocketNotificationComponent from 'components/_GlobalComponents/WebSocketNotificationComponent';
 import { loginWithToken } from "features/account/accountLoginAPI";
 import Footer from "pages/Footer";
 import Layout from "pages/Layout";
@@ -29,6 +30,7 @@ function Content() {
       <Outlet />
       <Footer />
       <NotificationManagerComponent />
+      <WebSocketNotificationComponent />
     </MainContainer>
   );
 }

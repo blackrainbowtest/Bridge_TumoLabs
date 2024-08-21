@@ -16,6 +16,21 @@ from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.channels': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
+}
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -39,14 +54,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # myapps
+    # my apps
     'core',
     'rest_api',
     'accounts',
     'projects',
     'notifications',
-    # thirdparty apps
+    # third party apps
     'corsheaders',
+    'channels',  # webSocket - notification connection
     'rest_framework',
     'rest_framework.authtoken',
     'drf_spectacular',
@@ -82,7 +98,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'bridge.wsgi.application'
+ASGI_APPLICATION = 'bridge.asgi.application'
 
+# Chanel layers
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases

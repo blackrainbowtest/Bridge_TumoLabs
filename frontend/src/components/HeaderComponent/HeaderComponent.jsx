@@ -25,6 +25,10 @@ function HeaderComponent() {
     (state) => state?.account?.isAuthenticated
   );
 
+  const notifications = useSelector((state) => state?.notifications?.notifications);
+
+  console.log(notifications);
+
   const navItems = [
     { label: t("LLL"), url: "/LLL" },
     { label: t("LBD"), url: "/LBD" },
