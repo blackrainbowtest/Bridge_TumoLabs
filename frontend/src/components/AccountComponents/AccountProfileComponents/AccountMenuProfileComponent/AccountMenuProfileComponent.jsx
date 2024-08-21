@@ -4,12 +4,17 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import AccountMenuItemComponent from "../AccountMenuItemComponent";
 import AppBarItemComponent from "components/HeaderComponent/AppBarItemComponent";
+import NotificationBell from "components/_shared/Buttons/NotificationBellComponent/NotificationBellComponent";
 
 function AccountMenuProfileComponent({ ...props }) {
   const account = useSelector((state) => state?.account?.account);
+  const notifications = useSelector(
+    (state) => state?.notifications?.notifications
+  );
 
   return (
     <MainContainer {...props}>
+      <NotificationBell notificationCount={notifications.length} />
       <AppBarItemComponent
         label={
           <LabelContainer>

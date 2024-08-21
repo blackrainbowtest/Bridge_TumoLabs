@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getNotifications } from './notificationAPI';
 
 const notificationsSlice = createSlice({
     name: 'notifications',
@@ -12,6 +13,12 @@ const notificationsSlice = createSlice({
         clearNotifications: (state) => {
             state.notifications = [];
         },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(getNotifications.fulfilled, (state, action) => {
+                state.notifications = action.payload;
+            })
     },
 });
 

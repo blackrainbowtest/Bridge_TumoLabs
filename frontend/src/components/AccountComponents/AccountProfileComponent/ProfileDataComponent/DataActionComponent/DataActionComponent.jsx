@@ -1,7 +1,7 @@
 import { Box, Skeleton, Typography } from "@mui/material";
 import DataContainer from "components/_GlobalComponents/DataContainer";
 import MainContainerColumn from "components/_GlobalComponents/MainContainerColumn";
-import ActionButtonComponent from "components/_shared/ActionButtonComponent";
+import ActionButtonComponent from "components/_shared/Buttons/ActionButtonComponent";
 import { memo, useCallback } from "react";
 import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";

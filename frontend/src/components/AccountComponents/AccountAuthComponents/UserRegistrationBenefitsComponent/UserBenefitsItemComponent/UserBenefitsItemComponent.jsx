@@ -6,7 +6,7 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import ActionButtonComponent from "components/_shared/ActionButtonComponent";
+import ActionButtonComponent from "components/_shared/Buttons/ActionButtonComponent";
 import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";

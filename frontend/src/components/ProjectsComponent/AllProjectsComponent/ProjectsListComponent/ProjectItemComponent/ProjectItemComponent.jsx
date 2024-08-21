@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import ActionButtonComponent from "components/_shared/ActionButtonComponent";
+import ActionButtonComponent from "components/_shared/Buttons/ActionButtonComponent";
 import { memo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -25,23 +25,11 @@ function ProjectItemComponent({ project }) {
         <Typography variant='h4' gutterBottom>
           <LinkContainer to={`${project.id}`}>{project.title}</LinkContainer>
         </Typography>
-
-        {project.images.length ? (
-          project.images?.map((elem) => {
-            return (
-              elem?.is_main && (
-                <img
-                  src={elem.image}
-                  style={{ width: "290px", height: "290px" }}
-                  alt=''
-                />
-              )
-            );
-          })
-        ) : (
-          <img src={noIMG} style={{ width: "290px", height: "290px" }} alt='' />
-        )}
-
+        <img
+          src={project.images.filter((elem) => elem.is_main)[0]?.image ?? noIMG}
+          style={{ width: "290px", height: "290px" }}
+          alt=''
+        />
         <InfoContainer>
           <InfoContent>
             <SettingsOutlinedIcon

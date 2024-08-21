@@ -17,7 +17,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import GoToUrlComponent from "components/_shared/GoToUrlComponent";
 import UserNameContent from "./content/UserNameContent";
 import PasswordContent from "./content/PasswordContent";
-import ActionButtonComponent from "components/_shared/ActionButtonComponent";
+import ActionButtonComponent from "components/_shared/Buttons/ActionButtonComponent";
 import { loginAccount } from 'features/account/accountLoginAPI';
 import CopyRightComponent from 'components/_shared/CopyRightComponent';
 

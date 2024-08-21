@@ -3,7 +3,7 @@ import MainContainerRow from "components/_GlobalComponents/MainContainerRow";
 import { memo } from "react";
 import styled, { css } from "styled-components";
 import ImageBG from "static/BG/AboutPlatformBG.png";
-import ActionButtonComponent from "components/_shared/ActionButtonComponent";
+import ActionButtonComponent from "components/_shared/Buttons/ActionButtonComponent";
 import { useNavigate } from "react-router-dom";
 import { clamp } from "date-fns";
 

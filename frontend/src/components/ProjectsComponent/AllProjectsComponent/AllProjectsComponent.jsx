@@ -2,7 +2,7 @@ import BreadcrumbNavigationComponent from "components/_GlobalComponents/Breadcru
 import MainContainerColumn from "components/_GlobalComponents/MainContainerColumn";
 import { memo } from "react";
 // import TipComponent from "./TipComponent";
-import FilterComponent from "./FilterComponent";
+// import FilterComponent from "./FilterComponent";
 import ProjectListComponent from "./ProjectsListComponent/ProjectListComponent";
 
 function AllProjectsComponent() {
@@ -11,7 +11,7 @@ function AllProjectsComponent() {
       <BreadcrumbNavigationComponent />
       {/* FIXME: add stepper to comfirm tips */}
       {/* <TipComponent /> */}
-      <FilterComponent />
+      {/* <FilterComponent /> */}
       <ProjectListComponent />
     </MainContainerColumn>
   );
