@@ -61,7 +61,7 @@ function ProjectItemComponent({ project }) {
           </InfoContent>
         </InfoContainer>
 
-        <Box sx={{ display: "flex" }}>
+        <Box sx={{ display: "flex",gap:'10px',width:'100%'}}>
           {project.skills_required.map((skill) => {
             return (
               <Box

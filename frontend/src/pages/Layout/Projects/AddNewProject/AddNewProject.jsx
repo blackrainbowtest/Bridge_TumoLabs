@@ -1,6 +1,7 @@
 import BreadcrumbNavigationComponent from "components/_GlobalComponents/BreadcrumbNavigationComponent";
 import MainContainerColumn from "components/_GlobalComponents/MainContainerColumn";
 import MainContentContainer from "components/_GlobalComponents/MainContentContainer";
+import AddProjectComponent from "components/ProjectsComponent/AddProjectComponent";
 import { memo } from "react";
 
 function AddNewProject() {
@@ -8,7 +9,7 @@ function AddNewProject() {
     <MainContentContainer>
       <MainContainerColumn>
         <BreadcrumbNavigationComponent />
-        AddNewProject
+        <AddProjectComponent />
       </MainContainerColumn>
     </MainContentContainer>
   );
