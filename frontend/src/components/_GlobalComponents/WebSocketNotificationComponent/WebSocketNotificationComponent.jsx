@@ -1,5 +1,5 @@
 import { getNotifications } from "features/notifications/notificationAPI";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function WebSocketComponent() {

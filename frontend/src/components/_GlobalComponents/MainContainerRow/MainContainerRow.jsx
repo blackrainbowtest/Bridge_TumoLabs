@@ -13,5 +13,6 @@ const MainContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexGrow: 1,
   flexDirection: "row",
+  position: "relative",
   gap: theme.spacing(1),
 }));

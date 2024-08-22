@@ -1,53 +1,72 @@
-import { Box, Button, Typography } from "@mui/material";
 import { memo } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { Box, Typography } from "@mui/material";
+import BGimage from "static/BG/SVG/role.svg";
 import styled from "styled-components";
+import MainContainerColumn from "components/_GlobalComponents/MainContainerColumn";
+import MainContainerRow from "components/_GlobalComponents/MainContainerRow";
+import ActionButtonComponent from "components/_shared/Buttons/ActionButtonComponent";
 
 function AboutAccountInfoComponent() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
   const scrollToTarget = () => {
-    navigate("sign-up")
+    navigate("sign-up");
   };
 
   return (
-    <MainContainer>
-      <Typography variant='h4' textAlign={"center"}>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit
-        laboriosam, debitis minus deleniti soluta vel voluptate inventore cum
-        ipsa beatae, ex quasi saepe cumque repudiandae optio dicta mollitia sint
-        sapiente?
-      </Typography>
-      <StyledButton onClick={scrollToTarget}>
-        {`Registration types >>>`}
-      </StyledButton>
-    </MainContainer>
+    <MainContainerColumn>
+      <MainContainerRowContainer>
+        <ImageContainer />
+        <PathContainer></PathContainer>
+        <PathContainer>
+          <Typography variant='h4' color='text.secondary' align='left'>
+            Our mission is to facilitate meaningful collaborations that drive
+            growth and provide valuable hands-on experience.Whether you're
+            seeking innovative solutions or ready to launch your career, choose
+            your role, collaborate through the platform, and unlock resources to
+            make an impact.
+          </Typography>
+          <ActionButtonComponentContainer
+            size='large'
+            callback={scrollToTarget}
+            label='Chose your role'
+            variant='contained'
+          />
+        </PathContainer>
+      </MainContainerRowContainer>
+    </MainContainerColumn>
   );
 }
 
 export default memo(AboutAccountInfoComponent);
 
-const MainContainer = styled(Box)(({ _ }) => ({
-  maxWidth: "100%",
-  minHeight: "150px",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  padding: "20px",
+const MainContainerRowContainer = styled(MainContainerRow)(({ theme }) => ({
+  minHeight: "500px",
 }));
 
-// FIXME: set colors by theme
-const StyledButton = styled(Button)(({ theme }) => ({
-  backgroundColor: "#9ACD32!important", // Yellow-green color
-  color: "#FFFFFF!important", // White text
-  textTransform: "none",
-  fontSize: "16px",
-  padding: "10px 20px",
-  "&:hover": {
-    backgroundColor: "#8BB12D!important", // Slightly darker yellow-green color on hover
-  },
-  textDecoration: "none",
-  cursor: "pointer",
-  borderRadius: "4px",
-  marginTop: "20px",
+
+const ActionButtonComponentContainer = styled(ActionButtonComponent)(({ theme }) => ({
+  backgroundColor: `${theme.palette.background.blue}!important`
+}));
+
+const PathContainer = styled(Box)(({ theme }) => ({
+  width: "45%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  justifyContent: "center",
+  gap: "20px",
+}));
+
+const ImageContainer = styled(Box)(({ theme }) => ({
+  width: "500px",
+  height: "500px",
+  backgroundImage: `url(${BGimage})`,
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  position: "absolute",
+  top: "50%",
+  left: "10%",
+  transform: "translateY(-40%)",
 }));

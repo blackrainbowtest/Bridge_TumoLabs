@@ -12,7 +12,7 @@ function NotificationContextItem({ notification, handleClose }) {
 
   const notificationClick = (event) => {
     handleClose(event)
-    navigate(`all-projects/project/${notification.project.id}`)
+    navigate(`all-projects/${notification.project.id}`)
     dispatch(readNotifications(notification.id))
   }
 

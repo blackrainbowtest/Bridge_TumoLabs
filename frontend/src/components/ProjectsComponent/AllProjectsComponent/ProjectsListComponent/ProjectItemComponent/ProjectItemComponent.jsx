@@ -12,7 +12,7 @@ import { differenceInDays } from "date-fns";
 function ProjectItemComponent({ project }) {
   const navigate = useNavigate();
   const handleButtonClick = (_) => {
-    navigate(`project/${project.id}`);
+    navigate(`${project.id}`);
   };
 
   const startDate = new Date(project.start_date);
