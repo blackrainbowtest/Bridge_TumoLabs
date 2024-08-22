@@ -49,22 +49,11 @@ function ProjectItemComponent({ project }) {
           </InfoContent>
         </InfoContainer>
 
-        <Box sx={{ display: "flex" }}>
-          {project.skills_required.map((skill) => {
-            return (
-              <Box
-                key={skill.id}
-                sx={{
-                  borderRadius: "5px",
-                  backgroundColor: "lightGrey",
-                  padding: "5px 15px",
-                }}
-              >
-                {skill.name}
-              </Box>
-            );
+        <SkillContainer>
+          {project.skills_required.slice(0, 2).map((skill) => {
+            return <SkillItem key={skill.id}>{skill.name}</SkillItem>;
           })}
-        </Box>
+        </SkillContainer>
 
         <Typography variant='p' gutterBottom>
           {project.description}
@@ -156,6 +145,25 @@ const InfoContent = styled(Box)(({ theme }) => ({
   "& :last-child": {
     fontSize: "80.5%",
   },
+}));
+
+const SkillContainer = styled(Box)(({ theme }) => ({
+  width: "100%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: theme.spacing(1),
+}));
+
+const SkillItem = styled(Box)(({ theme }) => ({
+  width: "156px",
+  display: "flex",
+  borderRadius: "5px",
+  padding: theme.spacing(1, 2),
+  border: `1px solid ${theme.palette.border.secondary}`,
+  overflow: "hidden",
+  whiteSpace: "nowrap",
+  textOverflow: "ellipsis",
 }));
 
 const ActionContainer = styled(Box)(({ _ }) => ({
