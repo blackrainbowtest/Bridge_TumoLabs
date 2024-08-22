@@ -20,12 +20,6 @@ function UserBenefitsItemComponent({ data }) {
   return (
     <MainFrame>
       <MainContainer datatype={data.title}>
-        <CardMediaContainer
-          component='img'
-          alt='green iguana'
-          height='340'
-          image={data.image}
-        />
         <CardContent>
           <Typography
             gutterBottom
@@ -35,7 +29,13 @@ function UserBenefitsItemComponent({ data }) {
           >
             {data.title}
           </Typography>
-          <Typography variant='body2' color='text.secondary'>
+          <CardMediaContainer
+            component='img'
+            alt='green iguana'
+            height='340'
+            image={data.image}
+          />
+          <Typography variant='h6' color='text.secondary'>
             {data.description}
           </Typography>
         </CardContent>
@@ -45,7 +45,7 @@ function UserBenefitsItemComponent({ data }) {
           size='medium'
           callback={handleSignUpClick}
           label='Register as'
-          variant='contained'
+          variant='outlined'
           customStyles={ActionButtonStyle}
           datatype={data.title}
         />
@@ -63,7 +63,7 @@ const MainFrame = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  gap: "30px"
+  gap: "30px",
 }));
 
 const MainContainer = styled(Card)(({ theme, datatype }) => ({
@@ -89,10 +89,6 @@ const CardMediaContainer = styled(CardMedia)(({ theme }) => ({
 const ActionButtonStyle = ({ theme, datatype }) => css`
   min-width: 192px !important;
   min-height: 52px !important;
-  border-radius: 15px!important;
-  background-color: ${datatype === "SME"
-    ? theme.palette.text.blue
-    : datatype === "Student"
-    ? theme.palette.text.yellow
-    : theme.palette.text.orange}!important;
+  border-radius: 15px !important;
+  color: ${theme.palette.text.blue}!important;
 `;

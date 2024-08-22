@@ -11,9 +11,6 @@ function UserRegistrationBenefitsComponent() {
       <Typography variant='h4' color='text.secondary' align='center'>
         Projects, SMEs. Junior Professionals, Supervisors-Educators description
       </Typography>
-      <Typography variant='h6' color='text.secondary' align='center'>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      </Typography>
 
       <MainGridContainer columns={3}>
         {benefitsSettings.map((benefits, index) => {

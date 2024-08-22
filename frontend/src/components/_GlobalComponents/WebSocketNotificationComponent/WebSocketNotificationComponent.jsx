@@ -1,12 +1,16 @@
 import { getNotifications } from "features/notifications/notificationAPI";
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function WebSocketComponent() {
   const dispatch = useDispatch();
+  const isAuthenticated = useSelector(
+    (state) => state?.account?.isAuthenticated
+  );
+
   useEffect(() => {
     // const socket = new WebSocket("ws://127.0.0.1:8001/ws/notifications/");
-    dispatch(getNotifications());
+    isAuthenticated && dispatch(getNotifications());
 
     // socket.onopen = function (event) {
     //   console.log("WebSocket is connected.");
@@ -28,9 +32,9 @@ function WebSocketComponent() {
     return () => {
       // socket.close();
     };
-  }, [dispatch]);
+  }, [dispatch, isAuthenticated]);
 
-  return <div>WebSocket Component</div>;
+  return null;
 }
 
 export default WebSocketComponent;

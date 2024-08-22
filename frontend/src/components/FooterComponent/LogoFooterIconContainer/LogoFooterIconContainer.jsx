@@ -41,6 +41,6 @@ const LogoContainer = styled(Link)(({ theme }) => ({
   fontFamily: theme.typography.fontFamily,
   fontWeight: "800",
   fontSize: "40px",
-  color: theme.palette.text.blue,
+  color: theme.palette.text.RoyalBlue,
   textDecoration:'none'
 }));

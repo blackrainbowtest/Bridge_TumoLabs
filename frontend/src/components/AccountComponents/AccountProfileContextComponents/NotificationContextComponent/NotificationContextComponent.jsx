@@ -4,30 +4,32 @@ import MainContainerRow from "components/_GlobalComponents/MainContainerRow";
 import { memo, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import NotificationContextItem from './NotificationContextItem';
+import NotificationContextItem from "./NotificationContextItem";
 
 function NotificationContextComponent({ handleClose }) {
   const [isShowAll, setIsShowAll] = useState(false);
   const notifications = useSelector(
     (state) => state?.notifications?.notifications
   );
-  console.log(notifications);
 
   const changeShowClick = (event) => {
     setIsShowAll((prev) => !prev);
   };
 
   const displayedNotifications = isShowAll
-    ? notifications
-    : notifications.slice(0, 3);
+    ? [...notifications].sort((a, b) => a.is_read - b.is_read)
+    : [...notifications].sort((a, b) => a.is_read - b.is_read).slice(0, 3);
 
   return (
     <MainContainerColumn>
-      <MainContainerColumn sx={{ minWidth: "250px", maxHeight: "250px", overflow: "auto" }}>
+      <MainContainerColumn
+        sx={{ minWidth: "250px", maxHeight: "250px", overflow: "auto" }}
+      >
         {displayedNotifications.map((notification) => (
           <NotificationContextItem
             key={notification.id}
             notification={notification}
+            handleClose={handleClose}
           />
         ))}
       </MainContainerColumn>

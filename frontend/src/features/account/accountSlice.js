@@ -17,6 +17,7 @@ const accountSlice = createSlice({
         builder
             .addCase(registerAccount.fulfilled, (state, action) => {
                 state.account = action.payload;
+                state.isAuthenticated = true;
             })
             .addCase(loginAccount.fulfilled, (state, action) => {
                 state.account = action.payload.user;
