@@ -1,4 +1,11 @@
-import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  IconButton,
+  Skeleton,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import { memo, useEffect, useState } from "react";
 import styled from "styled-components";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -8,7 +15,7 @@ import MobileNavItemComponent from "components/_shared/MobileNavItemComponent";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import AccountMenuProfileComponent from "components/AccountComponents/AccountProfileComponents/AccountMenuProfileComponent";
+import AccountMenuProfileComponent from "components/AccountComponents/AccountProfileContextComponents/AccountMenuProfileComponent";
 import HeaderTitleComponent from "./HeaderTitleComponent";
 import AppBarItemComponent from "./AppBarItemComponent";
 import ProjectContextComponent from "./context/ProjectContext/ProjectContextComponent";
@@ -24,10 +31,7 @@ function HeaderComponent() {
   const isAuthenticated = useSelector(
     (state) => state?.account?.isAuthenticated
   );
-
-  const notifications = useSelector((state) => state?.notifications?.notifications);
-
-  console.log(notifications);
+  const loading = useSelector((state) => state?.global?.loading);
 
   const navItems = [
     { label: t("LLL"), url: "/LLL" },
@@ -106,14 +110,12 @@ function HeaderComponent() {
           >
             <LanguageComponent />
           </Box>
-          {!isAuthenticated ? (
-            <NavItemComponent
-              navItems={accItems}
-              scrolling={scrolling}
-              changePage={changePage}
+          {loading ? (
+            <Skeleton
+              sx={{ width: 172, height: 64 }}
+              animation='wave'
             />
-          ) : null}
-          {isAuthenticated ? (
+          ) : isAuthenticated ? (
             <AccountMenuProfileComponent
               sx={{
                 display: { xs: "flex", sm: "flex" },
@@ -121,7 +123,13 @@ function HeaderComponent() {
                 justifyContent: { xs: "flex-end", sm: "center" },
               }}
             />
-          ) : null}
+          ) : (
+            <NavItemComponent
+              navItems={accItems}
+              scrolling={scrolling}
+              changePage={changePage}
+            />
+          )}
         </Toolbar>
       </AppBarContainer>
       <MobileNavItemComponent

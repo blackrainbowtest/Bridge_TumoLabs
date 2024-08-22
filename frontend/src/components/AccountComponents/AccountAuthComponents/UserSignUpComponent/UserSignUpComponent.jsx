@@ -45,7 +45,6 @@ function UserSignUpComponent() {
 
   const onSubmit = (data) => {
     const accountData = { ...data, group: groupId };
-    console.log(accountData)
     dispatch(registerAccount(accountData)).then((result) => {
       if (registerAccount.fulfilled.match(result)) {
         navigate("/sign-in");

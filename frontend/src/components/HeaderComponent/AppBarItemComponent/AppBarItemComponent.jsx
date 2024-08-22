@@ -14,18 +14,23 @@ import styled from "styled-components";
 
 /**
  * AppBarItemComponent
- * 
- * A component that displays a button with a (`label`) in the `AppBar`. 
+ *
+ * A component that displays a button with a (`label`) in the `AppBar`.
  * Clicking the button opens a drop-down menu, the contents of which are passed through `children`.
  * If the `showArrow` prop is passed, an arrow is displayed next to the label, which changes direction depending on the menu state (open/closed).
- * 
- * @param {Object} param0 
+ *
+ * @param {Object} param0
  * @param {ReactNode} param0.children - elements that will be displayed in the drop-down menu.
  * @param {string} param0.label - text displayed on the button.
  * @param {boolean} param0.showArrow - flag to display an arrow next to the label.
  * @returns {JSX.Element} The `AppBarItemComponent` component.
  */
-function AppBarItemComponent({ children, label, showArrow = false }) {
+function AppBarItemComponent({
+  children,
+  label,
+  showArrow = false,
+  placement = "bottom-start",
+}) {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
 
@@ -88,7 +93,7 @@ function AppBarItemComponent({ children, label, showArrow = false }) {
         open={open}
         anchorEl={anchorRef.current}
         role={undefined}
-        placement='bottom-start'
+        placement={placement}
         transition
         disablePortal
       >
