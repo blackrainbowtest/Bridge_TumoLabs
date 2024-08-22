@@ -5,6 +5,7 @@ import styled from "styled-components";
 import AccountMenuItemComponent from "../AccountMenuItemComponent";
 import AppBarItemComponent from "components/HeaderComponent/AppBarItemComponent";
 import NotificationBell from "components/_shared/Buttons/NotificationBellComponent/NotificationBellComponent";
+import NotificationContextComponent from "../NotificationContextComponent";
 
 function AccountMenuProfileComponent({ ...props }) {
   const account = useSelector((state) => state?.account?.account);
@@ -14,7 +15,12 @@ function AccountMenuProfileComponent({ ...props }) {
 
   return (
     <MainContainer {...props}>
-      <NotificationBell notificationCount={notifications.length} />
+      <AppBarItemComponent
+        placement={"bottom"}
+        label={<NotificationBell notificationCount={notifications.length} />}
+      >
+        <NotificationContextComponent />
+      </AppBarItemComponent>
       <AppBarItemComponent
         label={
           <LabelContainer>

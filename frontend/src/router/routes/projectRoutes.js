@@ -7,6 +7,7 @@ import ProjectSuccessStories from 'pages/Layout/Projects/ProjectSuccessStories';
 
 const projectRoutes = [
   { path: "all-projects", element: <AllProjects /> },
+  { path: "all-projects/project/:id", element: <h1>all-projects/project/:id</h1> },
   { path: "featured-projects", element: <FeaturedProjects /> },
   { path: "project-categories", element: <ProjectCategories /> },
   { path: "add-new-project", element: <AddNewProject /> },
