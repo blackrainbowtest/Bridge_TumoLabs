@@ -4,10 +4,11 @@ import FeaturedProjects from 'pages/Layout/Projects/FeaturedProjects';
 import ProjectCategories from 'pages/Layout/Projects/ProjectCategories';
 import ProjectGuidelines from 'pages/Layout/Projects/ProjectGuidelines';
 import ProjectSuccessStories from 'pages/Layout/Projects/ProjectSuccessStories';
+import SelectedProject from 'pages/Layout/Projects/SelectedProject';
 
 const projectRoutes = [
   { path: "all-projects", element: <AllProjects /> },
-  { path: "all-projects/project/:id", element: <h1>all-projects/project/:id</h1> },
+  { path: "all-projects/:id", element: <SelectedProject /> },
   { path: "featured-projects", element: <FeaturedProjects /> },
   { path: "project-categories", element: <ProjectCategories /> },
   { path: "add-new-project", element: <AddNewProject /> },
