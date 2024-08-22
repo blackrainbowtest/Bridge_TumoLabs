@@ -17,7 +17,7 @@ function AccountMenuProfileComponent({ ...props }) {
     <MainContainer {...props}>
       <AppBarItemComponent
         placement={"bottom"}
-        label={<NotificationBell notificationCount={notifications.length} />}
+        label={<NotificationBell notificationCount={notifications.filter(not => !not.is_read).length} />}
       >
         <NotificationContextComponent />
       </AppBarItemComponent>

@@ -8,8 +8,7 @@ function WorkSliderItemComponent({ slide }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-
-      navigate(`/project/?id=${slide.id}`);
+      navigate(`/all-projects/project/${slide.id}`);
   };
 
   return (

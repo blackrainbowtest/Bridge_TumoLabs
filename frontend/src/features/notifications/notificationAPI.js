@@ -9,9 +9,35 @@ export const getNotifications = createAsyncThunk(
         try {
             const token =
                 localStorage.getItem("authToken") ?? sessionStorage.getItem("authToken");
-                
+
             const response = await notificationsAxios.get(
                 ``,
+                {
+                    headers: {
+                        Authorization: `Token ${token}`,
+                    },
+                }
+            );
+            return response.data;
+        } catch (err) {
+            dispatch(addError(handleError(err)));
+            return rejectWithValue(handleError(err));
+        } finally {
+            dispatch(setLoading(false));
+        }
+    }
+);
+
+export const readNotifications = createAsyncThunk(
+    'notifications/readNotifications',
+    async (id, { dispatch, rejectWithValue }) => {
+        try {
+            const token =
+                localStorage.getItem("authToken") ?? sessionStorage.getItem("authToken");
+
+            const response = await notificationsAxios.post(
+                `${id}/mark_as_read/`,
+                {},
                 {
                     headers: {
                         Authorization: `Token ${token}`,

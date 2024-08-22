@@ -38,4 +38,6 @@ class UserProjectSkillNotificationViewSet(viewsets.ReadOnlyModelViewSet):
 
         notification.is_read = True
         notification.save()
-        return Response({'status': 'notification marked as read'})
+        
+        serializer = self.get_serializer(notification)
+        return Response(serializer.data, status=status.HTTP_200_OK)

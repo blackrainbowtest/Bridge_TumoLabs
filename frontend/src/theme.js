@@ -58,6 +58,7 @@ const theme = createTheme({
             error: "#B00020",
             success: "#2E7D32",
 
+            RoyalBlue: "#3C5A78",
             yellow: "#FFD132",
             orange: "#FF9034",
             blue: "#219BBA",

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getNotifications } from './notificationAPI';
+import { getNotifications, readNotifications } from './notificationAPI';
 
 const notificationsSlice = createSlice({
     name: 'notifications',
@@ -18,6 +18,9 @@ const notificationsSlice = createSlice({
         builder
             .addCase(getNotifications.fulfilled, (state, action) => {
                 state.notifications = action.payload;
+            })
+            .addCase(readNotifications.fulfilled, (state, action) => {
+                state.notifications = state.notifications.map(notification => action.payload.id === notification.id ? action.payload : notification);
             })
     },
 });
